@@ -128,10 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CostFunctionMSE.cpp" />
     <ClCompile Include="LinearHypothesis.cpp" />
     <ClCompile Include="neuralnetwork.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CostFunctionMSE.h" />
+    <ClInclude Include="ICostFunction.h" />
     <ClInclude Include="IHypothesis.h" />
     <ClInclude Include="LinearHypothesis.h" />
   </ItemGroup>

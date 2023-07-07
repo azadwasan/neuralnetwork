@@ -7,7 +7,7 @@
 namespace EasyNN {
 	class IHypothesis {
 	public:
-		virtual double evaluate(std::span<double> x) = 0;
+		virtual double evaluate(const std::span<double> x) const = 0;
 	};
 }
 

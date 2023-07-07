@@ -24,12 +24,21 @@
     <ClCompile Include="LinearHypothesis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CostFunctionMSE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IHypothesis.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="LinearHypothesis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICostFunction.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="CostFunctionMSE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
