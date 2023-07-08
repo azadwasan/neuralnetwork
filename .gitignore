@@ -3,3 +3,6 @@
 ################################################################################
 
 /neuralnetwork/neuralnetwork/x64/Debug
+/neuralnetwork/x64/Debug
+/neuralnetwork/EasyNNTest/x64/Debug
+/.vs

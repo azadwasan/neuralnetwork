@@ -7,6 +7,7 @@ using namespace EasyNN;
 
 double CostFunctionMSE::evaluate(std::span<std::span<double>> x, std::span<double> y, const IHypothesis& hypothesis)
 {
+	return 3;
 	if (x.size() == 0  || y.size() == 0 ) {
 		throw("Sample size must be greater than zero");
 	}
