@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\aali\source\repos\neuralnetwork\neuralnetwork\neuralnetwork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\aali\source\repos\neuralnetwork\neuralnetwork\EasyNN;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -132,8 +132,8 @@
     <ClCompile Include="EasyNNConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\neuralnetwork\neuralnetwork.vcxproj">
-      <Project>{a65aa22b-a5d7-4b19-b66b-344b03ab7a63}</Project>
+    <ProjectReference Include="..\EasyNN\EasyNN.vcxproj">
+      <Project>{bb0a4b64-90f0-42ed-8858-7b29c9b27314}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
