@@ -6,9 +6,7 @@
 namespace EasyNN {
 	class LinearHypothesis : public IHypothesis {
 	public:
-		double evaluate(const std::span<double> x) const override;
-	private:
-		std::vector<double> parameters;
+		double evaluate(std::span<const double> x, const std::span<double> parameters) const override;
 	};
 
 }
