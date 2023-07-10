@@ -7,7 +7,7 @@
 namespace EasyNN {
 	class ICostFunction {
 	public:
-		virtual double evaluate(std::span<std::span<double>> x, std::span<double> y, const IHypothesis& hypothesis) = 0;
+		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<double> measurementsVector, std::span<double> parameters, const IHypothesis& hypothesis) = 0;
 	};
 }
 
