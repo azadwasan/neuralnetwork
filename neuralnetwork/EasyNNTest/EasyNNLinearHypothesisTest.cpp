@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "IHypothesis.h"
-#include "CostFunctionMSE.h"
 #include "LinearHypothesis.h"
 #include <span>
 #include <vector>
@@ -10,11 +8,10 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace EasyNNTest
 {
-	TEST_CLASS(EasyNNTest)
-	{
+	TEST_CLASS(LinearHypothesisTest){
 	public:
 		
-		TEST_METHOD(TestLinearHypothesis)
+		TEST_METHOD(TestLinearHypothesisEvaluation)
 		{
 			EasyNN::LinearHypothesis hypothesis{};
 			// This example has been taken from the following link
@@ -33,10 +30,10 @@ namespace EasyNNTest
 													{75, 14},
 													{78, 11}
 			};
-			std::vector<double> y = { 145.581, 146.909, 164.305, 180.373, 191.801, 196.605, 206.049, 220.461};
-			auto index = 0;
+			std::vector<double> estimates = { 145.581, 146.909, 164.305, 180.373, 191.801, 196.605, 206.049, 220.461};
+			auto estimate = begin(estimates);
 			for (const auto& val : x) {
-				Assert::AreEqual(y[index++], hypothesis.evaluate(val, parameters), 0.00001);
+				Assert::AreEqual(*estimate++, hypothesis.evaluate(val, parameters), 0.00001);
 			}
 		}
 	};
