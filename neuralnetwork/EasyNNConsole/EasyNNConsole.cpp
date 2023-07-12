@@ -9,7 +9,7 @@ int main()
 {
     EasyNN::LinearHypothesis LH{};
     std::vector<double> values{ 1, 2, 3, 4, 5 };
-    LH.evaluate(values);
+    //LH.evaluate(values);
     std::cout << "Hello World!\n";
 }
 
