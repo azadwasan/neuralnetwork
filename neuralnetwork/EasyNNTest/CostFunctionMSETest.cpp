@@ -23,7 +23,7 @@ namespace EasyNNTest {
 			std::vector<double> y = { 140, 155, 159, 179, 192, 200, 212, 215 };
 			std::vector<double> estimates = { 145.581, 146.909, 164.305, 180.373, 191.801, 196.605, 206.049, 220.461 };
 			auto hypothesis = EasyNN::LinearHypothesis{};
-
+			
 			auto MSE = EasyNN::CostFunctionMSE{}.evaluate(x, y, parameters, hypothesis);
 			Assert::AreEqual(MSE, 12.715159, 0.00001);
 		}
