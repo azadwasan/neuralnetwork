@@ -17,7 +17,7 @@ namespace EasyNN {
          * @param hypothesis A reference to an IHypothesis object representing the hypothesis to evaluate.
          * @return A double representing the result of the evaluation.
          */
-        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<double> measurementsVector, std::span<double> parameters, const IHypothesis& hypothesis) override;
+        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IHypothesis& hypothesis) override;
     };
 }
 

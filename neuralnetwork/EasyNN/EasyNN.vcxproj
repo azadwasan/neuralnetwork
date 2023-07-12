@@ -129,11 +129,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Commons.cpp" />
     <ClCompile Include="CostFunctionMSE.cpp" />
+    <ClCompile Include="CostGradientDescent.cpp" />
+    <ClCompile Include="GradientDescent.cpp" />
     <ClCompile Include="LinearHypothesis.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Commons.h" />
     <ClInclude Include="CostFunctionMSE.h" />
+    <ClInclude Include="CostGradientDescent.h" />
+    <ClInclude Include="GradientDescent.h" />
     <ClInclude Include="ICostFunction.h" />
     <ClInclude Include="IHypothesis.h" />
     <ClInclude Include="LinearHypothesis.h" />
