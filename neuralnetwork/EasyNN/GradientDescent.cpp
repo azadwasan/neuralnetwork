@@ -13,7 +13,7 @@ std::vector<double> GradientDescent::evaluate(const std::vector<std::vector<doub
 	const IHypothesis& hypothesis,
 	double alpha, double stopThreshold) {
 
-	if (featuresMatrix.size() == 0 || measurementsVector.size() == 0 || parameters.size()==0) {
+	if (featuresMatrix.empty() || measurementsVector.empty() || parameters.empty()) {
 		throw std::invalid_argument("Feature matrix, measurements vectors and parameters vector size must be greater than zero.");
 	}
 	else if (featuresMatrix.size() != measurementsVector.size() || featuresMatrix[0].size() != parameters.size() - 1) {
@@ -22,20 +22,20 @@ std::vector<double> GradientDescent::evaluate(const std::vector<std::vector<doub
 
 	auto parametersOld = parameters;
 	std::vector<double> parametersNew(parameters.size());
-	size_t MAX_ITERATIONS = 400;
+	constexpr auto MAX_ITERATIONS = 400;
 	CostFunctionMSE costMSE{};
 	
-	double oldCost = costMSE.evaluate(featuresMatrix, measurementsVector, parametersOld, hypothesis);
-	size_t i = 0;
-	double newCost = 0;
+	auto oldCost = costMSE.evaluate(featuresMatrix, measurementsVector, parametersOld, hypothesis);
+	auto i = 0;
+	auto newCost = 0.0;
 	for (; i < MAX_ITERATIONS; i++) {
 		//parametersNew[0] = parametersOld[0] - alpha * 1 / measurementsVector.size() * computeCost(featuresMatrix, measurementsVector, parametersOld, hypothesis);
 		//for (size_t index = 1; index < parametersOld.size(); index++) {
 		//	parametersNew[index] = parametersOld[index] - alpha * 1 / measurementsVector.size() * computeCost(featuresMatrix, measurementsVector, parametersOld, hypothesis, index);
 		//}
 
-		auto costDerivativeZero = [&](const std::vector<double>& featuresVector, const std::vector<double> parameters, double measurement, size_t index) {return hypothesis.evaluate(featuresVector, parameters) - measurement; };
-		auto costDerivative		= [&](const std::vector<double>& featuresVector, const std::vector<double> parameters, double measurement, size_t index) {return (hypothesis.evaluate(featuresVector, parameters) - measurement) * featuresVector[index-1]; };
+		auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return hypothesis.evaluate(featuresVector, parameters) - measurement; };
+		auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (hypothesis.evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
 
 		parametersNew[0] = parametersOld[0] - alpha * 1 / measurementsVector.size() *
 			computeCost(featuresMatrix, measurementsVector, parametersOld, hypothesis, costDerivativeZero);
@@ -63,7 +63,7 @@ double GradientDescent::computeCost(const std::vector<std::vector<double>>& feat
 
 	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
 		std::plus<>(),
-		[&](const std::vector<double>& featuresVector, double measurement) {
+		[&](const auto& featuresVector, auto measurement) {
 			return costDerivative(featuresVector, parameters, measurement, index);
 		}
 	);
