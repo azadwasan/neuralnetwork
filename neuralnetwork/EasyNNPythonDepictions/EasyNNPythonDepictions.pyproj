@@ -21,7 +21,14 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GDPlayground.py" />
     <Compile Include="LinearHypothesisFunctionDepictions.py" />
+    <Compile Include="PlotHypothesis.py" />
+    <Compile Include="PythonGeneralPlayground.py" />
+    <Compile Include="RegressionPlayground.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
