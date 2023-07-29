@@ -5,13 +5,14 @@
 #include "LinearHypothesis.h"
 #include "PythonPlugin.h"
 
-
 int main()
 {
     EasyNN::LinearHypothesis LH{};
     std::vector<double> values{ 1, 2, 3, 4, 5 };
     //LH.evaluate(values);
     std::cout << "Hello World!\n";
+
+    aFunction();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
