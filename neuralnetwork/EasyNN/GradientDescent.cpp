@@ -22,12 +22,14 @@ std::vector<double> GradientDescent::evaluate(const std::vector<std::vector<doub
 
 	auto parametersOld = parameters;
 	std::vector<double> parametersNew(parameters.size());
-	constexpr auto MAX_ITERATIONS = 400;
+	constexpr auto MAX_ITERATIONS = 1000;
 	CostFunctionMSE costMSE{};
 	
 	auto oldCost = costMSE.evaluate(featuresMatrix, measurementsVector, parametersOld, hypothesis);
 	auto i = 0;
 	auto newCost = 0.0;
+	std::vector<double> costHistory;
+	std::vector<std::vector<double>> parameterHistory;
 	for (; i < MAX_ITERATIONS; i++) {
 		//parametersNew[0] = parametersOld[0] - alpha * 1 / measurementsVector.size() * computeCost(featuresMatrix, measurementsVector, parametersOld, hypothesis);
 		//for (size_t index = 1; index < parametersOld.size(); index++) {
@@ -47,11 +49,15 @@ std::vector<double> GradientDescent::evaluate(const std::vector<std::vector<doub
 		parametersOld = parametersNew;
 
 		newCost = costMSE.evaluate(featuresMatrix, measurementsVector, parametersNew, hypothesis);
+		costHistory.push_back(newCost);
+		parameterHistory.push_back(parametersOld);
 		if (abs(oldCost - newCost) < stopThreshold) {
 			break;
 		}
 		oldCost = newCost;
 	}
+	auto temp = costMSE.evaluate(featuresMatrix, measurementsVector, parametersNew, hypothesis);
+
 	return parametersOld;
 }
 
@@ -69,6 +75,17 @@ double GradientDescent::computeCost(const std::vector<std::vector<double>>& feat
 	);
 	return differenceSum;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
 	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IHypothesis& hypothesis) {
