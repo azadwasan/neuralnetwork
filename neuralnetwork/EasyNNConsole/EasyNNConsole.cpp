@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "LinearHypothesis.h"
+#include "PythonPlugin.h"
 
 
 int main()

@@ -7,7 +7,6 @@ from GDPlayground import OptimizeGD
 import time
 
 def PlotTestGradientDescentEvaluation2Features(fig):
-#    fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
     # Define the range of the function to be centered around the scattered points
@@ -534,8 +533,6 @@ def PlotTestGradientDescentEvaluation10Features(fig):
     costDiff2 = costs2-y_values
 
     print(costs2)
-
-
 
 fig1 = plt.figure()
 #PlotTestGradientDescentEvaluation2Features(fig1)
