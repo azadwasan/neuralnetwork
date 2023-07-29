@@ -6,6 +6,8 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace EasyNNTest {
+	// NOTE: Please run LinearHypothesisFunctionDepictions.py in EasyNNPythonDepictions project to see how does this function actually look like.
+	// and how the points are scattered around the plane that is represented by the model parameters.
 	TEST_CLASS(CostFunctioNMSETest) {
 	public:
 		//Estimate the cost function MSE, when estimating using linear hypothesis.

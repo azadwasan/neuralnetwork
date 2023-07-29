@@ -11,6 +11,8 @@ namespace EasyNNTest
 	TEST_CLASS(LinearHypothesisTest){
 	public:
 		// This is a very basic test that will verify that the LinearHypythesis computed estimate is same as our pre-computed measured value.
+		// NOTE: Please run LinearHypothesisFunctionDepictions.py in EasyNNPythonDepictions project to see how does this function actually look like.
+		// and how the points are scattered around the plane that is represented by the model parameters.
 		TEST_METHOD(TestLinearHypothesisEvaluation)
 		{
 			EasyNN::LinearHypothesis hypothesis{};
@@ -20,10 +22,10 @@ namespace EasyNNTest
 			// Note that the model doesn't really fit exactly. Hence, we will not take the values of Y, rather I used the model
 			// and the input values to find the Y estimated using excel. That is what we will use to check the values against.
 
-			// NOTE: Please run LinearHypothesisFunctionDepictions.py in EasyNNPythonDepictions project to see how does this function actually look like.
-			// and how the points are scattered around the plane that represented by the parameters.
-
 			// A simple model with three paramaters theta1, theta2, theta3 to estimate feature vector, each containing two features.
+			// These values have been taken from the link provided above. 
+			// We can see in test "TestGradientDescentEvaluation2Features", 
+			// our estimated parameters are very different from this. But, both are pretty close.
 			std::vector<double> parameters{ -6.867, 3.148, -1.656};
 			// Feature vector containing two features, x1 and x2.
 			// Each row corresponds to a sample of the two features.

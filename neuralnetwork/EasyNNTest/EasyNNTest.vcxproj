@@ -159,7 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CostFunctionMSETest.cpp" />
-    <ClCompile Include="EasyNNLinearHypothesisTest.cpp" />
+    <ClCompile Include="LinearHypothesisTest.cpp" />
     <ClCompile Include="GradientDescentTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
