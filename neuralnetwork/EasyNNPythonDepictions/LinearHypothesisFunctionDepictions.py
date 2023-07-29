@@ -2,6 +2,17 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Patch
+
+# Add the current directory to the sys path so that the Python interpreter can find
+# the rest of the scripts too.
+import os
+import sys
+# Get the absolute path of the directory containing the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Add the directory to the Python search path
+sys.path.append(script_dir)
+
+# Now import modules from the directory
 from PlotHypothesis import PlotHypothesis
 from GDPlayground import OptimizeGD
 import time
@@ -534,12 +545,16 @@ def PlotTestGradientDescentEvaluation10Features(fig):
 
     print(costs2)
 
+print("******* Executing the script ********")
+
 fig1 = plt.figure()
-#PlotTestGradientDescentEvaluation2Features(fig1)
-PlotTestGradientDescentEvaluation2Features2(fig1)
+PlotTestGradientDescentEvaluation2Features(fig1)
+#PlotTestGradientDescentEvaluation2Features2(fig1)
 #PlotTestGradientDescentEvaluation10Features(fig1)
 
 plt.show()
+
+print("******* Execution completed ********")
 
 
 

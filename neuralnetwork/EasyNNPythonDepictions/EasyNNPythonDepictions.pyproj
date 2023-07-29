@@ -26,6 +26,7 @@
     <Compile Include="PlotHypothesis.py" />
     <Compile Include="PythonGeneralPlayground.py" />
     <Compile Include="RegressionPlayground.py" />
+    <Compile Include="TestScript.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />

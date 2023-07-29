@@ -11,8 +11,12 @@ int main()
     std::vector<double> values{ 1, 2, 3, 4, 5 };
     //LH.evaluate(values);
     std::cout << "Hello World!\n";
-
-    aFunction();
+    try {
+        aFunction();
+    }
+    catch (std::exception e) {
+        std::cout << "Python script execution failed!" << std::endl;
+    }
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
