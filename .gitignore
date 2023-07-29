@@ -14,3 +14,8 @@
 /neuralnetwork/.vs/EasyNN
 /neuralnetwork/EasyNN/x64/Debug
 /neuralnetwork/EasyNNPythonDepictions/__pycache__
+/neuralnetwork/EasyNN/x64/Release
+/neuralnetwork/EasyNNConsole/x64/Release
+/neuralnetwork/EasyNNPythonPlugin/x64
+/neuralnetwork/EasyNNTest/x64/Release
+/neuralnetwork/x64/Release
