@@ -3,14 +3,19 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3daf63ad-b733-45fc-ab6d-5d88d410f606</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>LinearHypothesisFunctionDepictions.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>EasyNNPythonDepictions</Name>
+    <Name>EasyNNPyScripts</Name>
     <RootNamespace>EasyNNPythonDepictions</RootNamespace>
+    <InterpreterId>
+    </InterpreterId>
+    <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,14 +27,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GDPlayground.py" />
-    <Compile Include="LinearHypothesisFunctionDepictions.py" />
+    <Compile Include="LinearHypothesis.py" />
     <Compile Include="PlotHypothesis.py" />
     <Compile Include="PythonGeneralPlayground.py" />
     <Compile Include="RegressionPlayground.py" />
     <Compile Include="TestScript.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Readme.txt" />
+    <Content Include="README.md" />
+    <Content Include="Requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.11</Version>
+      <Description>env (Python 3.11 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

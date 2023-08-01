@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyNNConsole", "EasyNNCons
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyNN", "EasyNN\EasyNN.vcxproj", "{BB0A4B64-90F0-42ED-8858-7B29C9B27314}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "EasyNNPythonDepictions", "EasyNNPythonDepictions\EasyNNPythonDepictions.pyproj", "{3DAF63AD-B733-45FC-AB6D-5D88D410F606}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "EasyNNPyScripts", "EasyNNPythonDepictions\EasyNNPyScripts.pyproj", "{3DAF63AD-B733-45FC-AB6D-5D88D410F606}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyNNPythonPlugin", "EasyNNPythonPlugin\EasyNNPythonPlugin.vcxproj", "{213F93C6-C215-4105-AE6D-60E328753B7C}"
 EndProject

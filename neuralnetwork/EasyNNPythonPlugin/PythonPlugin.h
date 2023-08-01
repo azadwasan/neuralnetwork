@@ -12,7 +12,7 @@
 
 void aFunction() {
 	//std::string fileName{ "..\\EasyNNPythonDepictions\\TestScript.py" };
-	std::string fileName{ "..\\EasyNNPythonDepictions\\LinearHypothesisFunctionDepictions.py" };
+	std::string fileName{ "..\\EasyNNPythonDepictions\\LinearHypothesis.py" };
 
 	Py_Initialize();
 
