@@ -34,4 +34,6 @@ Setting up EasyNN development environment is very simple and straight forward.
 3. "Python Development" workload will also install Python on the system, but in case it is desired, one can acquire the latest version from https://www.python.org/downloads/
 4. Follow the instructions here https://learn.microsoft.com/en-us/visualstudio/version-control/git-clone-repository?view=vs-2022 to clone the EasyNN project (https://github.com/azadwasan/neuralnetwork)
 6. Python requirements file is provided under both EasyNNPythonDepictions and EasyNNPythonPlugin. Install the required python packages as follows
-   ```pip install -r requirements.txt````
+   ```
+   pip install -r requirements.txt
+   ```
