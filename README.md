@@ -6,15 +6,15 @@ Here are the core principles behind the design of the library
 * Use C++ 20+ whenever possible
 # Project Structure
 The code has been created as a Visual Studio Solution, as it is extremely easy to setup and use the library within visual studio. However, this also means it is currently constrained to Windows only. Currently, we have the following projects in the solution
-## EasyNN
+### EasyNN
 This is the core neural network library containing all the necessary interfaces, algorithms and the framework. 
-## EasyNNTest
+### EasyNNTest
 Unit test project for EasyNN. Please note that we use the unit testing framework mostly for correctness (or even performance) testing and don't use it to implement the unit tests in the unit tests, e.g., checking boundary condition, ensure code coverage etc.
-## EasyNNConsole
+### EasyNNConsole
 A console application that links with EasyNN (and other libraries in the solution) to play around. It doesn't serve more than quick testing. However, for appropriate use of EasyNN, EasyNNConsole should not be considered as a reference, rather EasyNNTest serves as an appropriate reference for apprropriate use of the library.
-## EasyNNPythonDepictions
+### EasyNNPythonDepictions
 EasyNNTest does verify the correctness of the results, however, visualizing the results is often far more reassuring. Hence, EasyNNPythonDepictions, complements EasyNNtest project and often has graphical depictions for the results that have been verified by EasyNNTest.
-## EasyNNPythonPlugin
+### EasyNNPythonPlugin
 Currently, our testing process involves generating various usecase data from Python libraries, such as 'make_regression'. However, this data is then manually copied to the tests in EasyNNTest, making the process cumbersome and tedious. Similarly, the reference solutions are generated using well-established Python libraries like Tensor, and again copied to the test code for verification. To streamline and simplify this process, I am working on the EasyNNPythonPlugin.
 
 The main objective of the EasyNNPythonPlugin is to enable the execution of Python scripts directly from within C++. This means that we can now generate data by calling a Python script and create reference solutions by running another Python script. Finally, we can verify EasyNN results by comparing them with the reference results.
