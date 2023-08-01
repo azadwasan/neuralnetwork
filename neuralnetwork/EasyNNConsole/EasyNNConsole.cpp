@@ -12,6 +12,8 @@ int main()
     //LH.evaluate(values);
     std::cout << "Hello World!\n";
     try {
+
+
         aFunction();
     }
     catch (std::exception e) {
