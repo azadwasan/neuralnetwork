@@ -19,3 +19,11 @@
 /neuralnetwork/EasyNNPythonPlugin/x64
 /neuralnetwork/EasyNNTest/x64/Release
 /neuralnetwork/x64/Release
+/neuralnetwork/Debug
+/neuralnetwork/EasyNN/Debug
+/neuralnetwork/EasyNNConsole/Debug
+/neuralnetwork/EasyNNPythonPlugin/Debug
+/neuralnetwork/EasyNNTest/Debug
+/neuralnetwork/EasyNNPythonDepictions/env
+/neuralnetwork/EasyNNPyScripts/env
+/neuralnetwork/EasyNNPyScripts/__pycache__
