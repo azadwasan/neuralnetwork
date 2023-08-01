@@ -50,6 +50,9 @@ Setting up EasyNN development environment is very simple and straight forward.
 2. Choose the workloads "Python Development" and "Desktop Development in C++" while installing VS
 3. "Python Development" workload will also install Python on the system, but in case it is desired, one can acquire the latest version from https://www.python.org/downloads/
 4. Follow the instructions here https://learn.microsoft.com/en-us/visualstudio/version-control/git-clone-repository?view=vs-2022 to clone the EasyNN project (https://github.com/azadwasan/neuralnetwork)
+
+# Using EasyNN*
+Once the development environment has been setup, the natural next step is to try to build the project. EasyNN project contains the code for the core algorithms related to neural network. However, as it is written as a library, hence it needs to be linked to either an executable or a test. A skeleton console app has been provided witht he solution that is already linked to the EasyNN core library and can be used to play with EasyNN library. However, the best starting points is to look at EasyNNtest project and go through the test code and  try to run the tests through test explorer. The test code is generally very well documented and demonstrates step by step how to use various EasyNN core library functionalities.
 6. Python requirements file is provided under both EasyNNPythonDepictions and EasyNNPythonPlugin. Install the required python packages as follows
    ```
    pip install -r requirements.txt
