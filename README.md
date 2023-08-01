@@ -1,9 +1,8 @@
-A C++ implementation of neural networks from scratch. This is intended to for educational purposes and not to design a performant production quality library. However, initially results are very promising also in terms of performance and the accuracy.
-We follow the following course from Andrew Ng and implement step by step all the concepts indtroducted during this course
-https://www.coursera.org/specializations/machine-learning-introduction
-Here are the core principles behind the design of the library
-* Keep code as simple as possible
-* Use C++ 20+ whenever possible
+Inspired by Andrew Ng's renowned Machine Learning course (https://www.coursera.org/specializations/machine-learning-introduction), a C++ library to implement Neural Networks from scratch.
+With a focus on accessibility, EasyNN is designed to complement Andrew's course, making the implementation as learner-friendly as possible. My primary goal is to ensure that newcomers to machine learning can easily grasp and utilize the library to dive into the world of neural networks.
+While keeping ease-of-understanding in mind, I've also aimed to make EasyNN both extensible and highly performant.
+I'm already excited to share that some early milestones have been achieved! EasyNN now boasts a Linear Hypothesis and efficient Gradient Descent implementation, both of which have undergone rigorous testing.
+In my initial performance analysis, I compared EasyNN against TensorFlow, and the results are looking incredibly promising! 
 # Project Structure
 The code has been created as a Visual Studio Solution, as it is extremely easy to setup and use the library within visual studio. However, this also means it is currently constrained to Windows only. Currently, we have the following projects in the solution
 ## EasyNN
