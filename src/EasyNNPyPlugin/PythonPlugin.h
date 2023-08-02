@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
+
 //https://stackoverflow.com/questions/17028576/using-python-3-3-in-c-python33-d-lib-not-found
 #ifdef _DEBUG
 #undef _DEBUG

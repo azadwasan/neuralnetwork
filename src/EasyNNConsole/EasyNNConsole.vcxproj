@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\EasyNN;..\EasyNNPythonPlugin;..\EasyNNPythonPlugin\python311\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EasyNN;..\EasyNNPyPlugin;..\EasyNNPyPlugin\python311\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -125,20 +125,23 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\EasyNNPythonPlugin;..\EasyNNPythonPlugin\python311\include;..\EasyNN</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EasyNNPyPlugin;..\EasyNNPyPlugin\python311\include;..\EasyNN</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\EasyNNPythonPlugin\python311\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\EasyNNPyPlugin\python311\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EasyNNConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyNNPyPlugin\EasyNNPythonPlugin.vcxproj">
+      <Project>{213f93c6-c215-4105-ae6d-60e328753b7c}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\EasyNN\EasyNN.vcxproj">
       <Project>{bb0a4b64-90f0-42ed-8858-7b29c9b27314}</Project>
     </ProjectReference>

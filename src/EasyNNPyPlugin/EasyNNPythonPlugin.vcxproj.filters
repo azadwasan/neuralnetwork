@@ -24,12 +24,18 @@
     <ClInclude Include="PythonPlugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DataChannel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EasyNNPythonPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataChannel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
