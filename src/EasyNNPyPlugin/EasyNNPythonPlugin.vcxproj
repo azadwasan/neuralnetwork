@@ -24,6 +24,7 @@
     <ProjectGuid>{213f93c6-c215-4105-ae6d-60e328753b7c}</ProjectGuid>
     <RootNamespace>EasyNNPythonPlugin</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>EasyNNPyPlugin</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
