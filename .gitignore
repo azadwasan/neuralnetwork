@@ -27,3 +27,12 @@
 /neuralnetwork/EasyNNPythonDepictions/env
 /neuralnetwork/EasyNNPyScripts/env
 /neuralnetwork/EasyNNPyScripts/__pycache__
+/src/.vs/EasyNN
+/src/x64
+/src/EasyNNTest/x64
+/src/EasyNN/x64
+/src/EasyNNConsole/x64
+/src/EasyNNPyScripts/__pycache__
+/src/EasyNNPythonPlugin/x64/Debug
+/src/EasyNNPythonPlugin/x64/Release
+/src/EasyNNPyPlugin/x64

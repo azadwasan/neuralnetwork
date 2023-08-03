@@ -1,6 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def MyTestMethod(data):
+    print("Received data:", data)
+    result = [x * 100 for x in data]
+    print("Result within Python:", result)
+    return result
+
 def PlotTestGradientDescentEvaluation2Features(fig):
     ax = fig.add_subplot(111, projection='3d')
 
@@ -41,17 +47,3 @@ def PlotTestGradientDescentEvaluation2Features(fig):
     ax.set_xlabel('X1 - Feature 1')
     ax.set_ylabel('X2 - Feature 2')
     ax.set_zlabel('Y - Measurement')
-
-print("******* Executing the script ********")
-
-import sys
-print(sys.path)
-
-fig1 = plt.figure()
-PlotTestGradientDescentEvaluation2Features(fig1)
-#PlotTestGradientDescentEvaluation2Features2(fig1)
-#PlotTestGradientDescentEvaluation10Features(fig1)
-
-plt.show()
-
-print("******* Execution completed ********")
