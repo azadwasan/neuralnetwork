@@ -5,8 +5,10 @@ I'm already excited to share that some early milestones have been achieved! Easy
 In my initial performance analysis, I compared EasyNN against TensorFlow, and the results are looking incredibly promising!
 
 # Current State of the Project
-EasyNN (Core neural network library): Linear Hypothesis, Mean Square Error Cost function, Gradient Descent The progress so far corresponds to Course 1, Week 2 of Machine Learning Specialization (https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction)
-EasyNNPythonScripts: Full Python embedded (that we need for now). We can call a arbitrary method from any python module from our C++ code. This is very useful for EasyNNTest project to retrieve data and reference results from Tesnsorflow.
+
+** EasyNN ** (Core neural network library): Linear Hypothesis, Mean Square Error Cost function, Gradient Descent The progress so far corresponds to Course 1, Week 2 of Machine Learning Specialization (https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction)
+
+** EasyNNPythonScripts** : Full Python embedded (that we need for now). We can call a arbitrary method from any python module from our C++ code. This is very useful for EasyNNTest project to retrieve data and reference results from Tesnsorflow.
 Next steps:
 * Update EasyNNTest to use dynamic data and reference results from Python.
 * Move back to EasyNN and continue with the core library development.
