@@ -138,6 +138,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>./python311/include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -148,12 +149,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="DataChannel.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="NonCopyableNonAssignable.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PyInterpreter.h" />
     <ClInclude Include="PythonPlugin.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common.cpp" />
     <ClCompile Include="DataChannel.cpp" />
     <ClCompile Include="EasyNNPythonPlugin.cpp" />
     <ClCompile Include="pch.cpp">
@@ -162,6 +167,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PyInterpreter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\EasyNNPythonDepictions\Requirements.txt" />

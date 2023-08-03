@@ -4,6 +4,7 @@
 #include <iostream>
 #include "LinearHypothesis.h"
 #include "PythonPlugin.h"
+#include "DataChannel.h"
 
 int main()
 {
@@ -12,12 +13,13 @@ int main()
     //LH.evaluate(values);
     std::cout << "Hello World!\n";
     try {
-
-
-        aFunction();
+        std::vector<std::vector<double>> X;
+        std::vector<double> y;
+        EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 5, 2, 0.1);
+            //aFunction();
     }
     catch (std::exception e) {
-        std::cout << "Python script execution failed!" << std::endl;
+        std::cout << "Python script execution failed!" << e.what() << std::endl;
     }
 }
 

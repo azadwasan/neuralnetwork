@@ -538,6 +538,13 @@ def PlotTestGradientDescentEvaluation10Features(fig):
     print(costs2)
 
 #print("******* Executing the script ********")
+def MethodToCall():
+    print("************ MethodToCall *************")
+    fig1 = plt.figure()
+    PlotTestGradientDescentEvaluation2Features(fig1)
+    print("************ MethodToCall Exiting *************")
+    plt.show()
+
 
 #fig1 = plt.figure()
 #PlotTestGradientDescentEvaluation2Features(fig1)

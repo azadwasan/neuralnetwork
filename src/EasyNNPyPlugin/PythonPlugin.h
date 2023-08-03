@@ -18,12 +18,15 @@
 #endif
 
 void aFunction() {
-    std::string scriptName{ "TestScript"};
-    std::string methodName {"MyTestMethod"};
+    //std::string scriptName{ "TestScript"};
+    //std::string methodName {"MyTestMethod"};
     std::wstring scriptDirectory = L"../EasyNNPyScripts";
 
-    // Set the working directory to the location containing the Python script file
-    // Replace "your_working_directory" with the actual path
+    std::string scriptName{ "LinearHypothesis"};
+    std::string methodName {"MethodToCall"};
+
+
+// Set the working directory to the location containing the Python script file
 #ifdef _WIN32
     SetCurrentDirectory(scriptDirectory.c_str());
 #else
@@ -32,7 +35,9 @@ void aFunction() {
     // Initialize Python interpreter
     Py_Initialize();
 
-    // Append the script directory to the Python sys.path list
+    // Append the script directory to the Python sys.path list, 
+    // otherwise if the script calls another script in the same directory
+    // it will fail.
     PyObject* sysPath = PySys_GetObject("path");
     if (sysPath != nullptr && PyList_Check(sysPath)) {
         PyObject* directoryPath = PyUnicode_FromWideChar(scriptDirectory.c_str(), scriptDirectory.size());
@@ -48,6 +53,7 @@ void aFunction() {
         throw std::runtime_error("sys.path is not a valid list object.");
     }
 
+   // Print the Pth
    //// PyObject* sysPath = PySys_GetObject("path");
    // if (sysPath != nullptr && PyList_Check(sysPath)) {
    //     Py_ssize_t numPaths = PyList_Size(sysPath);
@@ -75,19 +81,19 @@ void aFunction() {
         throw std::runtime_error("Failed to get the function.");
     }
 
-    // Create a sample vector
-    std::vector<int> inputData = { 1, 2, 3, 4, 5 };
+    //// Create a sample vector
+    //std::vector<int> inputData = { 1, 2, 3, 4, 5 };
 
-    // Convert the vector to a Python list
-    PyObject* pList = PyList_New(inputData.size());
-    for (size_t i = 0; i < inputData.size(); ++i) {
-        PyObject* pValue = PyLong_FromLong(inputData[i]);
-        PyList_SetItem(pList, i, pValue);
-    }
+    //// Convert the vector to a Python list
+    //PyObject* pList = PyList_New(inputData.size());
+    //for (size_t i = 0; i < inputData.size(); ++i) {
+    //    PyObject* pValue = PyLong_FromLong(inputData[i]);
+    //    PyList_SetItem(pList, i, pValue);
+    //}
 
-    // Call the method with the Python list as an argument
-    PyObject* pArgs = PyTuple_Pack(1, pList);
-    PyObject* pResult = PyObject_CallObject(pMethod, pArgs);
+    //// Call the method with the Python list as an argument
+    //PyObject* pArgs = PyTuple_Pack(1, pList);
+    PyObject* pResult = PyObject_CallObject(pMethod, nullptr);
 
     // Check if the call was successful
     if (pResult != nullptr) {
@@ -101,6 +107,7 @@ void aFunction() {
                 resultData.push_back(value);
             }
             else {
+                PyErr_Print();
                 throw std::runtime_error("Failed to retrieve result element.");
             }
         }
@@ -195,8 +202,8 @@ void aFunction() {
 
 
     // Cleanup
-    Py_DECREF(pArgs);
-    Py_DECREF(pList);
+    //Py_DECREF(pArgs);
+    //Py_DECREF(pList);
     Py_DECREF(pMethod);
     Py_DECREF(pModule);
 

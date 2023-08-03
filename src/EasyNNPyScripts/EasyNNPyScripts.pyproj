@@ -25,6 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataGenerator.py" />
     <Compile Include="GDPlayground.py" />
     <Compile Include="LinearHypothesis.py" />
     <Compile Include="PlotHypothesis.py" />
