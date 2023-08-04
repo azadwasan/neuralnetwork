@@ -12,8 +12,6 @@
 
 using namespace EasyNNPyPlugin;
 
-
-
 const std::wstring PyInterpreter::scriptDirectory = L"../EasyNNPyScripts";
 
 PyInterpreter::PyInterpreter() {

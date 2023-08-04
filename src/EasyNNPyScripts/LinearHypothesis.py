@@ -6,7 +6,7 @@ from matplotlib.patches import Patch
 
 # Now import modules from the directory
 from PlotHypothesis import PlotHypothesis
-from GDPlayground import OptimizeGD
+from GradientDescent import OptimizeGD
 import time
 
 def PlotTestGradientDescentEvaluation2Features(fig):

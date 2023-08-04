@@ -26,14 +26,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataGenerator.py" />
-    <Compile Include="GDPlayground.py" />
+    <Compile Include="GradientDescent.py" />
     <Compile Include="LinearHypothesis.py" />
     <Compile Include="PlotHypothesis.py" />
-    <Compile Include="PythonGeneralPlayground.py" />
-    <Compile Include="RegressionPlayground.py" />
-    <Compile Include="TestScript.py" />
+    <Compile Include="Extras\PythonGeneralPlayground.py" />
+    <Compile Include="Extras\RegressionPlayground.py" />
+    <Compile Include="Extras\TestScript.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Extras\Readme.txt" />
     <Content Include="README.md" />
     <Content Include="Requirements.txt" />
   </ItemGroup>
@@ -47,6 +48,9 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extras\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
