@@ -12,16 +12,14 @@ void DataChannel::getRegressionData(std::vector<std::vector<double>>& X, std::ve
 	PyInterpreter interpreter{};
 
 	// Convert the C++ method arguments first to Python tuple so that we can pass them while calling the python method.
-	PyObject* args = interpreter.convertArgumentsToPyTuple(nSamples, nFeatures, noise);
+	easyNN_unique_ptr args{ interpreter.convertArgumentsToPyTuple(nSamples, nFeatures, noise) };
 
-	PyObject* pResult = interpreter.executeMethod(scriptName, methodName, args);
-	if (pResult != nullptr && PyTuple_Check(pResult) && PyTuple_Size(pResult) == 2) {
-		interpreter.retrieveMatrixAndVector(X, y, pResult);
-		Py_DECREF(pResult);
+	easyNN_unique_ptr pResult{ interpreter.executeMethod(scriptName, methodName, args.get()) };
+	if (pResult != nullptr && PyTuple_Check(pResult.get()) && PyTuple_Size(pResult.get()) == 2) {
+		interpreter.retrieveMatrixAndVector(X, y, pResult.get());
 	}
 	else {
 		PyErr_Print(); // Print any Python exceptions
 		throw std::runtime_error("Python method call failed.");
 	}
-	Py_DECREF(args);
 }

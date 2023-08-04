@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "PyInterpreter.h"
 #include <stdexcept>
+#include "Common.h"
 
 // Required to set the path to scripts directory, otherwise interpreter wouldn't be able to find it
 #ifdef _WIN32
@@ -30,10 +31,9 @@ PyInterpreter::PyInterpreter() {
     // otherwise if the script calls another script in the same directory it will fail.
     PyObject* sysPath = PySys_GetObject("path");
     if (sysPath != nullptr && PyList_Check(sysPath)) {
-        PyObject* directoryPath = PyUnicode_FromWideChar(scriptDirectory.c_str(), scriptDirectory.size());
+        easyNN_unique_ptr directoryPath{ PyUnicode_FromWideChar(scriptDirectory.c_str(), scriptDirectory.size()) };
         if (directoryPath != nullptr) {
-            PyList_Append(sysPath, directoryPath);
-            Py_DECREF(directoryPath); // Release reference to the directory path object
+            PyList_Append(sysPath, directoryPath.get());
         }
         else {
             throw std::runtime_error("Failed to create directory path object.");
@@ -50,26 +50,21 @@ PyInterpreter::~PyInterpreter() {
 
 PyObject* PyInterpreter::executeMethod(const std::string& scriptName, const std::string& methodName, PyObject* args) {
     // Load the Python script module
-    PyObject* pModule = PyImport_ImportModule(scriptName.c_str());
+    easyNN_unique_ptr pModule{ PyImport_ImportModule(scriptName.c_str()) };
     if (pModule == nullptr) {
         PyErr_Print();
         throw std::runtime_error("Failed to load the Python script module.");
     }
 
     // Get a reference to the method within the module
-    PyObject* pMethod = PyObject_GetAttrString(pModule, methodName.c_str());
-    if (pMethod == nullptr || !PyCallable_Check(pMethod)) {
+    easyNN_unique_ptr pMethod{ PyObject_GetAttrString(pModule.get(), methodName.c_str())};
+    if (pMethod == nullptr || !PyCallable_Check(pMethod.get())) {
         PyErr_Print();
         throw std::runtime_error("Failed to get the function.");
     }
 
     //// Call the method with the Python list as an argument
-    PyObject* pResult = PyObject_CallObject(pMethod, args);
-
-    Py_DECREF(pMethod);
-    Py_DECREF(pModule);
-
-    return pResult;
+    return PyObject_CallObject(pMethod.get(), args);
 }
 
 void PyInterpreter::retrieveMatrixAndVector(std::vector<std::vector<double>>& matrix, std::vector<double>& vector, PyObject* pResult) {
