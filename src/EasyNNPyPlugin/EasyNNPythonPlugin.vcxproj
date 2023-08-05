@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Algorithms.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="DataChannel.h" />
     <ClInclude Include="framework.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="PythonPlugin.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithms.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="DataChannel.cpp" />
     <ClCompile Include="pch.cpp">

@@ -1,6 +1,7 @@
 #ifndef DataChannel_H
 #define DataChannel_H
 #include <vector>
+#include "Common.h"
 
 namespace EasyNNPyPlugin {
 	class DataChannel

@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 #include "GradientDescent.h"
 #include "LinearHypothesis.h"
+#include "DataChannel.h"
+#include "Algorithms.h"
 
 #include <span>
 #include <vector>
@@ -38,6 +40,19 @@ namespace EasyNNTest
 					return std::abs(a - b) < 0.001; 
 				}));
 		}
+        TEST_METHOD(TestGradientDescentEvaluation2FeaturesLiveData) {
+            EasyNN::LinearHypothesis hypothesis{};
+            std::vector<double> parameters { 0.0, 0.0, 0.0 };
+            std::vector<std::vector<double>> X;
+            std::vector<double> y;
+            EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 5, 2, 0.1);
+            parameters = runGD(X, y, parameters, hypothesis, 0.0001, 1.0E-9);
+            auto expectedParameters = EasyNNPyPlugin::Algorithms::RunGD(X, y, 3);
+            Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
+                [](double a, double b) {
+                    return std::abs(a - b) < 0.01;
+                }));
+        }
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features)
 		{

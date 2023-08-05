@@ -116,6 +116,7 @@ namespace EasyNNPyPlugin {
          *
          * @return void
          */
+
         template <typename T, typename... Args>
         inline void fillTuple(PyObject* pTuple, int& index, T arg, Args... args) {
             PyTuple_SetItem(pTuple, index++, ConvertArg(arg));
@@ -166,36 +167,41 @@ namespace EasyNNPyPlugin {
             else if constexpr (std::is_same_v<T, const char*>) {
                 return PyUnicode_FromString(value);
             }
+            else if constexpr (std::is_same_v<T, std::vector<double>>) {
+                PyObject* pList = PyList_New(value.size());
+                if (pList == nullptr) {
+                    PyErr_Print();
+                    throw std::runtime_error("Failed to create a Python list from std::vector<std::vector<double>>.");
+                }
+                for (size_t i = 0; i < value.size(); ++i) {
+                    PyList_SetItem(pList, i, PyFloat_FromDouble(value[i]));
+                }
+                return pList;
+            }
+            else if constexpr (std::is_same_v<T, std::vector<std::vector<double>>>) {
+                PyObject* pList = PyList_New(value.size());
+                if (pList == nullptr) {
+                    PyErr_Print();
+                    throw std::runtime_error("Failed to create a Python list from std::vector<std::vector<double>>.");
+                }
+                for (size_t i = 0; i < value.size(); ++i) {
+                    PyObject* pInnerList = PyList_New(value[i].size());
+                    if (pInnerList == nullptr) {
+                        PyErr_Print();
+                        throw std::runtime_error("Failed to create a Python list from std::vector<std::vector<double>>.");
+                    }
+                    for (size_t j = 0; j < value[i].size(); ++j) {
+                        PyList_SetItem(pInnerList, j, PyFloat_FromDouble(value[i][j]));
+                    }
+                    PyList_SetItem(pList, i, pInnerList);
+                }
+                return pList;
+            }
             else {
                 throw std::runtime_error("Unsupported argument type.");
             }
-            //return PyArg_To_PyObject(value);
-        }
-
-        //PyObject* PyArg_To_PyObject(int value) {
-        //    return PyLong_FromLong(value);
-        //}
-
-        //PyObject* PyArg_To_PyObject(double value) {
-        //    return PyFloat_FromDouble(value);
-        //}
-
-        //PyObject* PyArg_To_PyObject(const char* value) {
-        //    return PyUnicode_FromString(value);
-        //}
-
-       //// Define the function template for the desired types
-       // template <DesiredType T>
-       // void f(T t) {
-       //     // ...
-       // }
-
-        template <typename T>
-        PyObject* PyArg_To_PyObject(T value) {
-            throw std::runtime_error("Unsupported argument type.");
         }
 	private:
-		static const std::wstring scriptDirectory;
 	};
 }
 #endif

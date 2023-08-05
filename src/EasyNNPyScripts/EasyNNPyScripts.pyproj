@@ -5,8 +5,7 @@
     <ProjectGuid>3daf63ad-b733-45fc-ab6d-5d88d410f606</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>GradientDescent.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

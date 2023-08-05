@@ -9,12 +9,25 @@
 #else
 #include <unistd.h>
 #endif
-
 using namespace EasyNNPyPlugin;
 
-const std::wstring PyInterpreter::scriptDirectory = L"../EasyNNPyScripts";
-
 PyInterpreter::PyInterpreter() {
+    // Before this code we had the relative path of the scripts folder specified as a static member variable. 
+    // However, it doesn't work if we use this library with a MS Test and test explorer, as the path of the test 
+    // explorer is not the same as this solution, hence the relative path become invalid. Hence, I had to resort 
+    // to the following solution.
+    // However, this is a very bad idea and must not be used in production software. I am using it here only because
+    // this code is only supposed to be used within a development evnrionment of Visual Studio and not in a production
+    // environment, hence it should work. In the case of production, we will have to use environmen variables to set
+    // the appropriate paths to the scripts folder.
+
+    // Construct the path to the EasyNNPyScripts directory relative to the current source file
+    std::string currentFilePath = __FILE__;
+    std::wstring currentFilePathW;
+    currentFilePathW.resize(currentFilePath.size());
+    size_t convertedChars = 0;
+    mbstowcs_s(&convertedChars, &currentFilePathW[0], currentFilePathW.size(), currentFilePath.c_str(), _TRUNCATE);
+    std::wstring scriptDirectory = currentFilePathW.substr(0, currentFilePathW.find_last_of(L"/\\") + 1) + L"../EasyNNPyScripts";
 
     // Set the working directory to the location containing the Python script file
 #ifdef _WIN32
@@ -49,8 +62,28 @@ PyInterpreter::~PyInterpreter() {
 PyObject* PyInterpreter::executeMethod(const std::string& scriptName, const std::string& methodName, PyObject* args) {
     // Load the Python script module
     easyNN_unique_ptr pModule{ PyImport_ImportModule(scriptName.c_str()) };
+
     if (pModule == nullptr) {
+
+        PyObject* ptype, * pvalue, * ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+        // Check if an error occurred
+        if (pvalue != nullptr) {
+            // Convert the Python error objects to C++ strings
+            PyObject* pStr = PyObject_Str(pvalue);
+            const char* errorStr = PyUnicode_AsUTF8(pStr);
+
+            // Handle the error here (log, display, etc.)
+
+            // Don't forget to release the Python objects
+            Py_XDECREF(ptype);
+            Py_XDECREF(pvalue);
+            Py_XDECREF(ptraceback);
+            Py_XDECREF(pStr);
+        }
         PyErr_Print();
+
         throw std::runtime_error("Failed to load the Python script module.");
     }
 
@@ -102,7 +135,11 @@ void PyInterpreter::extractMatrix(PyObject* pMatrixObj, std::vector<std::vector<
     }
 }
 
-void PyInterpreter::extractVector(PyObject* pVectorObj, std::vector<double>& vector) {
+void PyInterpreter::extractVector(PyObject* pResult, std::vector<double>& vector) {
+    PyObject* pVectorObj = pResult;
+    if (PyTuple_Check(pResult)) {
+        pVectorObj = PyTuple_GetItem(pResult, 0);
+    }
     Py_ssize_t numElements = PyList_Size(pVectorObj);
 
     for (Py_ssize_t i = 0; i < numElements; ++i) {
