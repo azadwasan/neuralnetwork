@@ -16,16 +16,29 @@
 #endif
 
 namespace EasyNNPyPlugin {
-    //// Define a concept to check if a type is one of the desired types
-    //template <typename T>
-    //concept DesiredType = std::same_as<T, int> || std::same_as<T, unsigned int>;
-
+    // The earlier implementation of PyInterpreter has a serious issue. If it is instantiated more than once,
+    // the second time it fails to load python scripts, specially tesnsorflow. This happens because some python
+    // libraries doon't play so well if Py_Finalize() is called (which is what we did in the destructor) and
+    // we try to Py_Initialize() again, these libraries, specifically numpy (on which tensorflow depends) doesn't
+    // work anymore. Here are the details
+    // https://stackoverflow.com/questions/7676314/py-initialize-py-finalize-not-working-twice-with-numpy
+    // There are various ways we can address this issue.
+    // 1. Implement PyInterpreter as a singleton 2. Call Py_Initialize() in a subclass are create a static instance
+    // of this class in PyInterpreter 3. Don't call Py_Finalize() at all, as EasyNNPyPlugin is currently only used by
+    // test project and is live only for a short duration until tests are complete. Moreover, calling Py_Initialize() 
+    // multiple times is a noop if Py_Finalize() is not called.
+    // Singleton feels liks a decent choice at the moment. Hence, we will use Mayer's singleton here and we will not call
+    // Py_Finalize() for the reasons discussed above.
 
 	class PyInterpreter final: private NonCopyableNonAssignable
 	{
-	public:
-		PyInterpreter();
-		~PyInterpreter();
+    private:
+        PyInterpreter();
+    public:
+        static PyInterpreter& getInstance() {
+            static PyInterpreter instance;
+            return instance;
+        }
 
         /**
          * @brief Convert C++ arguments to a Python tuple.
@@ -93,6 +106,7 @@ namespace EasyNNPyPlugin {
         void extractMatrix(PyObject* pMatrixObj, std::vector<std::vector<double>>& matrix);
         void extractVector(PyObject* pVectorObj, std::vector<double>& vector);
     private:
+
         /**
          * @brief Helper function to fill a Python tuple with arguments.
          *

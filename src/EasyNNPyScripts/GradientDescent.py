@@ -2,9 +2,8 @@ import tensorflow as tf
 from sklearn.datasets import make_regression
 
 def OptimizeGD(X_data, y_data, paramCount):
-    #print(f"Received x_data {X_data}")
-    #print(f"Received y_data {y_data}")
     # Define the model
+    print("Staring OptimizeGD")
     X = tf.Variable(X_data, dtype=tf.float32)
     y = tf.Variable(y_data, dtype=tf.float32)
     theta = tf.Variable(tf.zeros([paramCount]))
@@ -19,6 +18,8 @@ def OptimizeGD(X_data, y_data, paramCount):
     # Initialize a list to store the cost history
     cost_history = []
 
+    print("OptimizeGD: Initiating loop")
+
     # Run the optimization algorithm
     for i in range(1000):
         with tf.GradientTape() as tape:
@@ -31,8 +32,4 @@ def OptimizeGD(X_data, y_data, paramCount):
     # Print the results
     print(f"Theta: {theta.numpy()}")
     #print(f"Cost history: {cost_history}")
-    return theta
-
-X = [[1, 2], [2, 3], [4, 5]]
-y = [1, 2, 3]
-OptimizeGD(X, y, 3)
+    return theta.numpy().tolist()

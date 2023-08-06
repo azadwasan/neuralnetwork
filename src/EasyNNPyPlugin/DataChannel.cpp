@@ -9,7 +9,7 @@ void DataChannel::getRegressionData(std::vector<std::vector<double>>& X, std::ve
 {
 	auto scriptName{ "DataGenerator"};
 	auto methodName {"getRegressionData"};
-	PyInterpreter interpreter{};
+	auto& interpreter = PyInterpreter::getInstance();
 
 	// Convert the C++ method arguments first to Python tuple so that we can pass them while calling the python method.
 	easyNN_unique_ptr args{ interpreter.convertArgumentsToPyTuple(nSamples, nFeatures, noise) };

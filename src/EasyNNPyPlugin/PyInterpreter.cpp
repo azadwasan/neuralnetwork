@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "PyInterpreter.h"
-#include <stdexcept>
 #include "Common.h"
+
+#include <stdexcept>
+#include <cstdlib>
 
 // Required to set the path to scripts directory, otherwise interpreter wouldn't be able to find it
 #ifdef _WIN32
@@ -54,35 +56,13 @@ PyInterpreter::PyInterpreter() {
         throw std::runtime_error("sys.path is not a valid list object.");
     }
 }
-PyInterpreter::~PyInterpreter() {
-    // Finalize Python interpreter
-    Py_Finalize();
-}
 
 PyObject* PyInterpreter::executeMethod(const std::string& scriptName, const std::string& methodName, PyObject* args) {
-    // Load the Python script module
     easyNN_unique_ptr pModule{ PyImport_ImportModule(scriptName.c_str()) };
 
     if (pModule == nullptr) {
-
-        PyObject* ptype, * pvalue, * ptraceback;
-        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-
-        // Check if an error occurred
-        if (pvalue != nullptr) {
-            // Convert the Python error objects to C++ strings
-            PyObject* pStr = PyObject_Str(pvalue);
-            const char* errorStr = PyUnicode_AsUTF8(pStr);
-
-            // Handle the error here (log, display, etc.)
-
-            // Don't forget to release the Python objects
-            Py_XDECREF(ptype);
-            Py_XDECREF(pvalue);
-            Py_XDECREF(ptraceback);
-            Py_XDECREF(pStr);
-        }
         PyErr_Print();
+
 
         throw std::runtime_error("Failed to load the Python script module.");
     }
