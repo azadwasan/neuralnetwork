@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 def PlotHypothesis(ax, x1_coords, x2_coords, thetas, y_values, plotColor='blue', plotAlpha=0.5):
     x1_range = np.arange(min(x1_coords)-5, max(x1_coords)+5, 1)
@@ -13,3 +15,10 @@ def PlotHypothesis(ax, x1_coords, x2_coords, thetas, y_values, plotColor='blue',
     ax.set_xlabel('X1 - Feature 1')
     ax.set_ylabel('X2 - Feature 2')
     ax.set_zlabel('Y - Measurement')
+
+def CompareHypothesis(X, y, theta1, theta2):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    PlotHypothesis(ax, [row[0] for row in X], [row[1] for row in X], theta1, y)
+    PlotHypothesis(ax, [row[0] for row in X], [row[1] for row in X], theta2, y, plotColor='red')
+    plt.show()

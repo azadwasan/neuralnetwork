@@ -4,6 +4,8 @@
 #include "LinearHypothesis.h"
 #include "DataChannel.h"
 #include "Algorithms.h"
+#include "Plots.h"
+#include "CostFunctionMSE.h"
 
 #include <span>
 #include <vector>
@@ -45,13 +47,14 @@ namespace EasyNNTest
             std::vector<double> parameters { 0.0, 0.0, 0.0 };
             std::vector<std::vector<double>> X;
             std::vector<double> y;
-            EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 5, 2, 0.1);
+            EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 10, 2, 100);
             parameters = runGD(X, y, parameters, hypothesis, 0.07, 1.0E-9);
             auto expectedParameters = EasyNNPyPlugin::Algorithms::RunGD(X, y, 3);
-            //Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
-            //    [](double a, double b) {
-            //        return std::abs(a - b) < 0.01;
-            //    }));
+            EasyNNPyPlugin::Plots::CompareHypothesis(X, y, parameters, expectedParameters);
+            auto MSE = EasyNN::CostFunctionMSE{}.evaluate(X, y, parameters, hypothesis);
+            auto MSEExpected = EasyNN::CostFunctionMSE{}.evaluate(X, y, expectedParameters, hypothesis);
+            Logger::WriteMessage(("MSE = " + std::to_string(MSE) + ", Expected MSE = " + std::to_string(MSEExpected) + ", MSE Percentage difference = " + std::to_string(abs(MSE - MSEExpected) / MSEExpected)).c_str());
+            Assert::IsTrue(abs(abs(MSE - MSEExpected) / MSEExpected) < 0.001);
         }
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features)

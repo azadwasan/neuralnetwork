@@ -6,7 +6,7 @@ namespace EasyNNPyPlugin {
 	class Algorithms
 	{
 	public:
-		static std::vector<double> RunGD(const std::vector<std::vector<double>>& X, const std::vector<double> y, size_t paramCount);
+		static std::vector<double> RunGD(const std::vector<std::vector<double>>& X, const std::vector<double>& y, size_t paramCount);
 	};
 }
 

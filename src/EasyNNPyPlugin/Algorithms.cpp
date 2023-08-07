@@ -7,7 +7,7 @@
 using namespace EasyNNPyPlugin;
 
 
-std::vector<double> Algorithms::RunGD(const std::vector<std::vector<double>>& X, const std::vector<double> y, size_t paramCount) {
+std::vector<double> Algorithms::RunGD(const std::vector<std::vector<double>>& X, const std::vector<double>& y, size_t paramCount) {
 	auto scriptName{ "GradientDescent" };
 	auto methodName{ "OptimizeGD" };
 	auto& interpreter = PyInterpreter::getInstance();
@@ -21,7 +21,6 @@ std::vector<double> Algorithms::RunGD(const std::vector<std::vector<double>>& X,
 		interpreter.extractVector(pResult.get(), result);
 	}
 	else {
-		printf("PyList check = %d, Tuple check = %d, PyList size = %d", PyList_Check(pResult.get()), PyTuple_Check(pResult.get()), PyList_Size(pResult.get()));
 		PyErr_Print(); // Print any Python exceptions
 		throw std::runtime_error("Python method call failed.");
 	}

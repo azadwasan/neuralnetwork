@@ -39,6 +39,9 @@
     <ClInclude Include="Algorithms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Plots.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Algorithms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Plots.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

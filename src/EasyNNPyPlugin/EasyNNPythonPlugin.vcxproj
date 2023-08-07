@@ -155,6 +155,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="NonCopyableNonAssignable.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Plots.h" />
     <ClInclude Include="PyInterpreter.h" />
     <ClInclude Include="PythonPlugin.h" />
   </ItemGroup>
@@ -168,6 +169,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Plots.cpp" />
     <ClCompile Include="PyInterpreter.cpp" />
   </ItemGroup>
   <ItemGroup>
