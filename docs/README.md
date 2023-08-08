@@ -45,18 +45,25 @@ EasyNN core library currently implements the following
 * Mean Square Error Cost function
 * Gradient Descent
 The progress so far corresponds to Course 1, Week 2 of Machine Learning Specialization (https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction)
+
 ### Next Steps
 Next step is to implement logistic regression, which will correspond to Course 1, Week 2 of the above.
+
 ### EasyNNTest
 Unit test project for EasyNN. Please note that we use the unit testing framework mostly for correctness (or even performance) testing and don't use it to implement the unit tests in the unit tests, e.g., checking boundary condition, ensure code coverage etc.
+
 ### Current State
 EasyNNtest is in sync with EasyNN core library, i.e., the necessary tests that I needed to implement to test the correctness of EasyNN are implemented.
+
 ### Key takeaways
 Testing EasyNN implementation required finding appropriate refrence data and the corresponding solution, which is becoming time consuming as I am progressing further. Hence, I came up with the idea of EasyNNPythonScripts project to generate the reference data and solutions. However, it was still cumbersome to manually copy the data, modify it to C++ syntex etc., hence, I planned to automate it all using EasyNNPythonPlugin. Read description of the corresponding projects for further details.
+
 ## EasyNNConsole
 A console application that links with EasyNN (and other libraries in the solution) to play around. It doesn't serve more than quick testing. However, for appropriate use of EasyNN, EasyNNConsole should not be considered as a reference, rather EasyNNTest serves as an appropriate reference for apprropriate use of the library.
+
 ## EasyNNPythonScripts
 EasyNNTest does verify the correctness of the results, however, visualizing the results is often far more reassuring. Hence, EasyNNPythonScripts, complements EasyNNtest project and often has graphical depictions for the results that have been verified by EasyNNTest.
+
 ## EasyNNPythonPlugin
 Currently, our testing process involves generating various usecase data from Python libraries, such as 'make_regression'. However, this data is then manually copied to the tests in EasyNNTest, making the process cumbersome and tedious. Similarly, the reference solutions are generated using well-established Python libraries like Tensor, and again copied to the test code for verification. To streamline and simplify this process, I am working on the EasyNNPythonPlugin.
 
@@ -64,14 +71,8 @@ The main objective of the EasyNNPythonPlugin is to enable the execution of Pytho
 
 ### Current state
 The progress on the EasyNNPythonPlugin has been promising so far, as we are already able to run Python scripts from within C++. However, there is still much more to be done. 
+
 ### Next steps
 Call specific methods in the Python scripts, as well as efficiently pass and retrieve data to and from Python.
 
-# Current State of the Project
 
-**EasyNN** (Core neural network library): Linear Hypothesis, Mean Square Error Cost function, Gradient Descent The progress so far corresponds to Course 1, Week 2 of Machine Learning Specialization (https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction)
-
-**EasyNNPythonScripts** : Full Python embedded (that we need for now). We can call a arbitrary method from any python module from our C++ code. This is very useful for EasyNNTest project to retrieve data and reference results from Tesnsorflow.
-Next steps:
-* Update EasyNNTest to use dynamic data and reference results from Python.
-* Move back to EasyNN and continue with the core library development.
