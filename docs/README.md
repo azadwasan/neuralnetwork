@@ -1,4 +1,4 @@
-![image](https://github.com/azadwasan/neuralnetwork/assets/6748027/23bee843-55bf-44ad-82d3-c5f033de9c57)# Introduction
+# Introduction
 The landscape of machine learning has witnessed remarkable strides in recent years, with neural networks emerging as a pivotal force behind cutting-edge advancements. However, this domain's intricacies often present a steep learning curve, particularly for those new to the field. To bridge this gap, we proudly introduce EasyNN, a beginner-friendly C++ library meticulously designed to facilitate the implementation of neural networks from the ground up. With a strong focus on accessibility and high performance, EasyNN aims to guide newcomers through the world of neural networks.
 
 # The Genesis of EasyNN
