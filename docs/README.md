@@ -49,8 +49,10 @@ The progress so far corresponds to Course 1, Week 2 of Machine Learning Speciali
 ### Next Steps
 Next step is to implement logistic regression, which will correspond to Course 1, Week 2 of the above.
 
-### EasyNNTest
-Unit test project for EasyNN. Please note that we use the unit testing framework mostly for correctness (or even performance) testing and don't use it to implement the unit tests in the unit tests, e.g., checking boundary condition, ensure code coverage etc.
+## EasyNNTest
+EasyNNTest plays a distinctive role within the project ecosystem, distinct from conventional unit testing frameworks. It's essential to emphasize that the intent behind EasyNNTest diverges from that of a traditional unit testing project. Instead, it harnesses the power of MSTest as a flexible tool and infrastructure, predominantly to implement integration tests. Some of these tests extend beyond the confines of typical unit tests, going the extra mile by executing external Python scripts through EasyNNPyPlugin to dynamically retrieve generated data. This data serves as a foundation for rigorously testing diverse components within EasyNN, and by extension, for comparing these outcomes against reference results derived from TensorFlow.
+
+Furthermore, EasyNNTest serves a dual purpose. Not only does it facilitate the assessment of EasyNN's functionalities through intricate integration tests, but it also functions as an illustrative platform to showcase the practical implementation of the EasyNN core library. This multifaceted project demonstrates the library's prowess, effectively serving as an educational tool while ensuring the robustness and reliability of the EasyNN ecosystem.
 
 ### Current State
 EasyNNtest is in sync with EasyNN core library, i.e., the necessary tests that I needed to implement to test the correctness of EasyNN are implemented.
@@ -58,21 +60,12 @@ EasyNNtest is in sync with EasyNN core library, i.e., the necessary tests that I
 ### Key takeaways
 Testing EasyNN implementation required finding appropriate refrence data and the corresponding solution, which is becoming time consuming as I am progressing further. Hence, I came up with the idea of EasyNNPythonScripts project to generate the reference data and solutions. However, it was still cumbersome to manually copy the data, modify it to C++ syntex etc., hence, I planned to automate it all using EasyNNPythonPlugin. Read description of the corresponding projects for further details.
 
-## EasyNNConsole
-A console application that links with EasyNN (and other libraries in the solution) to play around. It doesn't serve more than quick testing. However, for appropriate use of EasyNN, EasyNNConsole should not be considered as a reference, rather EasyNNTest serves as an appropriate reference for apprropriate use of the library.
+## EasyNNPyPlugin
+This is an embedded python interpreter mostly used by EasyNNTest to run various python scripts for generating data, reference results and plotting.
+The main objective of the EasyNNPythonPlugin is to enable the execution of Python scripts directly from within C++, passing and retrieving data to and from Python. This is the core component that enables automating the testing for EasyNN.
 
 ## EasyNNPythonScripts
-EasyNNTest does verify the correctness of the results, however, visualizing the results is often far more reassuring. Hence, EasyNNPythonScripts, complements EasyNNtest project and often has graphical depictions for the results that have been verified by EasyNNTest.
+A set of python scripts triggered by EasyNNPyPlugin.
 
-## EasyNNPythonPlugin
-Currently, our testing process involves generating various usecase data from Python libraries, such as 'make_regression'. However, this data is then manually copied to the tests in EasyNNTest, making the process cumbersome and tedious. Similarly, the reference solutions are generated using well-established Python libraries like Tensor, and again copied to the test code for verification. To streamline and simplify this process, I am working on the EasyNNPythonPlugin.
-
-The main objective of the EasyNNPythonPlugin is to enable the execution of Python scripts directly from within C++. This means that we can now generate data by calling a Python script and create reference solutions by running another Python script. Finally, we can verify EasyNN results by comparing them with the reference results.
-
-### Current state
-The progress on the EasyNNPythonPlugin has been promising so far, as we are already able to run Python scripts from within C++. However, there is still much more to be done. 
-
-### Next steps
-Call specific methods in the Python scripts, as well as efficiently pass and retrieve data to and from Python.
-
-
+## EasyNNConsole
+A console application that links with EasyNN (and other libraries in the solution) to play around. It doesn't serve more than quick testing. However, for appropriate use of EasyNN, EasyNNConsole should not be considered as a reference, rather EasyNNTest serves as an appropriate reference for apprropriate use of the library.
