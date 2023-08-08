@@ -1,3 +1,3 @@
 remote_theme: pages-themes/minimal@v0.2.0
-title: ["Demystifying Neural Networks: EasyNN's Approach to Accessible Implementation"]
+title: ["EasyNN: Demystifying Neural Networks"]
 description: [Unlock the world of neural networks with EasyNN—a user-friendly C++ library that transforms theoretical understanding into practical implementation. Inspired by Andrew Ng's Machine Learning course, EasyNN guides learners through hands-on creation, testing, and visualization of neural networks.]
