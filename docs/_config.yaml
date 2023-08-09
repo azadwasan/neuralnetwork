@@ -2,3 +2,4 @@ remote_theme: pages-themes/minimal@v0.2.0
 title: ["EasyNN: Demystifying Neural Networks"]
 description: [Unlock the world of neural networks with EasyNN—a user-friendly C++ library that transforms theoretical understanding into practical implementation.]
 logo: /assets/img/logo.png
+google_analytics: [G-43YHP5QM8B]
