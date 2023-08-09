@@ -2,7 +2,7 @@
 #define IREGRESSION_H
 
 #include <vector>
-#include <ranges>
+#include <span>
 
 namespace EasyNN {
 	class IRegression {

@@ -33,6 +33,12 @@
     <ClCompile Include="Commons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LogisticRegression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CostFuntionLogistic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IRegression.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Commons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogisticRegression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CostFuntionLogistic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

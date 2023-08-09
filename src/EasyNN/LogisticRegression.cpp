@@ -1,12 +1,10 @@
+#include "LogisticRegression.h"
 #include "LinearRegression.h"
-#include "Commons.h"
 
-#include <numeric>
 #include <stdexcept>
-
 using namespace EasyNN;
 
-double LinearRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const{
+double LogisticRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const {
 	if (featureVector.size() == 0 || parameters.size() == 0) {
 		throw std::invalid_argument("Feature vector and parameters must have at least one element");
 	}
@@ -14,7 +12,7 @@ double LinearRegression::evaluate(std::span<const double> featureVector, const s
 		throw std::invalid_argument("Feature vector size must be parameters vector size - 1.");
 	}
 
-	auto sum = parameters[0];
-	sum += std::inner_product(std::begin(featureVector), std::end(featureVector), std::begin(parameters) + 1, 0.0);
-	return sum;
+	auto z = LinearRegression{}.evaluate(featureVector, parameters);
+	auto gz = 1 / (1 + exp(-1.0 * z));
+	return gz > DECISION_BOUNDARY ? 1 : 0;
 }

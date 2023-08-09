@@ -8,7 +8,7 @@
 using namespace EasyNN;
 
 
-double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IRegression& hypothesis)
+double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IRegression& hypothesis) const
 {
 	if (featuresMatrix.size() == 0  || measurementsVector.size() == 0 || parameters.size() == 0) {
 		throw std::invalid_argument("Feature matrix, measurements vectors and parameters vector size must be greater than zero.");
