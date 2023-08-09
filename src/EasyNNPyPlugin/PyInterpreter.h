@@ -18,7 +18,7 @@
 namespace EasyNNPyPlugin {
     // The earlier implementation of PyInterpreter has a serious issue. If it is instantiated more than once,
     // the second time it fails to load python scripts, specially tesnsorflow. This happens because some python
-    // libraries doon't play so well if Py_Finalize() is called (which is what we did in the destructor) and
+    // libraries don't play so well if Py_Finalize() is called (which is what we did in the destructor) and
     // we try to Py_Initialize() again, these libraries, specifically numpy (on which tensorflow depends) doesn't
     // work anymore. Here are the details
     // https://stackoverflow.com/questions/7676314/py-initialize-py-finalize-not-working-twice-with-numpy
