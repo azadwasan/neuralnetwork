@@ -22,7 +22,7 @@ void aFunction() {
     //std::string methodName {"MyTestMethod"};
     std::wstring scriptDirectory = L"../EasyNNPyScripts";
 
-    std::string scriptName{ "LinearHypothesis"};
+    std::string scriptName{ "LinearRegression"};
     std::string methodName {"MethodToCall"};
 
 

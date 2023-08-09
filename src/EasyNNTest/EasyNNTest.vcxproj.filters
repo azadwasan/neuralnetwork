@@ -21,7 +21,7 @@
     <ClCompile Include="CostFunctionMSETest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LinearHypothesisTest.cpp">
+    <ClCompile Include="LinearRegressionTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GradientDescentTest.cpp">

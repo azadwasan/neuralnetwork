@@ -1,4 +1,4 @@
-#include "LinearHypothesis.h"
+#include "LinearRegression.h"
 #include "Commons.h"
 
 #include <numeric>
@@ -7,7 +7,7 @@
 
 using namespace EasyNN;
 
-double LinearHypothesis::evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const{
+double LinearRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const{
 	if (featureVector.size() == 0 || parameters.size() == 0) {
 		throw std::invalid_argument("Feature vector and parameters must have at least one element");
 	}

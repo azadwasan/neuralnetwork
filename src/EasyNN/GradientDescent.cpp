@@ -9,7 +9,7 @@ using namespace EasyNN;
 
 void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
 	const std::vector<double>& measurementsVector,
-	const IHypothesis& hypothesis,
+	const IRegression& hypothesis,
 	double alpha, double stopThreshold,
 	std::vector<double>& parameters) {
 
@@ -62,7 +62,7 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
 	const std::vector<double>& measurementsVector,
 	const std::vector<double>& parameters,
-	const IHypothesis& hypothesis, 
+	const IRegression& hypothesis, 
 	std::function<double(const std::vector<double>&, const std::vector<double>&, double, size_t)> costDerivative, size_t index /*=0*/) {
 
 	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
@@ -86,7 +86,7 @@ double GradientDescent::computeCost(const std::vector<std::vector<double>>& feat
 
 
 double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
-	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IHypothesis& hypothesis) {
+	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) {
 	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
 		std::plus<>(),
 		[&](const std::vector<double>& featuresVector, double measurement) {return hypothesis.evaluate(featuresVector, parameters) - measurement; });
@@ -94,7 +94,7 @@ double GradientDescent::computeCost(const std::vector<std::vector<double>>& feat
 }
 
 double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
-	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IHypothesis& hypothesis, size_t index) {
+	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis, size_t index) {
 	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
 		std::plus<>(),
 		[&](const std::vector<double>& featuresVector, double measurement) {

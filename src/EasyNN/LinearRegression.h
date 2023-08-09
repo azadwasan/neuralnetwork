@@ -1,10 +1,10 @@
-#ifndef LinearHypothesis_H
-#define LinearHypothesis_H
+#ifndef LINEARREGRESSION_H
+#define LINEARREGRESSION_H
 
-#include "IHypothesis.h"
+#include "IRegression.h"
 
 namespace EasyNN {
-	class LinearHypothesis : public IHypothesis {
+	class LinearRegression : public IRegression {
 	public:
 		double evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const override;
 	};

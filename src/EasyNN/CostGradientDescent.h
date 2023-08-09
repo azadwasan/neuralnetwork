@@ -6,7 +6,7 @@
 //	class CostGradientDescent :    public ICostFunction
 //	{
 //	public:
-//		double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<double> measurementsVector, std::span<double> parameters, const IHypothesis& hypothesis) override;
+//		double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<double> measurementsVector, std::span<double> parameters, const IRegression& hypothesis) override;
 //	};
 //}
 //

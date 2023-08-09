@@ -26,7 +26,7 @@
   <ItemGroup>
     <Compile Include="DataGenerator.py" />
     <Compile Include="GradientDescent.py" />
-    <Compile Include="LinearHypothesis.py" />
+    <Compile Include="LinearRegression.py" />
     <Compile Include="PlotHypothesis.py" />
     <Compile Include="Extras\PythonGeneralPlayground.py" />
     <Compile Include="Extras\RegressionPlayground.py" />

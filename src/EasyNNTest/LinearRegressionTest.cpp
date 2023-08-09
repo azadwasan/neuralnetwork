@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "LinearHypothesis.h"
+#include "LinearRegression.h"
 #include <span>
 #include <vector>
 
@@ -8,14 +8,14 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace EasyNNTest
 {
-	TEST_CLASS(LinearHypothesisTest){
+	TEST_CLASS(LinearRegressionTest){
 	public:
-		// This is a very basic test that will verify that the LinearHypythesis computed estimate is same as our pre-computed measured value.
-		// NOTE: Please run LinearHypothesisFunctionDepictions.py in EasyNNPythonDepictions project to see how does this function actually look like.
+		// This is a very basic test that will verify that the LinearRegression computed estimate is same as our pre-computed measured value.
+		// NOTE: Please run LinearRegression.py in EasyNNPyScripts project to see how does this function actually look like.
 		// and how the points are scattered around the plane that is represented by the model parameters.
-		TEST_METHOD(TestLinearHypothesisEvaluation)
+		TEST_METHOD(TestLinearRegressionEvaluation)
 		{
-			EasyNN::LinearHypothesis hypothesis{};
+			EasyNN::LinearRegression regression{};
 			// This example has been taken from the following link
 			// https://www.statology.org/multiple-linear-regression-by-hand/
 			// If solved using this, https://www.statskingdom.com/410multi_linear_regression.html, the model parameters are different.
@@ -42,10 +42,10 @@ namespace EasyNNTest
 			// Estimated values for each feature vector sample. E.g., for sample {60, 22}, the esimate is -6.867 + 3.148 * 60 - 1.656 * 22 = 145.581
 			std::vector<double> estimates = { 145.581, 146.909, 164.305, 180.373, 191.801, 196.605, 206.049, 220.461};
 			auto estimate = begin(estimates);
-			// Finally, calculate the estimate using the linear hypothesis and compare is to the measured value (y). 
+			// Finally, calculate the estimate using the linear regression and compare is to the measured value (y). 
 			// There should be no difference (slight difference is due to computation error).
 			for (const auto& val : x) {
-				Assert::AreEqual(*estimate++, hypothesis.evaluate(val, parameters), 1.0E-5);
+				Assert::AreEqual(*estimate++, regression.evaluate(val, parameters), 1.0E-5);
 			}
 		}
 	};

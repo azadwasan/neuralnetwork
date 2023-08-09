@@ -14,10 +14,10 @@ namespace EasyNN {
          * @param featuresMatrix A matrix of x, i.e., rows of vector of features x1, x2, x3...
          * @param measurementsSet Normally referred to as a vector of y
          * @param parameters A vector of the model parameters that have been estimated to fit the data x and y. 
-         * @param hypothesis A reference to an IHypothesis object representing the hypothesis to evaluate.
+         * @param hypothesis A reference to an IRegression object representing the hypothesis to evaluate.
          * @return A double representing the result of the evaluation.
          */
-        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IHypothesis& hypothesis) override;
+        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IRegression& hypothesis) override;
     };
 }
 

@@ -134,7 +134,7 @@
     <ClCompile Include="CostFunctionMSE.cpp" />
     <ClCompile Include="CostGradientDescent.cpp" />
     <ClCompile Include="GradientDescent.cpp" />
-    <ClCompile Include="LinearHypothesis.cpp" />
+    <ClCompile Include="LinearRegression.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Commons.h" />
@@ -142,8 +142,8 @@
     <ClInclude Include="CostGradientDescent.h" />
     <ClInclude Include="GradientDescent.h" />
     <ClInclude Include="ICostFunction.h" />
-    <ClInclude Include="IHypothesis.h" />
-    <ClInclude Include="LinearHypothesis.h" />
+    <ClInclude Include="IRegression.h" />
+    <ClInclude Include="LinearRegression.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

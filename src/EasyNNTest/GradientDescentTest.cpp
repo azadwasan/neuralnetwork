@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "GradientDescent.h"
-#include "LinearHypothesis.h"
+#include "LinearRegression.h"
 #include "DataChannel.h"
 #include "Algorithms.h"
 #include "Plots.h"
@@ -18,7 +18,7 @@ namespace EasyNNTest
 {
 	TEST_CLASS(GradientDescentTest){
 	public:
-		void runGD(const std::vector<std::vector<double>>& x, const std::vector<double>& y, const EasyNN::IHypothesis& hypothesis, double alpha, double stopThreshold, std::vector<double>& parameters) {
+		void runGD(const std::vector<std::vector<double>>& x, const std::vector<double>& y, const EasyNN::IRegression& hypothesis, double alpha, double stopThreshold, std::vector<double>& parameters) {
 			auto start = std::chrono::high_resolution_clock::now();
 			EasyNN::GradientDescent{}.evaluate(x, y, hypothesis, alpha, stopThreshold, parameters);
 			auto end = std::chrono::high_resolution_clock::now();
@@ -28,7 +28,7 @@ namespace EasyNNTest
 		}
 		TEST_METHOD(TestGradientDescentEvaluation1Feature)
 		{
-			EasyNN::LinearHypothesis hypothesis{};
+			EasyNN::LinearRegression hypothesis{};
 			std::vector<double> parameters{ 0, 0};
 			std::vector<std::vector<double>> x = { {0}, {1}, {2}, {3}, {4} };
 			std::vector<double> y = { 1, 3, 5, 7, 9};
@@ -42,7 +42,7 @@ namespace EasyNNTest
 				}));
 		}
         TEST_METHOD(TestGradientDescentEvaluation2FeaturesLiveData) {
-            EasyNN::LinearHypothesis hypothesis{};
+            EasyNN::LinearRegression hypothesis{};
             std::vector<double> parameters { 0.0, 0.0, 0.0 };
             std::vector<std::vector<double>> X;
             std::vector<double> y;
@@ -58,7 +58,7 @@ namespace EasyNNTest
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features)
 		{
-			EasyNN::LinearHypothesis hypothesis{};
+			EasyNN::LinearRegression hypothesis{};
 			std::vector<double> parameters{ 0, 0, 0 };
 			std::vector<std::vector<double>> x = {
 													{60, 22},
@@ -83,7 +83,7 @@ namespace EasyNNTest
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features2)
 		{
-			EasyNN::LinearHypothesis hypothesis{};
+			EasyNN::LinearRegression hypothesis{};
 			std::vector<double> parameters{ 0, 0, 0 };
             // The following data has been generated using make_regression python function.
             // The implementation can be found in RegressionPlayground.py.
@@ -227,7 +227,7 @@ namespace EasyNNTest
 
 		TEST_METHOD(TestGradientDescentEvaluation10Features2)
 		{
-			EasyNN::LinearHypothesis hypothesis{};
+			EasyNN::LinearRegression hypothesis{};
 			std::vector<double> parameters(11);
 			std::vector<std::vector<double>> x = { {-1.41638935e+00,  9.13473315e-01, -2.73258644e-01,
                                                     -5.13639628e-01,  4.87145515e-01, -1.88989647e+00,

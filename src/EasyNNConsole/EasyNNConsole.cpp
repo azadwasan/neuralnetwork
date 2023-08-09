@@ -2,14 +2,14 @@
 //
 
 #include <iostream>
-#include "LinearHypothesis.h"
+#include "LinearRegression.h"
 #include "PythonPlugin.h"
 #include "DataChannel.h"
 #include "Algorithms.h"
 
 int main()
 {
-    EasyNN::LinearHypothesis LH{};
+    EasyNN::LinearRegression LH{};
     std::vector<double> values{ 1, 2, 3, 4, 5 };
     //LH.evaluate(values);
     std::cout << "Hello World!\n";

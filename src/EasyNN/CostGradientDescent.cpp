@@ -3,7 +3,7 @@
 //#include <cmath>
 //using namespace EasyNN;
 //
-//double CostGradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<double> measurementsVector, std::span<double> parameters, const IHypothesis& hypothesis) {
+//double CostGradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<double> measurementsVector, std::span<double> parameters, const IRegression& hypothesis) {
 //	if (featuresMatrix.size() == 0 || measurementsVector.size() == 0) {
 //		throw("Sample size must be greater than zero");
 //	}
