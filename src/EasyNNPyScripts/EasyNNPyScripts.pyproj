@@ -5,7 +5,7 @@
     <ProjectGuid>3daf63ad-b733-45fc-ab6d-5d88d410f606</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>GradientDescent.py</StartupFile>
+    <StartupFile>Extras\TestScript.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,14 +25,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataGenerator.py" />
+    <Compile Include="LogisticRegression.py" />
     <Compile Include="GradientDescent.py" />
     <Compile Include="LinearRegression.py" />
-    <Compile Include="PlotHypothesis.py" />
+    <Compile Include="PlotData.py" />
     <Compile Include="Extras\PythonGeneralPlayground.py" />
     <Compile Include="Extras\RegressionPlayground.py" />
     <Compile Include="Extras\TestScript.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Extras\diabetes.csv" />
     <Content Include="Extras\Readme.txt" />
     <Content Include="README.md" />
     <Content Include="Requirements.txt" />

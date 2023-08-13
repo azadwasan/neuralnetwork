@@ -5,7 +5,7 @@ from matplotlib.patches import Patch
 
 
 # Now import modules from the directory
-from PlotHypothesis import PlotHypothesis
+from PlotData import PlotHypothesis
 from GradientDescent import OptimizeGD
 import time
 

@@ -62,8 +62,6 @@ PyObject* PyInterpreter::executeMethod(const std::string& scriptName, const std:
 
     if (pModule == nullptr) {
         PyErr_Print();
-
-
         throw std::runtime_error("Failed to load the Python script module.");
     }
 
@@ -115,6 +113,8 @@ void PyInterpreter::extractMatrix(PyObject* pMatrixObj, std::vector<std::vector<
     }
 }
 
+// We use the following method both for extracting the vectors and also each line
+// of the matrix (which are actually vectors).
 void PyInterpreter::extractVector(PyObject* pResult, std::vector<double>& vector) {
     PyObject* pVectorObj = pResult;
     if (PyTuple_Check(pResult)) {
@@ -124,12 +124,19 @@ void PyInterpreter::extractVector(PyObject* pResult, std::vector<double>& vector
 
     for (Py_ssize_t i = 0; i < numElements; ++i) {
         PyObject* pItem = PyList_GetItem(pVectorObj, i);
-        if (pItem != nullptr && PyFloat_Check(pItem)) {
-            double value = PyFloat_AsDouble(pItem);
-            vector.push_back(value);
+        if (pItem != nullptr) {
+            if (PyFloat_Check(pItem)) {
+                vector.push_back(PyFloat_AsDouble(pItem));
+            }
+            else if (PyLong_Check(pItem)) {
+                vector.push_back(PyLong_AsDouble(pItem));
+            }
+            else {
+                throw std::runtime_error("Type of the python list element unrecognized.");
+            }
         }
         else {
-            throw std::runtime_error("Failed to retrieve vector element.");
+            throw std::runtime_error("Python list item null. Failed to convert the list to vector.");
         }
     }
 }

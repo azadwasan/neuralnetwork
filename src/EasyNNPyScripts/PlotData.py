@@ -29,3 +29,28 @@ def CompareHypothesis(X, y, easyNNTheta, tensorFlowTheta):
     ax.legend(handles=[proxy1, proxy2])
 
     plt.show()
+
+def PlotClassificationData(X, y, theta):
+
+    # Create a scatter plot of the data points
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(X[y == 0][:, 0], X[y == 0][:, 1], color='blue', label='Class 0')
+    plt.scatter(X[y == 1][:, 0], X[y == 1][:, 1], color='orange', label='Class 1')
+
+    bias = theta[0]
+    coefficients = theta[1:]
+
+    # Plot the decision boundary
+    x_boundary = np.linspace(np.min(X[:, 0]), np.max(X[:, 0]), 100)
+    y_boundary = -(coefficients[0, 0] * x_boundary + bias) / coefficients[0, 1]
+    plt.plot(x_boundary, y_boundary, color='green', linestyle='--', label='Decision Boundary')
+
+    # Add labels and legend
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.title('Logistic Regression Decision Boundary')
+    plt.legend()
+
+    # Show the plot
+    plt.show()

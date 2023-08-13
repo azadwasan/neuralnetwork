@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import DataGenerator
+import LogisticRegression
+import PlotData
 
 def MyTestMethod(data):
     print("Received data:", data)
@@ -47,3 +50,10 @@ def PlotTestGradientDescentEvaluation2Features(fig):
     ax.set_xlabel('X1 - Feature 1')
     ax.set_ylabel('X2 - Feature 2')
     ax.set_zlabel('Y - Measurement')
+
+def fitLogisticRegerssion():
+    X, y = DataGenerator.getClassificationData(100, 2, 0, 1, 42)
+    params = LogisticRegression.FitLogisticRegression(X, y)
+    PlotData.PlotClassificationData(X, y, params)
+
+fitLogisticRegerssion()
