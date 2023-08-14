@@ -20,7 +20,7 @@ int main()
         //EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 5, 2, 0.1);
         //auto expectedParameters = EasyNNPyPlugin::Algorithms::RunGD(X, y, 3);
         EasyNNPyPlugin::DataChannel::getClassificationData(X, y);
-        auto logisticRegressionFit = EasyNNPyPlugin::Algorithms::FitLogisticRegression(X, y);
+        auto logisticRegressionFit = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
         EasyNNPyPlugin::Plots::PlotClassificationData(X, y, logisticRegressionFit);
     }
     catch (std::exception e) {

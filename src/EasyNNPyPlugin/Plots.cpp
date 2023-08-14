@@ -21,4 +21,8 @@ void Plots::PlotClassificationData(const std::vector<std::vector<double>>& X, co
 	auto& interpreter = PyInterpreter::getInstance();
 	easyNN_unique_ptr args{ interpreter.convertArgumentsToPyTuple(X, y, theta) };
 	easyNN_unique_ptr pResult{ interpreter.executeMethod(scriptName, methodName, args.get()) };
+	if (pResult == nullptr) {
+		PyErr_Print();
+		throw std::runtime_error("Python method call failed.");
+	}
 }

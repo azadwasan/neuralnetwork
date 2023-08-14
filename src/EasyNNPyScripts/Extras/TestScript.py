@@ -52,8 +52,10 @@ def PlotTestGradientDescentEvaluation2Features(fig):
     ax.set_zlabel('Y - Measurement')
 
 def fitLogisticRegerssion():
-    X, y = DataGenerator.getClassificationData(100, 2, 0, 1, 42)
+    X, y = DataGenerator.getClassificationData(10, 2, 0, 1, 20)
     params = LogisticRegression.FitLogisticRegression(X, y)
+    paramsTF = LogisticRegression.FitLogisticRegressionTF(X, y)
     PlotData.PlotClassificationData(X, y, params)
+    #PlotData.PlotClassificationData(X, y, paramsTF)
 
 fitLogisticRegerssion()

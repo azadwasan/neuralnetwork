@@ -30,12 +30,8 @@ def CompareHypothesis(X, y, easyNNTheta, tensorFlowTheta):
 
     plt.show()
 
-def PlotClassificationData(X, y, theta):
-
+def PlotScatterData(X, y):
     X = np.array(X)  # Convert X to a NumPy array for convenience
-
-    # Create a scatter plot of the data points
-    plt.figure(figsize=(8, 6))
 
     # Extract the data points for each class using list comprehensions
     class_0_points = [X[i] for i in range(len(X)) if y[i] == 0]
@@ -47,19 +43,34 @@ def PlotClassificationData(X, y, theta):
 
     plt.scatter(class_0_points[:, 0], class_0_points[:, 1], color='blue', label='Class 0')
     plt.scatter(class_1_points[:, 0], class_1_points[:, 1], color='orange', label='Class 1')
+    # Add labels and legend
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+
+def PlotClassificationLine(X, y, theta, lineLabel, lineColor, lineStyle = '--', min = 0, max = 0):
+    X = np.array(X)  # Convert X to a NumPy array for convenience
 
     bias = theta[0]
     coefficients = theta[1:]
 
     # Plot the decision boundary
-    x_boundary = np.linspace(np.min(X[:, 0]), np.max(X[:, 0]), 100)
+    x_boundary = np.linspace(np.min(X[:, 0])-min, np.max(X[:, 0])+max, 100)
     y_boundary = -(coefficients[0] * x_boundary + bias) / coefficients[1]
-    plt.plot(x_boundary, y_boundary, color='green', linestyle='--', label='Decision Boundary')
+    plt.plot(x_boundary, y_boundary, color=lineColor, linestyle=lineStyle, label=lineLabel)
 
     # Add labels and legend
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
+
+def PlotClassificationData(X, y, theta, theta2 = None):
+    ## Create a scatter plot of the data points
+    plt.figure(figsize=(8, 6))
+
+    PlotScatterData(X, y)
+    PlotClassificationLine(X, y, theta, "Model 1", 'green')
+    if theta2 is not None:
+        PlotClassificationLine(X, y, theta2, "Model 2 (Reference TensorFlow)", 'blue', 'dotted')
+
     plt.title('Logistic Regression Decision Boundary')
+
     plt.legend()
 
     # Show the plot

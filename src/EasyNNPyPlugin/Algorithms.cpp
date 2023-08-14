@@ -37,9 +37,26 @@ std::vector<double> Algorithms::FitLogisticRegression(const std::vector<std::vec
 	easyNN_unique_ptr pResult{ interpreter.executeMethod(scriptName, methodName, args.get()) };
 	std::vector<double> result;
 
-	if (pResult == nullptr) {
-		throw std::runtime_error("Null result was returned!");
+	if (pResult != nullptr && PyList_Check(pResult.get())) {
+		interpreter.extractVector(pResult.get(), result);
 	}
+	else {
+		PyErr_Print(); // Print any Python exceptions
+		throw std::runtime_error("Python method call failed.");
+	}
+	return result;
+
+}
+
+std::vector<double> Algorithms::FitLogisticRegressionTF(const std::vector<std::vector<double>>& X, const std::vector<double>& y) {
+	auto scriptName{ "LogisticRegression" };
+	auto methodName{ "FitLogisticRegressionTF" };
+	auto& interpreter = PyInterpreter::getInstance();
+	// Convert the C++ method arguments first to Python tuple so that we can pass them while calling the python method.
+	easyNN_unique_ptr args{ interpreter.convertArgumentsToPyTuple(X, y) };
+
+	easyNN_unique_ptr pResult{ interpreter.executeMethod(scriptName, methodName, args.get()) };
+	std::vector<double> result;
 
 	if (pResult != nullptr && PyList_Check(pResult.get())) {
 		interpreter.extractVector(pResult.get(), result);

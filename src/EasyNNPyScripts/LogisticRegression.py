@@ -1,5 +1,6 @@
 from sklearn.linear_model import LogisticRegression
 import numpy as np
+import tensorflow as tf
 
 def FitLogisticRegression(X, y):
     # Create an instance of LogisticRegression
@@ -13,8 +14,38 @@ def FitLogisticRegression(X, y):
 
     # Combine coefficients and bias into a single vector
     learnedParameters = np.concatenate((bias, coefficients[0]))
+
+    print("Learned parameters")
+    print(learnedParameters)
     return learnedParameters.tolist()
 
+def FitLogisticRegressionTF(X, y):
+
+    # Convert data to NumPy arrays
+    X = np.array(X)
+    y = np.array(y)
+
+    # Build a logistic regression model
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(X.shape[1],)),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+    # Compile the model
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+    # Train the model
+    model.fit(X, y, epochs=3000, verbose = 2)
+
+    # Get the learned parameters
+    weights = model.layers[0].get_weights()[0]
+    bias = model.layers[0].get_weights()[1]
+    learnedParameters = np.concatenate((bias, weights.reshape(-1)))
+
+    print("Learned parameters TF")
+    print(learnedParameters)
+
+    return learnedParameters.tolist()
 
 # ====================================================================
 
