@@ -32,18 +32,28 @@ def CompareHypothesis(X, y, easyNNTheta, tensorFlowTheta):
 
 def PlotClassificationData(X, y, theta):
 
-    # Create a scatter plot of the data points
+    X = np.array(X)  # Convert X to a NumPy array for convenience
 
+    # Create a scatter plot of the data points
     plt.figure(figsize=(8, 6))
-    plt.scatter(X[y == 0][:, 0], X[y == 0][:, 1], color='blue', label='Class 0')
-    plt.scatter(X[y == 1][:, 0], X[y == 1][:, 1], color='orange', label='Class 1')
+
+    # Extract the data points for each class using list comprehensions
+    class_0_points = [X[i] for i in range(len(X)) if y[i] == 0]
+    class_1_points = [X[i] for i in range(len(X)) if y[i] == 1]
+
+    # Convert the lists to NumPy arrays for indexing
+    class_0_points = np.array(class_0_points)
+    class_1_points = np.array(class_1_points)
+
+    plt.scatter(class_0_points[:, 0], class_0_points[:, 1], color='blue', label='Class 0')
+    plt.scatter(class_1_points[:, 0], class_1_points[:, 1], color='orange', label='Class 1')
 
     bias = theta[0]
     coefficients = theta[1:]
 
     # Plot the decision boundary
     x_boundary = np.linspace(np.min(X[:, 0]), np.max(X[:, 0]), 100)
-    y_boundary = -(coefficients[0, 0] * x_boundary + bias) / coefficients[0, 1]
+    y_boundary = -(coefficients[0] * x_boundary + bias) / coefficients[1]
     plt.plot(x_boundary, y_boundary, color='green', linestyle='--', label='Decision Boundary')
 
     # Add labels and legend
