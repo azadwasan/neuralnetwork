@@ -18,8 +18,8 @@ def getClassificationData(numSamples, numFeatures, redundantFeatures, clustersPe
         n_features=numFeatures,
         n_informative=informativeFeatures,
         n_redundant=redundantFeatures,
-        n_clusters_per_class=clustersPerClass,
-        random_state=randomState
+        n_clusters_per_class=clustersPerClass
+        #,random_state=randomState
     )
     # Convert to list as X and y are Array type
     return X.tolist(), y.tolist()
