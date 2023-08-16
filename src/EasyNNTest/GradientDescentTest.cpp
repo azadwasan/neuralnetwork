@@ -2,10 +2,12 @@
 #include "CppUnitTest.h"
 #include "GradientDescent.h"
 #include "LinearRegression.h"
+#include "LogisticRegression.h"
 #include "DataChannel.h"
 #include "Algorithms.h"
 #include "Plots.h"
 #include "CostFunctionMSE.h"
+#include "CostFuntionLogistic.h"
 
 #include <span>
 #include <vector>
@@ -18,22 +20,42 @@ namespace EasyNNTest
 {
 	TEST_CLASS(GradientDescentTest){
 	public:
-		void runGD(const std::vector<std::vector<double>>& x, const std::vector<double>& y, const EasyNN::IRegression& hypothesis, double alpha, double stopThreshold, std::vector<double>& parameters) {
+		void runGD(const std::vector<std::vector<double>>& x, const std::vector<double>& y, const EasyNN::ICostFunction& costFunction, double alpha, double stopThreshold, std::vector<double>& parameters) {
 			auto start = std::chrono::high_resolution_clock::now();
-			EasyNN::GradientDescent{}.evaluate(x, y, hypothesis, alpha, stopThreshold, parameters);
+			EasyNN::GradientDescent{}.evaluate(x, y, costFunction, alpha, stopThreshold, parameters);
 			auto end = std::chrono::high_resolution_clock::now();
 			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 			std::string message = "Execution time: " + std::to_string(duration) + " microseconds\n";
 			Logger::WriteMessage(message.c_str());
 		}
+        TEST_METHOD(TestGradientDescentEvaluationLogisticRegression)
+        {
+            EasyNN::CostFuntionLogistic costFunction{ std::make_unique<EasyNN::LogisticRegression>() };
+            std::vector<double> parameters{ 0, 0, 0};
+            std::vector<std::vector<double>> X;
+            std::vector<double> y;
+
+            EasyNNPyPlugin::DataChannel::getClassificationData(X, y);
+
+            runGD(X, y, costFunction, 0.7, 1.0E-9, parameters);
+
+            //std::vector<double> expectedParameters = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
+
+            EasyNNPyPlugin::Plots::PlotClassificationData(X, y, parameters);
+
+            //Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
+            //    [](double a, double b) {
+            //        return std::abs(a - b) < 0.001;
+            //    }));
+        }
 		TEST_METHOD(TestGradientDescentEvaluation1Feature)
 		{
-			EasyNN::LinearRegression hypothesis{};
+            EasyNN::CostFunctionMSE costFunction{ std::make_unique<EasyNN::LinearRegression>() };
 			std::vector<double> parameters{ 0, 0};
 			std::vector<std::vector<double>> x = { {0}, {1}, {2}, {3}, {4} };
 			std::vector<double> y = { 1, 3, 5, 7, 9};
 
-			runGD(x, y, hypothesis, 0.1, 1.0E-9, parameters);
+			runGD(x, y, costFunction, 0.1, 1.0E-9, parameters);
 
 			std::vector<double> expectedParameters{1, 2};
 			Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters), 
@@ -42,24 +64,24 @@ namespace EasyNNTest
 				}));
 		}
         TEST_METHOD(TestGradientDescentEvaluation2FeaturesLiveData) {
-            EasyNN::LinearRegression hypothesis{};
+            EasyNN::CostFunctionMSE costFunction{std::make_unique<EasyNN::LinearRegression>()};
             std::vector<double> parameters { 0.0, 0.0, 0.0 };
             std::vector<std::vector<double>> X;
             std::vector<double> y;
             EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 10, 2, 100);
-            runGD(X, y, hypothesis, 0.07, 1.0E-9, parameters);
+            runGD(X, y, costFunction, 0.07, 1.0E-9, parameters);
             auto expectedParameters = EasyNNPyPlugin::Algorithms::RunGD(X, y, 3);
             EasyNNPyPlugin::Plots::CompareHypothesis(X, y, parameters, expectedParameters);
-            auto MSE = EasyNN::CostFunctionMSE{}.evaluate(X, y, parameters, hypothesis);
-            auto MSEExpected = EasyNN::CostFunctionMSE{}.evaluate(X, y, expectedParameters, hypothesis);
+            auto MSE = EasyNN::CostFunctionMSE{ std::make_unique<EasyNN::LinearRegression>() }.evaluate(X, y, parameters);
+            auto MSEExpected = EasyNN::CostFunctionMSE{ std::make_unique<EasyNN::LinearRegression>() }.evaluate(X, y, expectedParameters);
             Logger::WriteMessage(("MSE = " + std::to_string(MSE) + ", Expected MSE = " + std::to_string(MSEExpected) + ", MSE Percentage difference = " + std::to_string(abs(MSE - MSEExpected) / MSEExpected)).c_str());
             Assert::IsTrue(abs(abs(MSE - MSEExpected) / MSEExpected) < 0.001);
         }
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features)
 		{
-			EasyNN::LinearRegression hypothesis{};
-			std::vector<double> parameters{ 0, 0, 0 };
+            EasyNN::CostFunctionMSE costFunction{std::make_unique<EasyNN::LinearRegression>()};
+            std::vector<double> parameters{ 0, 0, 0 };
 			std::vector<std::vector<double>> x = {
 													{60, 22},
 													{62, 25},
@@ -72,7 +94,7 @@ namespace EasyNNTest
 			};
 			std::vector<double> y = { 140, 155, 159, 179, 192, 200, 212, 215 };
 
-			runGD(x, y, hypothesis, 0.0001, 1.0E-9, parameters);
+			runGD(x, y, costFunction, 0.0001, 1.0E-9, parameters);
 
 			std::vector<double> expectedParameters{ 0.013080267480039371, 3.0559138415398879, -1.6822470943097785 };
 			Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
@@ -83,8 +105,8 @@ namespace EasyNNTest
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features2)
 		{
-			EasyNN::LinearRegression hypothesis{};
-			std::vector<double> parameters{ 0, 0, 0 };
+            EasyNN::CostFunctionMSE costFunction{std::make_unique<EasyNN::LinearRegression>()};
+            std::vector<double> parameters{ 0, 0, 0 };
             // The following data has been generated using make_regression python function.
             // The implementation can be found in RegressionPlayground.py.
             // TODO: Directly call python scripts to generate data and use that data directly
@@ -216,7 +238,7 @@ namespace EasyNNTest
 									  2.88102138E+02, 3.47516757E+01, 9.74709653E+01, 1.16515731E+02,
 									  4.26935857E+01,-8.88602062E+01, 1.40263862E+02, 2.63352491E+01,
 									  5.82156035E+00,-2.61761364E-01, 6.64632902E+01, 8.86441473E+01 };
-			runGD(x, y, hypothesis, 0.01, 1.0E-9, parameters);
+			runGD(x, y, costFunction, 0.01, 1.0E-9, parameters);
 
 			std::vector<double> expectedParameters{ 0.0045479817623415453, 37.863622039676606, 97.943662081800454 };
 			Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
@@ -227,8 +249,8 @@ namespace EasyNNTest
 
 		TEST_METHOD(TestGradientDescentEvaluation10Features2)
 		{
-			EasyNN::LinearRegression hypothesis{};
-			std::vector<double> parameters(11);
+            EasyNN::CostFunctionMSE costFunction{std::make_unique<EasyNN::LinearRegression>()};
+            std::vector<double> parameters(11);
 			std::vector<std::vector<double>> x = { {-1.41638935e+00,  9.13473315e-01, -2.73258644e-01,
                                                     -5.13639628e-01,  4.87145515e-01, -1.88989647e+00,
                                                      6.61850812e-01, -2.37005308e+00, -5.91465837e-01,
@@ -654,7 +676,7 @@ namespace EasyNNTest
                                         2.67343899e+02, -1.68639404e+02, -2.09886449e+02, -1.33043612e+02,
                                         5.15527040e+01,  1.00541303e+02, -2.68157487e+02, -2.84848176e+02,
                                        -1.28483057e+02, -4.76231974e+02, -1.41211452e+02, -1.37460089e+02 };
-			runGD(x, y, hypothesis, 0.1, 1.0E-9, parameters);
+			runGD(x, y, costFunction, 0.1, 1.0E-9, parameters);
 
 			std::vector<double> expectedParameters{ 0.0058944460135096745, 7.0603130476287417, 99.186929256239296, 92.177165549087306,
                                                     79.739154048269683, 24.895501507001693, 88.917411592939814, 18.888654531146802,
