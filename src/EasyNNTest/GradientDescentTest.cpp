@@ -28,26 +28,46 @@ namespace EasyNNTest
 			std::string message = "Execution time: " + std::to_string(duration) + " microseconds\n";
 			Logger::WriteMessage(message.c_str());
 		}
+        /**
+         * @brief Tests the performance of the gradient descent algorithm when applied to a logistic regression model.
+         *
+         * This test method evaluates the performance of the gradient descent algorithm when applied to a
+         * logistic regression model. The test creates an instance of the CostFuntionLogistic class,
+         * representing a cost function for a logistic regression model, and initializes a vector of
+         * parameters. It then retrieves classification data and uses the gradient descent algorithm to
+         * find the optimal values for the parameters of the logistic regression model. The resulting
+         * parameters are plotted and can be compared to expected values.
+         */
         TEST_METHOD(TestGradientDescentEvaluationLogisticRegression)
         {
+            // Create an instance of the CostFuntionLogistic class, representing a cost function for a logistic regression model
             EasyNN::CostFuntionLogistic costFunction{ std::make_unique<EasyNN::LogisticRegression>() };
+
+            // Initialize a vector of parameters with three elements, all set to 0
             std::vector<double> parameters{ 0, 0, 0};
+
+            // Create two empty vectors to store the features and measurements data
             std::vector<std::vector<double>> X;
             std::vector<double> y;
 
+            // Retrieve classification data
             EasyNNPyPlugin::DataChannel::getClassificationData(X, y);
 
+            // Use the gradient descent algorithm to find the optimal values for the parameters of the logistic regression model
             runGD(X, y, costFunction, 0.7, 1.0E-9, parameters);
 
-            //std::vector<double> expectedParameters = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
+            std::vector<double> expectedParameters = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
 
-            EasyNNPyPlugin::Plots::PlotClassificationData(X, y, parameters);
+            // Plot the resulting parameters
+            EasyNNPyPlugin::Plots::PlotClassificationData(X, y, parameters, expectedParameters);
 
+            // Compare the resulting parameters to expected values
             //Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
-            //    [](double a, double b) {
+            //     {
             //        return std::abs(a - b) < 0.001;
             //    }));
         }
+
 		TEST_METHOD(TestGradientDescentEvaluation1Feature)
 		{
             EasyNN::CostFunctionMSE costFunction{ std::make_unique<EasyNN::LinearRegression>() };
