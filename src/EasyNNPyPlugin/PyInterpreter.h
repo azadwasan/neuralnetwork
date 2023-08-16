@@ -6,6 +6,7 @@
 #include <string>
 #include <stdexcept>
 #include <concepts>
+#include <optional> 
 
 #ifdef _DEBUG
 #undef _DEBUG
@@ -210,6 +211,22 @@ namespace EasyNNPyPlugin {
                     PyList_SetItem(pList, i, pInnerList);
                 }
                 return pList;
+            }
+            else if constexpr (std::is_same_v < T, std::optional<std::vector<double>>>) {
+                if (value == std::nullopt) {
+                    return Py_None;
+                }
+                else {
+                    PyObject* pList = PyList_New(value->size());
+                    if (pList == nullptr) {
+                        PyErr_Print();
+                        throw std::runtime_error("Failed to create a Python list from std::vector<std::vector<double>>.");
+                    }
+                    for (size_t i = 0; i < value->size(); ++i) {
+                        PyList_SetItem(pList, i, PyFloat_FromDouble(value.value()[i]));
+                    }
+                    return pList;
+                }
             }
             else {
                 throw std::runtime_error("Unsupported argument type.");
