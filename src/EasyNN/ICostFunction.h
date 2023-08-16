@@ -2,12 +2,24 @@
 #define ICOSTFUNCTION_H
 
 #include <span>
+#include <memory>
+#include <stdexcept>
 #include "IRegression.h"
 
 namespace EasyNN {
 	class ICostFunction {
 	public:
-		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IRegression& hypothesis) const = 0;
+		ICostFunction(std::unique_ptr<IRegression> hypo) : hypothesis{ std::move(hypo) } {
+			if (hypothesis == nullptr) {
+				throw std::runtime_error("Hypothesis is not allowed to be Null!");
+			}
+		}
+		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters) const = 0;
+		const IRegression& getHypothesis() const noexcept{
+			return *hypothesis.get();
+		}
+	protected:
+		std::unique_ptr<IRegression> hypothesis;
 	};
 }
 

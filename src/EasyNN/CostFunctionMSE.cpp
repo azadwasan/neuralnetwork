@@ -8,7 +8,7 @@
 using namespace EasyNN;
 
 
-double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IRegression& hypothesis) const
+double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters) const
 {
 	if (featuresMatrix.size() == 0  || measurementsVector.size() == 0 || parameters.size() == 0) {
 		throw std::invalid_argument("Feature matrix, measurements vectors and parameters vector size must be greater than zero.");
@@ -23,6 +23,6 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
 		// compute a sum of
 		std::plus<>(),
 		//										square of the difference between the hypothesis estimate for a single sample (x1, x2) and the measured value (y)
-		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis.evaluate(featuresVector, parameters) - measurement, 2); });
+		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis->evaluate(featuresVector, parameters) - measurement, 2); });
 	return mse / (2 * measurementsVector.size());
 }

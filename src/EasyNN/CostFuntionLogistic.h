@@ -15,7 +15,9 @@ namespace EasyNN {
      */
     class CostFuntionLogistic : public ICostFunction
     {
-        /**
+    public:
+        CostFuntionLogistic(std::unique_ptr<IRegression> hypothesis) : ICostFunction(std::move(hypothesis)) {}
+     /**
      * @brief Evaluate the cost associated with logistic regression predictions.
      *
      * Given a features matrix, measurements vector, model parameters, and a logistic regression hypothesis,
@@ -25,10 +27,9 @@ namespace EasyNN {
      * @param featuresMatrix A matrix containing the feature vectors of the training examples.
      * @param measurementsVector A span containing the actual measurements (ground truth).
      * @param parameters A span containing the model parameters.
-     * @param hypothesis A reference to a logistic regression hypothesis used for predictions.
      * @return The computed cost associated with the logistic regression predictions.
      */
-        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters, const IRegression& hypothesis) const override;
+        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters) const override;
 
     };
 }

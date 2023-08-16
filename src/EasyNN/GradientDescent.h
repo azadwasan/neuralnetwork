@@ -13,7 +13,7 @@ class GradientDescent
 public:
 	void evaluate(const std::vector<std::vector<double>>& featuresMatrix,
 		const std::vector<double>& measurementsVector,
-		const IRegression& hypothesis,
+		const ICostFunction& costFunction,
 		double alpha, double stopThreshold,
 		std::vector<double>& parameters);
 private:
