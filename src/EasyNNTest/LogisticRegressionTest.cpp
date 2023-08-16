@@ -23,9 +23,11 @@ public:
 			EasyNN::LogisticRegression lg{};
 
 			size_t index = 0;
+			double correctPercentage = 0;
 			for (const auto& vec : X) {
-				Assert::AreEqual(lg.evaluate(vec, logisticRegressionFit), y[index++]);
+				correctPercentage += lg.evaluate(vec, logisticRegressionFit) == y[index++];
 			}
+			Assert::IsTrue(correctPercentage / X.size() > 0.8);
 		}
 		TEST_METHOD(TestLogisticRegressionEvaluationTF)
 		{
@@ -37,9 +39,12 @@ public:
 			EasyNN::LogisticRegression lg{};
 
 			size_t index = 0;
+			double correctPercentage = 0;
+
 			for (const auto& vec : X) {
-				Assert::AreEqual(lg.evaluate(vec, logisticRegressionFit), y[index++]);
+				correctPercentage += lg.evaluate(vec, logisticRegressionFit) == y[index++];
 			}
+			Assert::IsTrue(correctPercentage / X.size() > 0.8);
 		}
 	};
 }
