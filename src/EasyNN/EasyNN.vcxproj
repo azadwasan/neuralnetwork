@@ -133,7 +133,6 @@
     <ClCompile Include="Commons.cpp" />
     <ClCompile Include="CostFunctionMSE.cpp" />
     <ClCompile Include="CostFuntionLogistic.cpp" />
-    <ClCompile Include="CostGradientDescent.cpp" />
     <ClCompile Include="GradientDescent.cpp" />
     <ClCompile Include="LinearRegression.cpp" />
     <ClCompile Include="LogisticRegression.cpp" />
@@ -142,7 +141,6 @@
     <ClInclude Include="Commons.h" />
     <ClInclude Include="CostFunctionMSE.h" />
     <ClInclude Include="CostFuntionLogistic.h" />
-    <ClInclude Include="CostGradientDescent.h" />
     <ClInclude Include="GradientDescent.h" />
     <ClInclude Include="ICostFunction.h" />
     <ClInclude Include="IRegression.h" />

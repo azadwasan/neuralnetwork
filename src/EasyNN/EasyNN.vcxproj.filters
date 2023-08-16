@@ -27,9 +27,6 @@
     <ClCompile Include="GradientDescent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CostGradientDescent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Commons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,9 +51,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GradientDescent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CostGradientDescent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Commons.h">

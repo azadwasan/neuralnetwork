@@ -29,11 +29,6 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 	std::vector<double> costHistory;
 	std::vector<std::vector<double>> parameterHistory;
 	for (; i < MAX_ITERATIONS; i++) {
-		//parametersNew[0] = parametersOld[0] - alpha * 1 / measurementsVector.size() * computeCost(featuresMatrix, measurementsVector, parametersOld, hypothesis);
-		//for (size_t index = 1; index < parametersOld.size(); index++) {
-		//	parametersNew[index] = parametersOld[index] - alpha * 1 / measurementsVector.size() * computeCost(featuresMatrix, measurementsVector, parametersOld, hypothesis, index);
-		//}
-
 		auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
 		auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
 
@@ -68,35 +63,6 @@ double GradientDescent::computeCost(const std::vector<std::vector<double>>& feat
 		[&](const auto& featuresVector, auto measurement) {
 			return costDerivative(featuresVector, parameters, measurement, index);
 		}
-	);
-	return differenceSum;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
-	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) {
-	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
-		std::plus<>(),
-		[&](const std::vector<double>& featuresVector, double measurement) {return hypothesis.evaluate(featuresVector, parameters) - measurement; });
-	return differenceSum;
-}
-
-double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
-	const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis, size_t index) {
-	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
-		std::plus<>(),
-		[&](const std::vector<double>& featuresVector, double measurement) {
-			return (hypothesis.evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; }
 	);
 	return differenceSum;
 }
