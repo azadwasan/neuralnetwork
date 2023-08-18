@@ -1,10 +1,13 @@
 <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- https://stackoverflow.com/questions/26275645/how-to-support-latex-in-github-pages -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       inlineMath: [['$','$']]
-    }
+    },
+    "HTML-CSS": { scale: 150 }
   });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script> 
