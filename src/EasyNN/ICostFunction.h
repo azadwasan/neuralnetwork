@@ -9,7 +9,7 @@
 namespace EasyNN {
 	class ICostFunction {
 	public:
-		ICostFunction(std::unique_ptr<IRegression> hypo) : hypothesis{ std::move(hypo) } {
+		ICostFunction(std::unique_ptr<IRegression> hypo, double lmda = 0.0) : hypothesis{ std::move(hypo) }, lambda{ lmda } {
 			if (hypothesis == nullptr) {
 				throw std::runtime_error("Hypothesis is not allowed to be Null!");
 			}
@@ -18,8 +18,10 @@ namespace EasyNN {
 		const IRegression& getHypothesis() const noexcept{
 			return *hypothesis.get();
 		}
+		double getLambda() const noexcept { return lambda; }
 	protected:
 		std::unique_ptr<IRegression> hypothesis;
+		double lambda;
 	};
 }
 

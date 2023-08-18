@@ -3,6 +3,7 @@
 
 #include <numeric>
 #include <stdexcept>
+#include <numeric>
 
 using namespace EasyNN;
 
@@ -16,12 +17,17 @@ double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& fea
 
 	auto cost = [&parameters, this](const std::vector<double>& x, double y) -> double {
 		auto hTheta = hypothesis->evaluate(x, parameters);
-		return y * log(hTheta) + (1 - y) * log(1 - hTheta);
+		auto cost = y * log(hTheta) + (1 - y) * log(1 - hTheta);
+		return cost;
 	};
 
 	double costSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
 		std::plus<>(),
 		cost);
+
 	auto m = measurementsVector.size();
-	return -1.0 / m * costSum;
+
+	double regFactor = lambda / (2 * m) * std::accumulate(parameters.begin() + 1, parameters.end(), 0, [](auto acc, auto x){ return acc + x * x; });
+
+	return -1.0 / m * costSum + regFactor;
 }

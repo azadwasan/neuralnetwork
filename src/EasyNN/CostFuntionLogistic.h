@@ -12,11 +12,14 @@ namespace EasyNN {
      * methods to evaluate the cost associated with the predictions made by a logistic regression model.
      * This cost function is used to optimize the model parameters based on the discrepancies between
      * predicted probabilities and actual measurements.
+     * 
+     * @param hypothesis A reference to an IRegression object representing the hypothesis function of the regression model.
+     * @param lambda Regulartion rate.
      */
     class CostFuntionLogistic : public ICostFunction
     {
     public:
-        CostFuntionLogistic(std::unique_ptr<IRegression> hypothesis) : ICostFunction(std::move(hypothesis)) {}
+        CostFuntionLogistic(std::unique_ptr<IRegression> hypothesis, double lambda = 0.0) : ICostFunction(std::move(hypothesis), lambda) {}
      /**
      * @brief Evaluate the cost associated with logistic regression predictions.
      *

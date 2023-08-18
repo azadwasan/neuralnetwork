@@ -24,5 +24,9 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
 		std::plus<>(),
 		//										square of the difference between the hypothesis estimate for a single sample (x1, x2) and the measured value (y)
 		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis->evaluate(featuresVector, parameters) - measurement, 2); });
-	return mse / (2 * measurementsVector.size());
+	
+	auto m = measurementsVector.size();
+	double regFactor = lambda / (2 * m) * std::accumulate(parameters.begin() + 1, parameters.end(), 0, [](auto acc, auto x) { return acc + x * x; });
+
+	return mse / (2 * m) + regFactor;
 }

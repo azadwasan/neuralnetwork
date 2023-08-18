@@ -5,7 +5,11 @@ namespace EasyNN {
     class CostFunctionMSE : public ICostFunction
     {
     public:
-        CostFunctionMSE(std::unique_ptr<IRegression> hypothesis) : ICostFunction(std::move(hypothesis)) {}
+        /**
+        * @param hypothesis A reference to an IRegression object representing the hypothesis function of the regression model.
+        * @param lambda Regulartion rate.
+        */
+        CostFunctionMSE(std::unique_ptr<IRegression> hypothesis, double lambda = 0.0) : ICostFunction(std::move(hypothesis), lambda) {}
         /**
          * @brief Evaluates the given hypothesis using the provided features, 
          * measurements, and parameters. This method internally evaluates the estimated

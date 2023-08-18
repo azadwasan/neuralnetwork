@@ -35,9 +35,9 @@ public:
 	 */
 	void evaluate(const std::vector<std::vector<double>>& featuresMatrix,
 		const std::vector<double>& measurementsVector,
+		std::vector<double>& parameters,
 		const ICostFunction& costFunction,
-		double alpha, double stopThreshold,
-		std::vector<double>& parameters);
+		double alpha, double stopThreshold);
 private:
 	/**
 	 * @brief Computes the cost of a regression model given its current parameters.
@@ -52,8 +52,7 @@ private:
 	 * @param hypothesis A reference to an IRegression object representing the hypothesis function of the regression model.
 	 * @param costDerivative A user-defined function that specifies how to compute
 	 *                       the derivative of the cost function with respect to each parameter.
-	 * @param index The index of the parameter with respect to which to compute
-	 *              the derivative of the cost function. Defaults to 0.
+	 * @param index The index of the parameter with respect to which to compute the derivative of the cost function. Defaults to 0.
 	 *
 	 * @return The computed cost of the regression model given its current parameters.
 	 */
