@@ -28,12 +28,3 @@ Setting up EasyNN development environment is very simple and straight forward.
    ```
 # Using EasyNN*
 Once the development environment has been setup, the natural next step is to try to build the project. EasyNN project contains the code for the core algorithms related to neural network. However, as it is written as a library, hence it needs to be linked to either an executable or a test. A skeleton console app has been provided witht he solution that is already linked to the EasyNN core library and can be used to play with EasyNN library. However, the best starting points is to look at EasyNNtest project and go through the test code and  try to run the tests through test explorer. The test code is generally very well documented and demonstrates step by step how to use various EasyNN core library functionalities.
-
-**The Cauchy-Schwarz Inequality**
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
-
- {% raw %}
-  $$a^2 + b^2 = c^2$$ --> note that all equations between these tags will not need escaping! 
- {% endraw %}
-
- This sentence uses `$` delimiters to show math inline:  $\sqrt{3x-1}+(1+x)^2$.
