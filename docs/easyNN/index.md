@@ -1,3 +1,5 @@
+# Implementing Neural Networks in C++
+
 Andrew Ng has made Neural networks an extremely approachable subject for masses through the intuitive explanations of complex proecesses and mathematical equations needed to understand and use neural networks using his course here https://www.coursera.org/learn/machine-learning-course/. This has inspired me to develop EasyNN, an implementation of Neural networks from scratch in C++, to demonstrate it is only only very easy to understand and use neural networks, as shown by Andrew Ng, but it is also very easy to implement it from scratch.
 
 EasyNN is based on the premise that it is really easy to implement neural networks from scratch, hence we would be focusing on the details of the implementation and make certain assumptions that include
