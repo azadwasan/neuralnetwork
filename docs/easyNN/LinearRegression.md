@@ -80,4 +80,4 @@ TEST_METHOD(TestLinearRegressionEvaluation)
 }
 ```
 Now that we have implemented linear regression, we can now implement the [cost function for linear regression](./CostFunctionLinearRegression.md).
-The implementation for linear regerssion in EasyNN can be found in the [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/LinearRegression.h) and the [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/LinearRegression.cpp) files.
+The implementation for linear regerssion in EasyNN can be found in the [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LinearRegression.h) and the [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LinearRegression.cpp) files.
