@@ -2,11 +2,11 @@
 
 For linear regression, parameters and the hypothesis are defined as follows:
 
-Parameters: $\theta = \theta_0, \theta_1, ... , \theta_n $
+## Parameters: $\theta = \theta_0, \theta_1, ... , \theta_n $
 
 It is an $n+1$ dimensional vector.
 
-Hypothesis: $h_{\theta}(x) = \theta^Tx = \theta_0 x_0 + \theta_1 x_1 + ... + \theta_n x_n$
+## Hypothesis: $h_{\theta}(x) = \theta^Tx = \theta_0 x_0 + \theta_1 x_1 + ... + \theta_n x_n$
 
 Here are key observations:
 
@@ -17,7 +17,18 @@ Here are key observations:
 
 Based on the above discussion, the implementation of linear hypothesis is extremely trivial. Linear regerssion is sum of the products of the corresponding feature value and the parameter value. This is how the implementation would look like:
 
-```C++
+```cpp
+// Linear regression implementation using raw loops
+double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
+	auto sum = 0;
+    for (size_t i = 0; i < featureVector.size(); ++i) {
+        sum += featureVector[i] * parameters[i + 1];
+    }
+	return sum;
+}
+```
+The implementation consits of a simple loop that sums the product of the feature values and the parameter. However, because $x_0 = 1$ we don't have to have both features vector and parameters vector be of the same length. Hence, the updated code would look like the following 
+```cpp
 // Linear regression implementation using raw loops
 double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
 	auto sum = parameters[0];
@@ -27,11 +38,11 @@ double LinearRegressionEvaluate(const std::vector<double>& featureVector, const 
 	return sum;
 }
 ```
-The implementation consits of a simple loop that sums the product of the feature values and the parameter. The only important point to note here is that feature vector is one length shorter than the parameter vector, because $x_0 = 1$, hence we don't need to waste memory to hold it. Moreover, we have to be careful in the loop to add one to the parameters vector to fetch the matching parameter value.
+Here, that feature vector is one length shorter than the parameter vector and we start with sum equating to parameters[0], i.e., $\theta_0$. However, we have to be careful in the loop to add one to the parameters vector to fetch the matching parameter value.
 
 This implementation can easily be simplified further by using standard library method std::inner_product() as follows
 
-```C++
+```cpp
 // Linear regression implementation using std::inner_product
 double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
 	auto sum = parameters[0];
@@ -41,13 +52,13 @@ double LinearRegressionEvaluate(const std::vector<double>& featureVector, const 
 ```
 
 This is how a typical test would look like to evaluate the implementation
-```C++
+```cpp
 // Linear regression implementation using std::inner_product
-
 TEST_METHOD(TestLinearRegressionEvaluation)
 {
     // Parameter vector
     std::vector<double> parameters{ -6.867, 3.148, -1.656};
+    // Feature vector
     std::vector<std::vector<double>> x = { 
                                             {60, 22},
                                             {62, 25},
