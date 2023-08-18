@@ -7,6 +7,8 @@ If you want to learn how to implement neural networks using C++ in EasyNN, you c
 
 * [Linear Regression](./easyNN/LinearRegression.md)
 * [Classification using Logistic Regression](./easyNN/LogisticRegression.md)
+* [Linear Regression Cost Function](./easyNN/CostFunctionLinearRegression.md)
+* [Logistic Regression Cost Function](./easyNN/CostFunctionLogisticRegression.md)
 * [Gradient Descent](./easyNN/GradientDescent.md)
 
 # The Genesis of EasyNN

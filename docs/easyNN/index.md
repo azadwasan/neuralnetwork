@@ -9,6 +9,10 @@ We will not be discussing the neural networks concepts, as they have already bee
 
 ### [Linear Regression](./LinearRegression.md)
 
+### [Linear Regression Cost Function](./CostFunctionLinearRegression.md.md)
+
 ### [Classification using Logistic Regression](./LogisticRegression.md)
+
+### [Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
 
 ### [Gradient Descent](./GradientDescent.md)

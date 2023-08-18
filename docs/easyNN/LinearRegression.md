@@ -2,11 +2,11 @@
 
 For linear regression, parameters and the hypothesis are defined as follows:
 
-## Parameters: $\theta = \theta_0, \theta_1, ... , \theta_n $
+### Parameters: $\theta = \theta_0, \theta_1, ... , \theta_n $
 
 It is an $n+1$ dimensional vector.
 
-## Hypothesis: $h_{\theta}(x) = \theta^Tx = \theta_0 x_0 + \theta_1 x_1 + ... + \theta_n x_n$
+### Hypothesis: $h_{\theta}(x) = \theta^Tx = \theta_0 x_0 + \theta_1 x_1 + ... + \theta_n x_n$
 
 Here are key observations:
 
@@ -20,14 +20,14 @@ Based on the above discussion, the implementation of linear hypothesis is extrem
 ```cpp
 // Linear regression implementation using raw loops
 double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
-	auto sum = 0;
+    auto sum = 0;
     for (size_t i = 0; i < featureVector.size(); ++i) {
         sum += featureVector[i] * parameters[i + 1];
     }
 	return sum;
 }
 ```
-The implementation consits of a simple loop that sums the product of the feature values and the parameter. However, because $x_0 = 1$ we don't have to have both features vector and parameters vector be of the same length. Hence, the updated code would look like the following 
+The implementation consits of a simple loop that sums the product of the feature values and the parameter. However, because $x_0 = 1$, we don't have to have both features vector and parameters vector be of the same length. Hence, the updated code would look like the following 
 ```cpp
 // Linear regression implementation using raw loops
 double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
@@ -79,3 +79,5 @@ TEST_METHOD(TestLinearRegressionEvaluation)
     }
 }
 ```
+Now that we have implemented linear regression, we can now implement the [cost function for linear regression](./CostFunctionLinearRegression.md).
+The implementation for linear regerssion in EasyNN can be found in the [header](../../src/EasyNN/LinearRegression.h) and the [code](../../src/EasyNN/LinearRegression.cpp) files.
