@@ -3,7 +3,11 @@ The landscape of machine learning has witnessed remarkable strides in recent yea
 
 # [Implementing Neural Networks in C++](./easyNN/index.md)
 
-[This page](./easyNN/index.md) describes the implemetnation details of EasyNN.
+If you want to learn how to implement neural networks using C++ in EasyNN, you can skip the general discussion and the other projects and go straight to [this page](./easyNN/index.md). There you will find all the details and explanations you need. However, if you are interested in jumping directly to a specific implementation topic, choose below
+
+* [Linear Regression](./easyNN/LinearRegression.md)
+* [Classification using Logistic Regression](./easyNN/LogisticRegression.md)
+* [Gradient Descent](./easyNN/GradientDescent.md)
 
 # The Genesis of EasyNN
 Inspired by the transformative Machine Learning course offered by Andrew Ng, the idea for EasyNN took root. This renowned course successfully introduced neural networks to a wide audience, equipping learners with the ability to utilize existing libraries like TensorFlow for practical applications. However, while learners gained insights into using neural networks, there was a crucial gap in understanding their fundamental implementation. The missing piece lay in bridging the theoretical concepts with their practical realization, beyond the scope of utilizing pre-existing frameworks. EasyNN's genesis is rooted in this realization - to create a supportive environment for learners to engage in experimentation, innovation, and the process of unraveling the intricacies underlying neural networks.
