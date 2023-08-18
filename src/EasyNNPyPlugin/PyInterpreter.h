@@ -228,6 +228,14 @@ namespace EasyNNPyPlugin {
                     return pList;
                 }
             }
+            else if constexpr (std::is_same_v < T, std::optional<size_t>>) {
+                if (value == std::nullopt) {
+                    return Py_None;
+                }
+                else {
+                    return PyLong_FromLongLong(static_cast<size_t>(*value));
+                }
+            }
             else {
                 throw std::runtime_error("Unsupported argument type.");
             }
