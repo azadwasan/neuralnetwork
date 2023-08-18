@@ -23,13 +23,13 @@ void DataChannel::getRegressionData(std::vector<std::vector<double>>& X, std::ve
 	}
 }
 
-void DataChannel::getClassificationData(std::vector<std::vector<double>>& X, std::vector<double>& y, size_t nSamples /*= 100*/, size_t nFeatures /*= 2*/, size_t redundantFeatures /*= 0*/, size_t clustersPerClass /*= 1*/, size_t randomState /*= 42*/){
+void DataChannel::getClassificationData(std::vector<std::vector<double>>& X, std::vector<double>& y, size_t nSamples /*= 100*/, size_t nFeatures /*= 2*/, size_t redundantFeatures /*= 0*/, size_t clustersPerClass /*= 1*/, std::optional<size_t> randomState /*= std::nullopt*/){
 	auto scriptName{ "DataGenerator" };
 	auto methodName{ "getClassificationData" };
 	auto& interpreter = PyInterpreter::getInstance();
 
 	// Convert the C++ method arguments first to Python tuple so that we can pass them while calling the python method.
-	easyNN_unique_ptr args{ interpreter.convertArgumentsToPyTuple(nSamples, nFeatures, redundantFeatures, clustersPerClass, randomState) };
+	easyNN_unique_ptr args{ interpreter.convertArgumentsToPyTuple(nSamples, nFeatures, redundantFeatures, clustersPerClass, randomState)};
 
 	easyNN_unique_ptr pResult{ interpreter.executeMethod(scriptName, methodName, args.get()) };
 	if (pResult != nullptr && PyTuple_Check(pResult.get()) && PyTuple_Size(pResult.get()) == 2) {
