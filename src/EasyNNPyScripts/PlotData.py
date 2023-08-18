@@ -60,14 +60,17 @@ def PlotClassificationLine(X, y, theta, lineLabel, lineColor, lineStyle = '--', 
 
     # Add labels and legend
 
-def PlotClassificationData(X, y, theta, theta2 = None):
+def PlotClassificationData(X, y, *thetas):
     ## Create a scatter plot of the data points
     plt.figure(figsize=(8, 6))
 
     PlotScatterData(X, y)
-    PlotClassificationLine(X, y, theta, "Model 1", 'green')
-    if theta2 is not None:
-        PlotClassificationLine(X, y, theta2, "Model 2 (Reference TensorFlow)", 'blue', 'dotted')
+    colors = ['green', 'blue', 'red', 'purple', 'orange']
+    linestyles = ['-', '--', '-.', ':']
+    for i, theta in enumerate(thetas):
+        color = colors[i % len(colors)]
+        linestyle = linestyles[i % len(linestyles)]
+        PlotClassificationLine(X, y, theta, f"Model {i+1}", color, linestyle)
 
     plt.title('Logistic Regression Decision Boundary')
 
