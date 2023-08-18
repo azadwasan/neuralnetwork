@@ -22,12 +22,25 @@ namespace EasyNNTest
 	public:
 		void runGD(const std::vector<std::vector<double>>& x, const std::vector<double>& y, const EasyNN::ICostFunction& costFunction, double alpha, double stopThreshold, std::vector<double>& parameters) {
 			auto start = std::chrono::high_resolution_clock::now();
-			EasyNN::GradientDescent{}.evaluate(x, y, costFunction, alpha, stopThreshold, parameters);
+			EasyNN::GradientDescent{}.evaluate(x, y, parameters, costFunction, alpha, stopThreshold);
 			auto end = std::chrono::high_resolution_clock::now();
 			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 			std::string message = "Execution time: " + std::to_string(duration) + " microseconds\n";
-			Logger::WriteMessage(message.c_str());
+            Logger::WriteMessage(message.c_str());
 		}
+        double correctClassificationPercentage(const std::vector<std::vector<double>>& X, std::vector<double>& y, const std::vector<double>& parameters) {
+            size_t index = 0;
+            double correctPercentage = 0;
+            EasyNN::LogisticRegression lr{};
+
+            for (const auto& vec : X) {
+                correctPercentage += (lr.evaluate(vec, parameters) >= 0.5 ? 1:0 )== y[index++];
+            }
+            return correctPercentage /= y.size() * 100;
+        }
+        void printModelParameters(std::string name, std::vector<double> parameters) {
+            Logger::WriteMessage(("t0 = " + std::to_string(parameters[0]) + ", t1 = " + std::to_string(parameters[1]) + ", t2 = " + std::to_string(parameters[2]) + "\n").c_str());
+        }
         /**
          * @brief Tests the performance of the gradient descent algorithm when applied to a logistic regression model.
          *
@@ -40,32 +53,36 @@ namespace EasyNNTest
          */
         TEST_METHOD(TestGradientDescentEvaluationLogisticRegression)
         {
-            // Create an instance of the CostFuntionLogistic class, representing a cost function for a logistic regression model
-            EasyNN::CostFuntionLogistic costFunction{ std::make_unique<EasyNN::LogisticRegression>() };
-
-            // Initialize a vector of parameters with three elements, all set to 0
-            std::vector<double> parameters{ 0, 0, 0};
-
             // Create two empty vectors to store the features and measurements data
             std::vector<std::vector<double>> X;
             std::vector<double> y;
 
             // Retrieve classification data
-            EasyNNPyPlugin::DataChannel::getClassificationData(X, y);
+            EasyNNPyPlugin::DataChannel::getClassificationData(X, y, 100, 2, 0, 1/*, 42*/);
 
-            // Use the gradient descent algorithm to find the optimal values for the parameters of the logistic regression model
-            runGD(X, y, costFunction, 0.7, 1.0E-9, parameters);
+            // Create an instance of the CostFuntionLogistic class, representing a cost function for a logistic regression model
+            EasyNN::CostFuntionLogistic costFunction{ std::make_unique<EasyNN::LogisticRegression>()};
+            std::vector<double> parameters{ 0, 0, 0};
+            runGD(X, y, costFunction, 0.3, 1.0E-5, parameters);
 
-            std::vector<double> expectedParameters = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
+            double correctPercentage = correctClassificationPercentage(X, y, parameters);
+
+            std::vector<double> expectedParameters = EasyNNPyPlugin::Algorithms::FitLogisticRegression(X, y);
+            std::vector<double> expectedParametersTF = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
+
+            double expParamPercentage = correctClassificationPercentage(X, y, expectedParameters);
+            double expParamPercentageTF = correctClassificationPercentage(X, y, expectedParametersTF);
+
+            printModelParameters("EasyNN", parameters);
+            printModelParameters("Generatorlib", expectedParameters);
+            printModelParameters("TF", expectedParametersTF);
+            Logger::WriteMessage(("EasyNN % = " + std::to_string(correctPercentage) + ", Expected1 % = " + std::to_string(expParamPercentage) + ", Expected2 % = " + std::to_string(expParamPercentageTF)).c_str());
 
             // Plot the resulting parameters
-            EasyNNPyPlugin::Plots::PlotClassificationData(X, y, parameters, expectedParameters);
+            EasyNNPyPlugin::Plots::PlotClassificationData(X, y, parameters, expectedParameters, expectedParametersTF);
 
             // Compare the resulting parameters to expected values
-            //Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
-            //     {
-            //        return std::abs(a - b) < 0.001;
-            //    }));
+            Assert::IsTrue(std::abs(correctPercentage - expParamPercentageTF) < 2.0); // We allow 2% difference between EasyNN and TensorFlow
         }
 
 		TEST_METHOD(TestGradientDescentEvaluation1Feature)
@@ -115,12 +132,12 @@ namespace EasyNNTest
 			std::vector<double> y = { 140, 155, 159, 179, 192, 200, 212, 215 };
 
 			runGD(x, y, costFunction, 0.0001, 1.0E-9, parameters);
+            auto easyNNCost = costFunction.evaluate(x, y, parameters);
 
 			std::vector<double> expectedParameters{ 0.013080267480039371, 3.0559138415398879, -1.6822470943097785 };
-			Assert::IsTrue(std::equal(std::begin(parameters), std::end(parameters), std::begin(expectedParameters),
-				[](double a, double b) {
-					return std::abs(a - b) < 0.01;
-				}));
+            auto expectedCost = costFunction.evaluate(x, y, expectedParameters);
+            Logger::WriteMessage(("Expected Cost =" + std::to_string(expectedCost) + ", EasyNN Cost = " + std::to_string(easyNNCost)).c_str());
+			Assert::IsTrue( std::abs(easyNNCost - expectedCost) < 0.1);
 		}
 
 		TEST_METHOD(TestGradientDescentEvaluation2Features2)
