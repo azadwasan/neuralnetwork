@@ -28,16 +28,17 @@ public:
 	 *
 	 * @param featuresMatrix A matrix of features, where each row represents a sample and each column represents a feature.
 	 * @param measurementsVector A vector of measurements, where each element represents the measured value for the corresponding sample in the featuresMatrix.
+	 * @param[out] parameters A vector of parameters representing the initial values for the parameters of the regression model. On output, this vector contains the optimal values for the parameters found by the gradient descent algorithm.
 	 * @param costFunction A reference to an ICostFunction object representing the cost function of the regression model.
 	 * @param alpha The learning rate of the gradient descent algorithm.
 	 * @param stopThreshold The stopping threshold for the gradient descent algorithm. The algorithm stops when the change in cost between two consecutive iterations is below this threshold.
-	 * @param[out] parameters A vector of parameters representing the initial values for the parameters of the regression model. On output, this vector contains the optimal values for the parameters found by the gradient descent algorithm.
+	 * @param maxIterations The number of iterations that the gradient descent algorithm will be run.
 	 */
 	void evaluate(const std::vector<std::vector<double>>& featuresMatrix,
 		const std::vector<double>& measurementsVector,
 		std::vector<double>& parameters,
 		const ICostFunction& costFunction,
-		double alpha, double stopThreshold);
+		double alpha, double stopThreshold, const size_t maxIterations = 3000);
 private:
 	/**
 	 * @brief Computes the cost of a regression model given its current parameters.

@@ -11,7 +11,7 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 	const std::vector<double>& measurementsVector,
 	std::vector<double>& parameters,
 	const ICostFunction& costFunction,
-	double alpha, double stopThreshold) {
+	double alpha, double stopThreshold, const size_t maxIterations /*= 3000*/) {
 
 	if (featuresMatrix.empty() || measurementsVector.empty() || parameters.empty()) {
 		throw std::invalid_argument("Feature matrix, measurements vectors and parameters vector size must be greater than zero.");
@@ -21,7 +21,6 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 	}
 
 	std::vector<double> parametersNew(parameters.size());
-	constexpr auto MAX_ITERATIONS = 3000;
 
 	auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
 	auto i = 0;
@@ -30,7 +29,7 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 	//std::vector<std::vector<double>> parameterHistory;
 	double m = measurementsVector.size();
 	double regFactor = (1 - alpha * costFunction.getLambda() / m);
-	for (; i < MAX_ITERATIONS; i++) {
+	for (; i < maxIterations; i++) {
 		auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
 		auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
 
