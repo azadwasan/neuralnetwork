@@ -35,7 +35,7 @@ def FitLogisticRegressionTF(X, y):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
     # Train the model
-    model.fit(X, y, epochs=3000, verbose = 2)
+    model.fit(X, y, epochs=3000, verbose = 0)
 
     # Get the learned parameters
     weights = model.layers[0].get_weights()[0]
