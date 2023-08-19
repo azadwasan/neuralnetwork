@@ -8,7 +8,7 @@ $\large{J(\theta) = \frac{1}{m} \sum_{i=1}^{m} Cost(h_{\theta}(x^{(i)}), y^{(i)}
 
 where
 
-$\large{Cost(h_{\theta}(x), y) = \left\{
+$Cost(h_{\theta}(x), y) = \left\{
 \begin{array}{ll}
       -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
       -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0 \\
@@ -17,7 +17,7 @@ $\large{Cost(h_{\theta}(x), y) = \left\{
 
 Hence,
 
-$\arge{J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log h_{\theta}(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_{\theta}(x^{(i)})) \right]}$
+$\large{J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log h_{\theta}(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_{\theta}(x^{(i)})) \right]}$
 
 where 
 
