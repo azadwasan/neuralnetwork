@@ -29,7 +29,7 @@ $x^{(i)}$ is the feature vector of $i^{th}$ sample
 
 $h_\theta(x^{(i)})$ is the linear regression hypothesis, [implemented here](./LinearRegression.md)
 
-$y^{(i)}$ is the measured value
+$y^{(i)}$ is the $i^{th}$ measured value
 
 The superscript for $x$ and $y$ are used to denote the sample number and the subscripts (as it was pointed out [earlier](./LinearRegression.md)) denote a particular feature.
 
@@ -65,7 +65,7 @@ In order to implement the cost function would accept the following inputs
 * A feature matrix, where each row of the matrix will represent a feature as shown above
 * A measuredment vector
 * A parameters vector containing the model parameters to compute the cost
-* Linear regression as hypothesis through the interface IRegression, as [implemented here](./LinearRegression.md)
+* Linear regression as hypothesis through the interface IRegression, as [implemented here](./LinearRegression.md). 
 
 
 ```cpp
@@ -176,6 +176,21 @@ namespace EasyNN {
 ```
 
 The hypothesis is now passed only directly at the time of creation of the cost function. evaluate(...) method doesn't require the hypothesis anymore. We also allow the instance of hypothesis to be retrievable by the user of cost function, as it would be needed to perform various other operations.
+
+The final code for the computation of the cost function would change as follows, as we no longer need hypothesis as an argument for evaluate(...) method
+
+```cpp
+double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters) const
+{
+	double mse = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
+		std::plus<>(),
+		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis->evaluate(featuresVector, parameters) - measurement, 2); });
+	
+	auto m = measurementsVector.size();
+
+	return mse / (2 * m) + regFactor;
+}
+```
 
 ### Design Tradeoff - Tight Coupling
 
