@@ -181,9 +181,6 @@ The hypothesis is now passed only directly at the time of creation of the cost f
 
 ICostFunction holding an instance of IRegression creates tight coupling between the two. At the same time it allows to write relatively clearner code and we don't need to hold and maintain two interfaces instances separately (it is specially tricky when we have multiple cost functions and multiple corresponding hypothesis represeting different underlying cost operations and hypothesis). Hence, it is a compromise and different requirements may yield different design decisions. However, for EasyNN I have made this design decision with tight coupling, at least for now! However, it is also not too difficult to extend the interface even further to allow replacing the underlying hypothesis of the cost function.
 
-## EasyNN Implementation
-EasyNN core implementaiton for cost function is exactly the same but it differs in terms of the design, because it is designed to be more flexible and scalable. Hence, it implements interfaces for regression classes and cost function and the regression instances are passed through dependency injection to the cost functions. The design decisions and their tradeoffs are discussed in detail [here](./EasyNNDesign.md).
-
 ## Important Links
 * [Back: Linear regression](./LinearRegression.md).
 * [Next: Logistic regression](./LogisticRegression.md).

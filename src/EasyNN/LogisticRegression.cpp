@@ -14,5 +14,5 @@ double LogisticRegression::evaluate(std::span<const double> featureVector, const
 
 	auto z = LinearRegression{}.evaluate(featureVector, parameters);
 	auto gz = 1 / (1 + exp(-1.0 * z));
-B	return gz;
+	return gz;
 }
