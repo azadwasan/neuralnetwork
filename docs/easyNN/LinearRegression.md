@@ -1,12 +1,16 @@
 # Implementing Linear Regression
 
+## Fundamentals
+
 Let's delve into the world of linear regression and get a grip on its key components:
 
-### Parameters: $\theta = \theta_0, \theta_1, ... , \theta_n $
+Parameters: $\large{\theta = \theta_0, \theta_1, ... , \theta_n }$
 
 It is an $n+1$ dimensional vector, where $n$ is the number of features.
 
-### Hypothesis: $h_{\theta}(x) = \theta^Tx = \theta_0 x_0 + \theta_1 x_1 + ... + \theta_n x_n$
+Hypothesis: $\large{h_{\theta}(x) = \theta^Tx = \theta_0 x_0 + \theta_1 x_1 + ... + \theta_n x_n}$
+
+## Key Observations
 
 Here are key observations:
 
@@ -14,6 +18,8 @@ Here are key observations:
 2. The hypothesis $h_{\theta}(x)$ involves $n$ features.
 3. Subscript $n$ in $x_n$ denotes the $n$ features. This will be very important when we will implement the training, where both subscripts and superscripts will be involved.
 4. The hypothesis is essentially a dot product of the parameter vector $\theta$ and the feature vector $x$.
+
+## Implementing
 
 With this groundwork laid, implementing the linear hypothesis is a breeze. Linear regression boils down to adding up the products of corresponding feature values and parameter values. The implementation would look something like this:
 
@@ -31,7 +37,7 @@ The implementation consits of a simple loop that sums the product of the feature
 
 ```cpp
 // Linear regression implementation using raw loops with shorter feature vector
-double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
+double LinearRegression::evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
 	auto sum = parameters[0];
     for (size_t i = 0; i < featureVector.size(); ++i) {
         sum += featureVector[i] * parameters[i + 1];
@@ -39,18 +45,19 @@ double LinearRegressionEvaluate(const std::vector<double>& featureVector, const 
 	return sum;
 }
 ```
-Notice that the feature vector is one element shorter than the parameter vector. We begin the sum with parameters[0], representing $\theta_0$. In the loop, we remember to add one to the index for the parameters vector to align with the matching parameter value.
+Notice that the feature vector is one element shorter than the parameter vector. We begin the sum with parameters[0], representing $\theta_0$. In the loop, we remember to add one to the index for the parameters vector to align with the matching parameter value. LinearRegression::evaluate only signifies that evaluate is a method belonding to LinearRegression class.
 
 This implementation can easily be simplified further by using standard library method std::inner_product() as follows
 
 ```cpp
 // Linear regression implementation using std::inner_product
-double LinearRegressionEvaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
+double LinearRegression::evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
 	auto sum = parameters[0];
 	sum += std::inner_product(std::begin(featureVector), std::end(featureVector), std::begin(parameters) + 1, 0.0);
 	return sum;
 }
 ```
+## Testing
 
 Let's peek at a typical test scenario to assess our implementation:
 ```cpp
@@ -65,11 +72,13 @@ TEST_METHOD(TestLinearRegressionEvaluation)
     std::vector<double> estimates = { 145.581, 146.909, 164.305};
     auto estimate = begin(estimates);
     // Finally, calculate the estimate using the linear regression and compare is to the measured value 'y' (estimates).
+    LinearRegression hypothesis{};
     for (const auto& val : x) {
-        Assert::AreEqual(*estimate++, LinearRegressionEvaluate(val, parameters), 1.0E-5);
+        Assert::AreEqual(*estimate++, hypothesis.evaluate(val, parameters), 1.0E-5);
     }
 }
 ```
+
 ## Important Links
 
 * [Next: Cost function for linear regression](./CostFunctionLinearRegression.md).
