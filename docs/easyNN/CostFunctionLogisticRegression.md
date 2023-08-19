@@ -8,7 +8,7 @@ $\large{J(\theta) = \frac{1}{m} \sum_{i=1}^{m} Cost(h_{\theta}(x^{(i)}), y^{(i)}
 
 where
 
-$Cost(h_{\theta}(x), y) = \left\{
+$Cost(h_{\theta}(x), y) = \left\\{
 \begin{array}{ll}
       -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
       -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0 \\
@@ -52,7 +52,6 @@ In order to implement the cost function would accept the following inputs
 * A parameters vector containing the model parameters to compute the cost
 
 ```cpp
-
 double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<const double>& parameters) const {
     double costSum = 0.0;
     for (size_t i = 0; i < featuresMatrix.size(); ++i) {
@@ -74,7 +73,6 @@ This implementation can be further improved as follows by using the standard lib
 
 ```cpp
 double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<const double>& parameters) const{
-
 	auto cost = [&parameters, this](const std::vector<double>& x, double y) -> double {
 		auto hTheta = hypothesis->evaluate(x, parameters);
 		auto cost = y * log(hTheta) + (1 - y) * log(1 - hTheta);
@@ -84,9 +82,7 @@ double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& fea
 	double costSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
 		std::plus<>(),
 		cost);
-
 	auto m = measurementsVector.size();
-
 	return -1.0 / m * costSum;
 }
 ```
