@@ -65,12 +65,12 @@ In order to implement the cost function would accept the following inputs
 * A feature matrix, where each row of the matrix will represent a feature as shown above
 * A measuredment vector
 * A parameters vector containing the model parameters to compute the cost
-* Linear regression as hypothesis, as [implemented here](./LinearRegression.md)
+* Linear regression as hypothesis through the interface IRegression, as [implemented here](./LinearRegression.md)
 
 
 ```cpp
 // Cost function implementing using raw loops
-double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const LinearRegression& hypothesis) const
+double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const
 {
     double mse = 0.0;
     for (size_t i = 0; i < featuresMatrix.size(); ++i) {
@@ -85,7 +85,7 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
 The code implements exactly as we discussed above. It runs a loop over feature matrix, extracts a feature vector and computes a sum of squared difference and finally normalizes it. CostFunctionMSE::evaluate only signifies that evaluate is a method of CostFunctionMSE class. This code can easily be improved and written succinctly as follows
 
 ```cpp
-double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const LinearRegression& hypothesis) const
+double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const
 {
 	double mse = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
 		std::plus<>(),
@@ -116,6 +116,71 @@ public:
     }
 };
 ```
+
+## Software Design - Generalizing the Cost Function
+
+### Interface Implementation
+
+Similar to linear regression, where we generalized the design of hypothesis through IRegression, we would be generalizing the design of the cost function by defining the following interface
+
+```cpp
+namespace EasyNN {
+	class ICostFunction {
+	public:
+		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const = 0;
+	};
+}
+```
+Cost function implements the ICostFunction interface
+```cpp
+namespace EasyNN {
+    class CostFunctionMSE : public ICostFunction
+    {
+    public:
+        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const override;
+    };
+}
+```
+### Cost function and Hypothesis
+
+As we can observe in the interface, cost function requires the hypothesis to compute the cost. Later on we will also observe in the implementation of gradients descent and other algorithms that we will have to maintain the costs and hypothesis and keep track of them. Hence, EasyNN extends the ICostFunction interface to also hold an instance of hypothesis. This allows us to keep the overall design clean and flexible. The extended interafce looks as follows:
+```cpp
+namespace EasyNN {
+	class ICostFunction {
+	public:
+		ICostFunction(std::unique_ptr<IRegression> hypo) : hypothesis{ std::move(hypo) } {
+			if (hypothesis == nullptr) {
+				throw std::runtime_error("Hypothesis is not allowed to be Null!");
+			}
+		}
+		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters) const = 0;
+		const IRegression& getHypothesis() const noexcept{
+			return *hypothesis.get();
+		}
+	protected:
+		std::unique_ptr<IRegression> hypothesis;
+	};
+}
+```
+
+The resulting change in the cost function implementation would be
+```cpp
+namespace EasyNN {
+    class CostFunctionMSE : public ICostFunction
+    {
+    public:
+        CostFunctionMSE(std::unique_ptr<IRegression> hypothesis) : ICostFunction(std::move(hypothesis)) {}
+        double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters) const override;
+    };
+}
+```
+
+The hypothesis is now passed only directly at the time of creation of the cost function. evaluate(...) method doesn't require the hypothesis anymore. We also allow the instance of hypothesis to be retrievable by the user of cost function, as it would be needed to perform various other operations.
+
+### Design Tradeoff - Tight Coupling
+
+ICostFunction holding an instance of IRegression creates tight coupling between the two. At the same time it allows to write relatively clearner code and we don't need to hold and maintain two interfaces instances separately (it is specially tricky when we have multiple cost functions and multiple corresponding hypothesis represeting different underlying cost operations and hypothesis). Hence, it is a compromise and different requirements may yield different design decisions. However, for EasyNN I have made this design decision with tight coupling, at least for now! However, it is also not too difficult to extend the interface even further to allow replacing the underlying hypothesis of the cost function.
+
 ## EasyNN Implementation
 EasyNN core implementaiton for cost function is exactly the same but it differs in terms of the design, because it is designed to be more flexible and scalable. Hence, it implements interfaces for regression classes and cost function and the regression instances are passed through dependency injection to the cost functions. The design decisions and their tradeoffs are discussed in detail [here](./EasyNNDesign.md).
 

@@ -8,7 +8,6 @@ namespace EasyNN {
 	public:
 		double evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const override;
 	};
-
 }
 #endif
 
