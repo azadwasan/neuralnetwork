@@ -8,74 +8,10 @@ $\large{J(\theta) = \frac{1}{m} \sum_{i=1}^{m} Cost(h_{\theta}(x^{(i)}), y^{(i)}
 
 where
 
-$Cost(h_{\theta}(x), y) = \begin{cases} -y \log h_{\theta}(x), & \text{if } y =1.\\\\ -(1 - y) \log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}$
+$Cost(h_{\theta}(x), y) = \begin{cases} -\log h_{\theta}(x), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}$
 
-$Cost(h_{\theta}(x), y) = \begin{cases} 1, & -y \log h_{\theta}(x).\\\\ 0, & -(1 - y) \log (1 - h_{\theta}(x)). \end{cases}$
+$\large{Cost(h_{\theta}(x), y) = \begin{cases} -\log h_{\theta}(x), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}}$
 
-
-$Cost(h_{\theta}(x), y) = \left\{
-\begin{array}{ll}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0 \\
-\end{array} 
-\right.$
-
-$Cost(h_{\theta}(x), y) = \left\{
-\begin{array}{ll}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\\\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0 \\\\
-\end{array} 
-\right.$
-
-$\begin{equation}
-\begin{aligned}
-\text{Cost}(h_{\theta}(x), y) = 
-\begin{cases}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\\\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0
-\end{cases}
-\end{aligned}
-\end{equation}
-$
-
-$\text{Cost}(h_{\theta}(x), y) = 
-\begin{cases}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0
-\end{cases}$
-
-$\text{Cost}(h_{\theta}(x), y) = 
-\begin{cases}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\\\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0
-\end{cases}$
-
-$\begin{equation}
-\begin{gathered}
-\text{Cost}(h_{\theta}(x), y) = 
-\begin{cases}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0
-\end{cases}
-\end{gathered}
-\end{equation}
-$
-
-$\begin{equation}
-\begin{gathered}
-\text{Cost}(h_{\theta}(x), y) = 
-\begin{cases}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\\\
-      -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0
-\end{cases}
-\end{gathered}
-\end{equation}
-$
-
-$f(x)=\begin{cases} 1, & \text{if $x<0$}.\\ 0, & \text{otherwise}. \end{cases}$
-
-$f(x)=\begin{cases} 1, & \text{if $x<0$}.\\\\ 0, & \text{otherwise}. \end{cases}$
-$f(x)=\begin{cases} 1, & \text{if $x<0$}.\\\\ 0, & \text{otherwise}. \end{cases}$
 
 Hence,
 
