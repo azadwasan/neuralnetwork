@@ -62,10 +62,10 @@ Referring back to equation (1), implementing cost functional is trivial. It invo
 * Normalize the sum by dividing it with $2m$
 
 In order to implement the cost function would accept the following inputs
-* A feature matrix, where each row of the matrix will represent a feature as shown above
-* A measuredment vector
+* A feature matrix, where each row of the matrix will represent a feature vector as shown above
+* A measurement vector
 * A parameters vector containing the model parameters to compute the cost
-* Linear regression as hypothesis through the interface IRegression, as [implemented here](./LinearRegression.md). 
+* Linear regression as hypothesis through the interface IRegression, as [implemented here](./LinearRegression.md). *Please read the software design section for details, as there we discuss that hypothesis will not be a required argument for evaluate(...) method.*
 
 
 ```cpp
@@ -87,13 +87,13 @@ The code implements exactly as we discussed above. It runs a loop over feature m
 ```cpp
 double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const
 {
-	double mse = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
-		std::plus<>(),
-		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis.evaluate(featuresVector, parameters) - measurement, 2); });
-	
-	auto m = measurementsVector.size();
+   double mse = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
+      std::plus<>(),
+      [&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis.evaluate(featuresVector, parameters) - measurement, 2); });
+   
+   auto m = measurementsVector.size();
 
-	return mse / (2 * m) + regFactor;
+   return mse / (2 * m) + regFactor;
 }
 ```
 We hav replaced the loops with std::transform_reduce and specificed the summation operation through std::plus<>() to be performed for each feature vector. The operation of squared difference is specified through a lambda.
@@ -102,18 +102,18 @@ We hav replaced the loops with std::transform_reduce and specificed the summatio
 ```cpp
 TEST_CLASS(CostFunctioNMSETest) {
 public:
-    TEST_METHOD(TestCostFunctionMSE) {
-        std::vector<double> parameters{ -6.867, 3.148, -1.656 };
-        std::vector<std::vector<double>> x = {
-                                                {60, 22},
-                                                {62, 25},
-                                                {67, 24}
-        };
-        std::vector<double> y = { 140, 155, 159, 179, 192, 200, 212, 215 };
-        auto hypothesis = LinearRegression{};
-        auto MSE = CostFunctionMSE{}.evaluate(x, y, parameters, hypothesis);
-        Assert::AreEqual(MSE, 12.715159, 1.0E-5);
-    }
+   TEST_METHOD(TestCostFunctionMSE) {
+      std::vector<double> parameters{ -6.867, 3.148, -1.656 };
+      std::vector<std::vector<double>> x = {
+         {60, 22},
+         {62, 25},
+         {67, 24}
+      };
+      std::vector<double> y = { 140, 155, 159, 179, 192, 200, 212, 215 };
+      auto hypothesis = LinearRegression{};
+      auto MSE = CostFunctionMSE{}.evaluate(x, y, parameters, hypothesis);
+      Assert::AreEqual(MSE, 12.715159, 1.0E-5);
+   }
 };
 ```
 
@@ -125,10 +125,10 @@ Similar to linear regression, where we generalized the design of hypothesis thro
 
 ```cpp
 namespace EasyNN {
-	class ICostFunction {
-	public:
-		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const = 0;
-	};
+   class ICostFunction {
+   public:
+      virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters, const IRegression& hypothesis) const = 0;
+   };
 }
 ```
 Cost function implements the ICostFunction interface
@@ -146,20 +146,20 @@ namespace EasyNN {
 As we can observe in the interface, cost function requires the hypothesis to compute the cost. Later on we will also observe in the implementation of gradients descent and other algorithms that we will have to maintain the costs and hypothesis and keep track of them. Hence, EasyNN extends the ICostFunction interface to also hold an instance of hypothesis. This allows us to keep the overall design clean and flexible. The extended interafce looks as follows:
 ```cpp
 namespace EasyNN {
-	class ICostFunction {
-	public:
-		ICostFunction(std::unique_ptr<IRegression> hypo) : hypothesis{ std::move(hypo) } {
-			if (hypothesis == nullptr) {
-				throw std::runtime_error("Hypothesis is not allowed to be Null!");
-			}
-		}
-		virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters) const = 0;
-		const IRegression& getHypothesis() const noexcept{
-			return *hypothesis.get();
-		}
-	protected:
-		std::unique_ptr<IRegression> hypothesis;
-	};
+   class ICostFunction {
+   public:
+      ICostFunction(std::unique_ptr<IRegression> hypo) : hypothesis{ std::move(hypo) } {
+         if (hypothesis == nullptr) {
+            throw std::runtime_error("Hypothesis is not allowed to be Null!");
+         }
+      }
+      virtual double evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters) const = 0;
+      const IRegression& getHypothesis() const noexcept{
+         return *hypothesis.get();
+      }
+   protected:
+      std::unique_ptr<IRegression> hypothesis;
+   };
 }
 ```
 
@@ -177,18 +177,18 @@ namespace EasyNN {
 
 The hypothesis is now passed only directly at the time of creation of the cost function. evaluate(...) method doesn't require the hypothesis anymore. We also allow the instance of hypothesis to be retrievable by the user of cost function, as it would be needed to perform various other operations.
 
-The final code for the computation of the cost function would change as follows, as we no longer need hypothesis as an argument for evaluate(...) method
+The final code for the computation of the cost function would change as follows, as we no longer need hypothesis as an argument for evaluate(...) method:
 
 ```cpp
 double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<double>& parameters) const
 {
-	double mse = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
-		std::plus<>(),
-		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis->evaluate(featuresVector, parameters) - measurement, 2); });
-	
-	auto m = measurementsVector.size();
+   double mse = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
+      std::plus<>(),
+      [&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis->evaluate(featuresVector, parameters) - measurement, 2); });
+   
+   auto m = measurementsVector.size();
 
-	return mse / (2 * m) + regFactor;
+   return mse / (2 * m) + regFactor;
 }
 ```
 

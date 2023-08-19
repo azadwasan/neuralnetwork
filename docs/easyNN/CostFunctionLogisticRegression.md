@@ -8,14 +8,11 @@ $\large{J(\theta) = \frac{1}{m} \sum_{i=1}^{m} Cost(h_{\theta}(x^{(i)}), y^{(i)}
 
 where
 
-$Cost(h_{\theta}(x), y) = \begin{cases} -\log h_{\theta}(x), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}$
-
-$\large{Cost(h_{\theta}(x), y) = \begin{cases} -\log h_{\theta}(x), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}}$
-
+$\large{Cost(h_{\theta}(x), y) = \begin{cases} -\log(h_{\theta}(x)), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}}$
 
 Hence,
 
-$\large{J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log h_{\theta}(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_{\theta}(x^{(i)})) \right]}$
+$\large{J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(h_{\theta}(x^{(i)})) + (1 - y^{(i)}) \log (1 - h_{\theta}(x^{(i)})) \right]}$
 
 where 
 
@@ -29,11 +26,10 @@ This final equation is the one that we will use for the implementation.
 
 ## Key observations
 
-The only important key observation here is the hypothesis function that we will be using while implementing this equation. We have to use the logistic regression hypothesis as already discussed [here](./LogisticRegression.md) and repeating it here again for conveneince
+The hypothesis used in the equation above is the logistic regression hypothesis as already discussed and implemented [here](./LogisticRegression.md). It is being repeated it here for conveneince
 
 $\large{h_{\theta}(x) = \frac{1}{1 + e^{-\theta^Tx}}}$
 
-We have already implemented the logistic regression hypothesis [here](./LogisticRegression.md).
 
 ## Implementation
 
@@ -65,23 +61,23 @@ double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& fea
 ```
 To compute the logistic regression we run a simple loop, extracting the feature vector from the featureMatrix and the corresponding measured value. The hypothesis value is computed based on the feature vector and the measured value. Next, we compute the cost, which is summed over the duration of the loop, which is finally normalized.
 
-Note from the details software design dicussion for [linear regression cost function](./CostFunctionLinearRegression.md), we already know that the hypothesis is part of the ICostFunction interface, hence it is readily available to evaluate method of CostFuntionLogistic class.
+Note from the details software design dicussion for [linear regression cost function](./CostFunctionLinearRegression.md), we already know that the hypothesis is part of the ICostFunction interface, hence it is readily available to CostFuntionLogistic::evaluate(...) method.
 
 This implementation can be further improved as follows by using the standard library algorithms:
 
 ```cpp
 double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& featuresMatrix, const std::vector<double>& measurementsVector, const std::vector<const double>& parameters) const{
-	auto cost = [&parameters, this](const std::vector<double>& x, double y) -> double {
-		auto hTheta = hypothesis->evaluate(x, parameters);
-		auto cost = y * log(hTheta) + (1 - y) * log(1 - hTheta);
-		return cost;
-	};
+   auto cost = [&parameters, this](const std::vector<double>& x, double y) -> double {
+      auto hTheta = hypothesis->evaluate(x, parameters);
+      auto cost = y * log(hTheta) + (1 - y) * log(1 - hTheta);
+      return cost;
+   };
 
-	double costSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
-		std::plus<>(),
-		cost);
-	auto m = measurementsVector.size();
-	return -1.0 / m * costSum;
+   double costSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
+      std::plus<>(),
+      cost);
+   auto m = measurementsVector.size();
+   return -1.0 / m * costSum;
 }
 ```
 
