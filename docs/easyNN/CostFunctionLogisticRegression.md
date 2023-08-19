@@ -13,7 +13,7 @@ $Cost(h_{\theta}(x), y) = \left\{
       -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
       -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0 \\
 \end{array} 
-\right.}$
+\right.$
 
 Hence,
 
