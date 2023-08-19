@@ -12,7 +12,7 @@ $\begin{equation}
 \begin{aligned}
 \text{Cost}(h_{\theta}(x), y) = 
 \begin{cases}
-      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\
+      -y \log h_{\theta}(x) & \quad \text{if } y = 1 \\\\
       -(1 - y) \log (1 - h_{\theta}(x)) & \quad \text{if } y = 0
 \end{cases}
 \end{aligned}
