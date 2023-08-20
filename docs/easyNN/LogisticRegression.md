@@ -10,19 +10,19 @@ $\large{h_{\theta}(x) = \frac{1}{1 + e^{-\theta^Tx}}}$
 We will be using the last equation above for the implementation.
 
 ## Key Observations
-From the above equations we have $z = \theta^Tx$, if we look closely this is the same as linear regression. However, it is not limited to just linear regression it could be any underlying linear or non-linear operations on the features and parameters. Luckily, we already modeled such flexiblity in our design earlier by defining the hypothesis through IRegression. Hence, we can call $z$ as the underlying hypothesis.
+From the above equations we have $z = \theta^Tx$, if we look closely this is the same as linear regression. However, it is not limited to just linear regression it could be any underlying linear or non-linear operations on the features and parameters. Luckily, we already modeled such flexibility in our design earlier by defining the hypothesis through IRegression. Hence, we can call $z$ as the underlying hypothesis.
 
 ## Implementation
 
-Once, we have established that $z$ is an underlying hypothesis, all that is need to evaluate the logistic regression hypotsis to calculate the underlying hypothesis $z$ value and compute the sigmoid function using the equation given above.
+Once, we have established that $z$ is an underlying hypothesis, all that is need to evaluate the logistic regression hypothesis to calculate the underlying hypothesis $z$ value and compute the sigmoid function using the equation given above.
 
 Hence, the implementation would look as follows:
 
 ```cpp
 double LogisticRegression::evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters, const IRegression& underlyingHypothesis) const {
-	auto z = underlyingHypothesis.evaluate(featureVector, parameters);
-	auto gz = 1 / (1 + exp(-1.0 * z));
-	return gz;
+   auto z = underlyingHypothesis.evaluate(featureVector, parameters);
+   auto gz = 1 / (1 + exp(-1.0 * z));
+   return gz;
 }
 
 ```

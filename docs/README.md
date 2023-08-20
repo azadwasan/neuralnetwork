@@ -38,7 +38,7 @@ EasyNN has successfully implemented essential components like the Linear Hypothe
 
 The green and blue planes illustrate the linear approximations achieved by EasyNN and TensorFlow through gradient descent optimization, respectively. Yet, upon rotating the graph, it becomes evident that both methods achieve a comparable level of approximation, a fact reinforced by the Mean Squared Error (MSE) analysis.
 
-The following graph depits the approximation computed by both EasyNN and Tensorflow using graident descent for 500 data points with very high dispersion. The results from both are so close that either only the blue or the green plane could be seen when rotated.
+The following graph depicts the approximation computed by both EasyNN and Tensorflow using gradient descent for 500 data points with very high dispersion. The results from both are so close that either only the blue or the green plane could be seen when rotated.
 
 ![PythonEmbedding](/assets/img/EasyNNvsTensorFlowGD2.png)
 
@@ -68,7 +68,7 @@ Furthermore, EasyNNTest serves a dual purpose. Not only does it facilitate the a
 EasyNNtest is in sync with EasyNN core library, i.e., the necessary tests that I needed to implement to test the correctness of EasyNN are implemented.
 
 ### Key takeaways
-Testing EasyNN implementation required finding appropriate refrence data and the corresponding solution, which is becoming time consuming as I am progressing further. Hence, I came up with the idea of EasyNNPythonScripts project to generate the reference data and solutions. However, it was still cumbersome to manually copy the data, modify it to C++ syntex etc., hence, I planned to automate it all using EasyNNPythonPlugin. Read description of the corresponding projects for further details.
+Testing EasyNN implementation required finding appropriate reference data and the corresponding solution, which is becoming time consuming as I am progressing further. Hence, I came up with the idea of EasyNNPythonScripts project to generate the reference data and solutions. However, it was still cumbersome to manually copy the data, modify it to C++ syntax etc., hence, I planned to automate it all using EasyNNPythonPlugin. Read description of the corresponding projects for further details.
 
 ## EasyNNPyPlugin
 This is an embedded python interpreter mostly used by EasyNNTest to run various python scripts for generating data, reference results and plotting.

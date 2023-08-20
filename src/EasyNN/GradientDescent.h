@@ -50,7 +50,6 @@ private:
 	 * @param featuresMatrix A matrix of features, where each row represents a sample and each column represents a feature.
 	 * @param measurementsVector A vector of measurements, where each element represents the measured value for the corresponding sample in the featuresMatrix.
 	 * @param parameters A vector of parameters representing the current values for the parameters of the regression model.
-	 * @param hypothesis A reference to an IRegression object representing the hypothesis function of the regression model.
 	 * @param costDerivative A user-defined function that specifies how to compute
 	 *                       the derivative of the cost function with respect to each parameter.
 	 * @param index The index of the parameter with respect to which to compute the derivative of the cost function. Defaults to 0.
@@ -60,7 +59,6 @@ private:
 	double computeCost(const std::vector<std::vector<double>>& featuresMatrix,
 		const std::vector<double>& measurementsVector,
 		const std::vector<double>& parameters,
-		const IRegression& hypothesis, 
 		std::function<double(const std::vector<double>&, const std::vector<double>&, double, size_t)> costDeivative, size_t index = 0);
 };
 }

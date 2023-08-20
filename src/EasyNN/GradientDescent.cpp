@@ -29,11 +29,12 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 	//std::vector<std::vector<double>> parameterHistory;
 	double m = measurementsVector.size();
 	double regFactor = (1 - alpha * costFunction.getLambda() / m);
-	for (; i < maxIterations; i++) {
-		auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
-		auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
+	auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
+	auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
 
-		parametersNew[0] = parameters[0] - alpha * 1 / measurementsVector.size() *
+	for (; i < maxIterations; i++) {
+
+		parametersNew[0] = parameters[0] - alpha * 1 / m *
 			computeCost(featuresMatrix, measurementsVector, parameters, costFunction.getHypothesis(), costDerivativeZero);
 		for (size_t index = 1; index < parameters.size(); index++) {
 			parametersNew[index] = parameters[index] * regFactor - alpha * 1 / m

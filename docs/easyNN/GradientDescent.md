@@ -146,39 +146,163 @@ Step 4 - 8 are same as the computation of [linear regression cost function](./Co
 Here is how the basic implementation would look like
 
 ```cpp
-1  void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
-2    const std::vector<double>& measurementsVector,
-3    const ICostFunction& costFunction,
-4    double alpha, double stopThreshold,
-5    std::vector<double>& parameters, size_t maxIterations) {
-6
-7    std::vector<double> parametersNew(parameters.size());
-8    constexpr auto MAX_ITERATIONS = 1000;
+1   void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
+2      const std::vector<double>& measurementsVector,
+3      const ICostFunction& costFunction,
+4      double alpha, double stopThreshold,
+5      std::vector<double>& parameters,
+6      size_t maxIterations) {
+7
+8      std::vector<double> parametersNew(parameters.size());
 9
-10    auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
-11    auto i = 0;
-12    auto newCost = 0.0;
-13    for (; i < maxIterations; i++) {
-14      double differenceSumZero = 0.0;
-15      for (size_t k = 0; k < featuresMatrix.size(); k++) {
-16        differenceSumZero += costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k];
-17      }
-18      parametersNew[0] = parameters[0] - alpha * 1 / measurementsVector.size() * differenceSumZero;
+10      auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
+11      auto i = 0;
+12      auto newCost = 0.0;
+13      for (; i < maxIterations; i++) {
+14         double differenceSumZero = 0.0;
+15         for (size_t k = 0; k < featuresMatrix.size(); k++) {
+16            differenceSumZero += costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k];
+17         }
+18         parametersNew[0] = parameters[0] - alpha * 1 / measurementsVector.size() * differenceSumZero;
 19
-20      for (size_t index = 1; index < parameters.size(); index++) {
-21        double differenceSum = 0.0;
-22        for (size_t k = 0; k < featuresMatrix.size(); k++) {
-23          differenceSum += (costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k]) * featuresMatrix[k][index - 1];
-24        }
-25        parametersNew[index] = parameters[index] - alpha * 1 / measurementsVector.size() * differenceSum;
-26      }
-27      parameters = parametersNew;
-28      newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
-29      if (abs(oldCost - newCost) < stopThreshold) {
-30        break;
-31      }
-32      oldCost = newCost;
-33    }
-34  }
+20         for (size_t index = 1; index < parameters.size(); index++) {
+21            double differenceSum = 0.0;
+22            for (size_t k = 0; k < featuresMatrix.size(); k++) {
+23               differenceSum += (costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k]) * featuresMatrix[k][index - 1];
+24            }
+25            parametersNew[index] = parameters[index] - alpha * 1 / measurementsVector.size() * differenceSum;
+26         }
+27         parameters = parametersNew;
+28         newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+29         if (abs(oldCost - newCost) < stopThreshold) {
+30            break;
+31         }
+32         oldCost = newCost;
+33      }
+34   }
 ```
 
+Considering all the lengthy details about how GD works, the code to implement the algorithm is fairly simple. We are being provided the current parameter values as method argument. The cost function is computed based on the parameters (line 8). We start iterating up until the maximum number of iterations. Next, we compute the difference sum, using the hypothesis, feature matrix, measured values and parameters. However, as we noted in the beginning, the computation of difference sum for $\theta_0$ is different from the rest. Hence, we need separate code for the two cases. For $\theta_0$ the the new parameter is computed from line 15 to 18 and for the rest, these are computed from line 20 to 26. Note that the new parameters are being stored in a separate vector and the original vector is still being maintained.
+
+After all the parameters have been computed, the parameters are replaced with the new parameters (line 25). Next, the cost function is computed using the new parameter values (line 28). GD stops if the difference between the cost functions is less than the stopping threshold.
+
+Though, it looks like the method doesn't return any values, however, this is a peculiarity of C++, where parameters is being passed by reference and it is being modified within the body of the method. Hence, when the method ends, the parameters will contains the final optimized values.
+
+We can improve the code above slightly by moving the new parameter calculation into separate methods
+
+```cpp
+void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
+    const std::vector<double>& measurementsVector,
+    const ICostFunction& costFunction,
+    double alpha, double stopThreshold,
+    std::vector<double>& parameters, size_t maxIterations) {
+
+    std::vector<double> parametersNew(parameters.size());
+
+    auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
+    auto i = 0;
+    auto newCost = 0.0;
+    for (; i < maxIterations; i++) {
+        parametersNew[0] = computeNewParameterZero(featuresMatrix, measurementsVector, parameters, costFunction, alpha);
+        for (size_t index = 1; index < parameters.size(); index++) {
+            parametersNew[index] = computeNewParameter(featuresMatrix, measurementsVector, parameters, costFunction, alpha, index);
+        }
+
+        parameters = parametersNew;
+
+        newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+        if (abs(oldCost - newCost) < stopThreshold) {
+            break;
+        }
+        oldCost = newCost;
+    }
+    auto temp = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+}
+
+double GradientDescent::computeNewParameterZero(const std::vector<std::vector<double>>& featuresMatrix,
+    const std::vector<double>& measurementsVector,  const std::vector<double>& parameters,
+    const ICostFunction& costFunction, double alpha) {
+
+    double differenceSumZero = 0.0;
+    for (size_t k = 0; k < featuresMatrix.size(); k++) {
+        differenceSumZero += costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k];
+    }
+    return parameters[0] - alpha * 1 / measurementsVector.size() * differenceSumZero;
+}
+
+double GradientDescent::computeNewParameter(const std::vector<std::vector<double>>& featuresMatrix,
+    const std::vector<double>& measurementsVector, const std::vector<double>& parameters,
+    const ICostFunction& costFunction, double alpha, size_t index) {
+
+    double differenceSum = 0.0;
+    for (size_t k = 0; k < featuresMatrix.size(); k++) {
+        differenceSum += (costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k]) * featuresMatrix[k][index - 1];
+    }
+    return parameters[index] - alpha * 1 / measurementsVector.size() * differenceSum;
+}
+```
+
+This makes the code slightly more structured but still there is quite a bit of code duplication. We can improve this even further as follows:
+
+```cpp
+void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
+   const std::vector<double>& measurementsVector, const ICostFunction& costFunction,
+   double alpha, double stopThreshold,
+   std::vector<double>& parameters, size_t maxIterations) {
+
+   std::vector<double> parametersNew(parameters.size());
+
+   auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
+   auto i = 0;
+   auto newCost = 0.0;
+   double m = measurementsVector.size();
+
+    auto differenceSumZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
+    auto differenceSum = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
+
+   for (; i < maxIterations; i++) {
+      parametersNew[0] = parameters[0] - alpha * 1 / m *
+         computeCost(featuresMatrix, measurementsVector, parameters, costFunction.getHypothesis(),    differenceSumZero);
+      for (size_t index = 1; index < parameters.size(); index++) {
+         parametersNew[index] = parameters[index] - alpha * 1 / m
+            * computeCost(featuresMatrix, measurementsVector, parameters, costFunction.getHypothesis(), differenceSum, index);
+      }
+
+      parameters = parametersNew;
+
+      newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+      if (abs(oldCost - newCost) < stopThreshold) {
+         break;
+      }
+      oldCost = newCost;
+   }
+}
+
+double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
+   const std::vector<double>& measurementsVector, const std::vector<double>& parameters,
+   const IRegression& hypothesis, 
+   std::function<double(const std::vector<double>&, const std::vector<double>&, double, size_t)> differenceSum, size_t index /*=0*/) {
+
+   double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
+      std::plus<>(),
+      [&](const auto& featuresVector, auto measurement) {
+         return differenceSum(featuresVector, parameters, measurement, index);
+      }
+   );
+   return differenceSum;
+}
+```
+
+We define a lambdas to compute $\theta_0$ difference sum called differenceSumZero and another one for the rest of the parameters called differenceSum. We replace the two methods with just a single method that accepts a lambda to compute the difference sum and replace the loop with standard library std::transform_reduce, like we did in earlier codes, e.g., [Linear regression cost function](./CostFunctionLinearRegression.md). Rest of the code stays almost the same. This is also how it is currently implemented in EasyNN.
+
+## Testing
+
+Test GD is a separate topic in itself, hence we discuss it in detail [here](./GradientDescentTest.md).
+
+## Important Links
+* [Next: Gradient Descent Evaluation/Testing](./GradientDescentTest.md).
+* [Back: Logistic Regression Cost Function](./CostFunctionLogisticRegression.md).
+* [Go back to Implementing Neural Networks in C++](./index.md)
+* EasyNN Gradient Descent implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/GradientDescent.h).
+* EasyNN Gradient Descent implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/GradientDescent.cpp).
+* EasyNN Gradient Descent [test](https://github.com/azadwasan/neuralnetwork/blob/main/src/EasyNNTest/GradientDescentTest.cpp).

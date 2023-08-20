@@ -30,19 +30,19 @@ double LinearRegression::evaluate(const std::vector<double>& featureVector, cons
     for (size_t i = 0; i < featureVector.size(); ++i) {
         sum += featureVector[i] * parameters[i + 1];
     }
-	return sum;
+   return sum;
 }
 ```
-LinearRegression::evaluate only signifies that evaluate is a method belonding to LinearRegression class. The implementation consits of a simple loop that sums the product of the feature values and the parameter. However, because $x_0 = 1$, we can save some effort. This adjusted version highlights the point:
+LinearRegression::evaluate only signifies that evaluate is a method belonging to LinearRegression class. The implementation consists of a simple loop that sums the product of the feature values and the parameter. However, because $x_0 = 1$, we can save some effort. This adjusted version highlights the point:
 
 ```cpp
 // Linear regression implementation using raw loops with shorter feature vector
 double LinearRegression::evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
-	auto sum = parameters[0];
+   auto sum = parameters[0];
     for (size_t i = 0; i < featureVector.size(); ++i) {
         sum += featureVector[i] * parameters[i + 1];
     }
-	return sum;
+   return sum;
 }
 ```
 Notice that the feature vector is one element shorter than the parameter vector. We begin the sum with parameters[0], representing $\theta_0$. In the loop, we remember to add one to the index for the parameters vector to align with the matching parameter value. 
@@ -52,9 +52,9 @@ This implementation can easily be simplified further by using standard library m
 ```cpp
 // Linear regression implementation using std::inner_product
 double LinearRegression::evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters){
-	auto sum = parameters[0];
-	sum += std::inner_product(std::begin(featureVector), std::end(featureVector), std::begin(parameters) + 1, 0.0);
-	return sum;
+   auto sum = parameters[0];
+   sum += std::inner_product(std::begin(featureVector), std::end(featureVector), std::begin(parameters) + 1, 0.0);
+   return sum;
 }
 ```
 
@@ -69,7 +69,7 @@ TEST_METHOD(TestLinearRegressionEvaluation)
     std::vector<double> parameters{ -6.867, 3.148, -1.656};
     // Feature vector
     std::vector<std::vector<double>> x = { {60, 22}, {62, 25},{67, 24} };
-    // Estimated values for each feature vector sample. E.g., for sample {60, 22}, the esimate is -6.867 + 3.148 * 60 - 1.656 * 22 = 145.581
+    // Estimated values for each feature vector sample. E.g., for sample {60, 22}, the estimate is -6.867 + 3.148 * 60 - 1.656 * 22 = 145.581
     std::vector<double> estimates = { 145.581, 146.909, 164.305};
     auto estimate = begin(estimates);
     // Finally, calculate the estimate using the linear regression and compare is to the measured value 'y' (estimates).
@@ -86,10 +86,10 @@ The implementation above solves the core problem, however, in order to make soft
 
 ```cpp
 namespace EasyNN {
-	class IRegression {
-	public:
-		virtual double evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters) const = 0;
-	};
+   class IRegression {
+   public:
+      virtual double evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters) const = 0;
+   };
 }
 ```
 
@@ -97,10 +97,10 @@ Linear regression is an implementation of IRegression interface, as follows:
 
 ```cpp
 namespace EasyNN {
-	class LinearRegression : public IRegression {
-	public:
-		double evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters) const override;
-	};
+   class LinearRegression : public IRegression {
+   public:
+      double evaluate(const std::vector<double>& featureVector, const std::vector<double>& parameters) const override;
+   };
 }
 ```
 

@@ -9,19 +9,19 @@ This is the form of equation that we will use for the implementation. However, f
 
 $\large{J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (\theta^Tx^{(i)} - y^{(i)})^2}$     **(2)**
 
-Which can be expanded even further into individual feature compoents for $h_\theta(x^{(i)})$
+Which can be expanded even further into individual feature components for $h_\theta(x^{(i)})$
 
 $\large{J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (\theta_0 x_0^{(i)} + \theta_1 x_1^{(i)} + ... + \theta_n x_n^{(i)} - y^{(i)})^2}$  **(3)**
 
-This equation is useful for implementing without seperately defining the hypothesis.
+This equation is useful for implementing without separately defining the hypothesis.
 
 ## Notations and Key Observations
 
-$J(\theta)$ is the cost funciton
+$J(\theta)$ is the cost function
 
 $m$ is the number of samples
 
-$n$ is the number of features or linear regreession model order
+$n$ is the number of features or linear regression model order
 
 $x$ is a feature **vector** (and *not a single feature*)
 
@@ -58,7 +58,7 @@ $y^{(2)}$ denotes the second measured value, i.e., 232.
 Referring back to equation (1), implementing cost functional is trivial. It involves the following simple steps
 * Iterate over the all the available samples, i.e., $i = 1... m$, which we call as feature matrix (nested nested loop) and extract the feature vector, $x^{(i)}$
 * Compute hypothesis value for the extracted feature vector
-* Compute the squared difference of hypotehesis and the measured value
+* Compute the squared difference of hypothesis and the measured value
 * Sum the squared differences for all the samples
 * Normalize the sum by dividing it with $2m$
 
@@ -195,7 +195,7 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
 
 ### Design Tradeoff - Tight Coupling
 
-ICostFunction holding an instance of IRegression creates tight coupling between the two. At the same time it allows to write relatively clearner code and we don't need to hold and maintain two interfaces instances separately (it is specially tricky when we have multiple cost functions and multiple corresponding hypothesis represeting different underlying cost operations and hypothesis). Hence, it is a compromise and different requirements may yield different design decisions. However, for EasyNN I have made this design decision with tight coupling, at least for now! However, it is also not too difficult to extend the interface even further to allow replacing the underlying hypothesis of the cost function.
+ICostFunction holding an instance of IRegression creates tight coupling between the two. At the same time it allows to write relatively cleaner code and we don't need to hold and maintain two interfaces instances separately (it is specially tricky when we have multiple cost functions and multiple corresponding hypothesis representing different underlying cost operations and hypothesis). Hence, it is a compromise and different requirements may yield different design decisions. However, for EasyNN I have made this design decision with tight coupling, at least for now! However, it is also not too difficult to extend the interface even further to allow replacing the underlying hypothesis of the cost function.
 
 ## Important Links
 * [Back: Linear regression](./LinearRegression.md).
