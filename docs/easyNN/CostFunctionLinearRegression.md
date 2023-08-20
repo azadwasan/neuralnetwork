@@ -56,7 +56,8 @@ $y^{(2)}$ denotes the second measured value, i.e., 232.
 ## Implementation
 
 Referring back to equation (1), implementing cost functional is trivial. It involves the following simple steps
-* Compute hypothesis value for a feature vector
+* Iterate over the all the available samples, i.e., $i = 1... m$, which we call as feature matrix (nested nested loop) and extract the feature vector, $x^{(i)}$
+* Compute hypothesis value for the extracted feature vector
 * Compute the squared difference of hypotehesis and the measured value
 * Sum the squared differences for all the samples
 * Normalize the sum by dividing it with $2m$
