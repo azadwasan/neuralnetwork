@@ -6,20 +6,11 @@ We use gradient descent to find the best model parameters for which the change i
 
 $\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)$
 
-$\text{Repeat\{}
-Cost(h_{\theta}(x), y) = \begin{cases} -\log(h_{\theta}(x)), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}
-\text{\}}
-$
 
-
-$\text{Repeat{}
-Cost(h_{\theta}(x), y) = \begin{cases} -\log(h_{\theta}(x)), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}
-\text{}}
-$
-
-Repeat{
-$
-Cost(h_{\theta}(x), y) = \begin{cases} -\log(h_{\theta}(x)), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}
-\text{}
-$
-}
+\begin{equation}
+\text{Repeat } \left\{
+\begin{aligned}
+    \theta_j &:= \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}
+\end{aligned}
+\right.
+\end{equation}
