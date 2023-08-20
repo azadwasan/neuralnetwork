@@ -129,13 +129,13 @@ Here are the steps of to implement GD
 
 1 Compute the cost function $J(\theta)$ based on the current batch of parameter values.
 2 Start iterating the GD algorithm until maximum iterations count is reached.
-    3 Iterate for all the parameters (nested loop) that we need to tune, which is equal to the model order, i.e., $n$.
-    4 Iterate over the all the available samples, i.e., $i = 1... m$, which we call as feature matrix (nested nested loop) and extract the feature vector, $x^{(i)}$.
-        5 Evaluate the hypothesis for the current feature vector ($h_{\theta}(x^{(i)}$) based on the *current parameter batch*.
-        6 Find the difference of hypothesis with measure value $y^{(i)}$ corresponding to the feature vector.
-        7 The difference is multiplied the the corresponding feature of the model parameters which is being tuned, i.e., $j^{th} feature of $  $x_j^{(i)}$.
-        8 Sum all the values from step 4 to 7 and finally normalize by the number of samples $m$.
-    9 Compute new value of the model parameter by subtracting the values computed in step 8 multiplied by the learning rate $\alpha$. *Note these model values are stored in a separate vector and the earlier model values are not modified.*
+3 Iterate for all the parameters (nested loop) that we need to tune, which is equal to the model order, i.e., $n$.
+4 Iterate over the all the available samples, i.e., $i = 1... m$, which we call as feature matrix (nested nested loop) and extract the feature vector, $x^{(i)}$.
+5 Evaluate the hypothesis for the current feature vector ($h_{\theta}(x^{(i)}$) based on the *current parameter batch*.
+6 Find the difference of hypothesis with measure value $y^{(i)}$ corresponding to the feature vector.
+7 The difference is multiplied the the corresponding feature of the model parameters which is being tuned, i.e., $j^{th} feature of $  $x_j^{(i)}$.
+8 Sum all the values from step 4 to 7 and finally normalize by the number of samples $m$.
+9 Compute new value of the model parameter by subtracting the values computed in step 8 multiplied by the learning rate $\alpha$. *Note these model values are stored in a separate vector and the earlier model values are not modified.*
 10 The previous batch of model parameters are replaced with the new computed model parameters.
 11 Compute the cost function $J(\theta)$ based on the new parameters
 12 If the difference between the two cost functions is less than the threshold, stop the optimization
