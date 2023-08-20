@@ -121,7 +121,7 @@ GD would require the following parameters
 * Cost function to evaluate the cost $J(\theta)$ based on the parameters values. One of the stopping criteria is based on this. If the cost function difference between two iterations is below a certain threshold, we stop.
 * $\alpha$, the learning rate of GD algorithm
 * Stopping threshold for the cost function difference between the two iterations
-* maximum iterations, to stop the algorithm
+* Maximum iterations, to stop the algorithm
 
 It is important to note that the cost function in EasyNN derives from ICostFunction and it also hold an instance of the IHypothesis. Hence, through cost function, GD will have access to the hypothesis.
 
@@ -133,13 +133,52 @@ Here are the steps of to implement GD
 4. Iterate over the all the available samples, i.e., $i = 1... m$, which we call as feature matrix (nested nested loop) and extract the feature vector, $x^{(i)}$.
 5. Evaluate the hypothesis for the current feature vector ($h_{\theta}(x^{(i)}$) based on the *current parameter batch*.
 6. Find the difference of hypothesis with measure value $y^{(i)}$ corresponding to the feature vector.
-7. The difference is multiplied the the corresponding feature of the model parameters which is being tuned, i.e., $j^{th} feature of $  $x_j^{(i)}$.
+7. The difference is multiplied the the corresponding feature of the model parameters which is being tuned, i.e., $j^{th}$ feature of $i^{the}$ feature vector, i.e, $x_j^{(i)}$.
 8. Sum all the values from step 4 to 7 and finally normalize by the number of samples $m$.
 9. Compute new value of the model parameter by subtracting the values computed in step 8 multiplied by the learning rate $\alpha$. *Note these model values are stored in a separate vector and the earlier model values are not modified.*
 10. The previous batch of model parameters are replaced with the new computed model parameters.
-11. Compute the cost function $J(\theta)$ based on the new parameters
-12. If the difference between the two cost functions is less than the threshold, stop the optimization
-13. If not, the new cost function value is treated as the old cost function value and the new parameters are treated as old parameters and we repeat from step 2
+11. Compute the cost function $J(\theta)$ based on the new parameters.
+12. If the difference between the two cost functions is less than the threshold, stop the optimization.
+13. If not, the new cost function value is treated as the old cost function value and the new parameters are treated as old parameters and we repeat from step 3.
 
 Step 4 - 8 are same as the computation of [linear regression cost function](./CostFunctionLinearRegression.md), except the computation is slightly different.
+
+Here is how the basic implementation would look like
+
+```cpp
+1	void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
+2		const std::vector<double>& measurementsVector,
+3		const ICostFunction& costFunction,
+4		double alpha, double stopThreshold,
+5		std::vector<double>& parameters) {
+6
+7		std::vector<double> parametersNew(parameters.size());
+8		constexpr auto MAX_ITERATIONS = 1000;
+9
+10		auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
+11		auto i = 0;
+12		auto newCost = 0.0;
+13		for (; i < MAX_ITERATIONS; i++) {
+14			double differenceSumZero = 0.0;
+15			for (size_t k = 0; k < featuresMatrix.size(); k++) {
+16				differenceSumZero += costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k];
+17			}
+18			parametersNew[0] = parameters[0] - alpha * 1 / measurementsVector.size() * differenceSumZero;
+19
+20			for (size_t index = 1; index < parameters.size(); index++) {
+21				double differenceSum = 0.0;
+22				for (size_t k = 0; k < featuresMatrix.size(); k++) {
+23					differenceSum += (costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k]) * featuresMatrix[k][index - 1];
+24				}
+25				parametersNew[index] = parameters[index] - alpha * 1 / measurementsVector.size() * differenceSum;
+26			}
+27			parameters = parametersNew;
+28			newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+29			if (abs(oldCost - newCost) < stopThreshold) {
+30				break;
+31			}
+32			oldCost = newCost;
+33		}
+34	}
+```
 
