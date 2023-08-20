@@ -16,3 +16,10 @@ $\text{Repeat{}
 Cost(h_{\theta}(x), y) = \begin{cases} -\log(h_{\theta}(x)), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}
 \text{}}
 $
+
+Repeat{
+$
+Cost(h_{\theta}(x), y) = \begin{cases} -\log(h_{\theta}(x)), & \text{if } y =1.\\\\ -\log (1 - h_{\theta}(x)), & \text{if } y = 0. \end{cases}
+\text{}
+$
+}
