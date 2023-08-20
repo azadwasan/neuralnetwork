@@ -146,39 +146,39 @@ Step 4 - 8 are same as the computation of [linear regression cost function](./Co
 Here is how the basic implementation would look like
 
 ```cpp
-1	void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
-2		const std::vector<double>& measurementsVector,
-3		const ICostFunction& costFunction,
-4		double alpha, double stopThreshold,
-5		std::vector<double>& parameters) {
+1  void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
+2    const std::vector<double>& measurementsVector,
+3    const ICostFunction& costFunction,
+4    double alpha, double stopThreshold,
+5    std::vector<double>& parameters, size_t maxIterations) {
 6
-7		std::vector<double> parametersNew(parameters.size());
-8		constexpr auto MAX_ITERATIONS = 1000;
+7    std::vector<double> parametersNew(parameters.size());
+8    constexpr auto MAX_ITERATIONS = 1000;
 9
-10		auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
-11		auto i = 0;
-12		auto newCost = 0.0;
-13		for (; i < MAX_ITERATIONS; i++) {
-14			double differenceSumZero = 0.0;
-15			for (size_t k = 0; k < featuresMatrix.size(); k++) {
-16				differenceSumZero += costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k];
-17			}
-18			parametersNew[0] = parameters[0] - alpha * 1 / measurementsVector.size() * differenceSumZero;
+10    auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
+11    auto i = 0;
+12    auto newCost = 0.0;
+13    for (; i < maxIterations; i++) {
+14      double differenceSumZero = 0.0;
+15      for (size_t k = 0; k < featuresMatrix.size(); k++) {
+16        differenceSumZero += costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k];
+17      }
+18      parametersNew[0] = parameters[0] - alpha * 1 / measurementsVector.size() * differenceSumZero;
 19
-20			for (size_t index = 1; index < parameters.size(); index++) {
-21				double differenceSum = 0.0;
-22				for (size_t k = 0; k < featuresMatrix.size(); k++) {
-23					differenceSum += (costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k]) * featuresMatrix[k][index - 1];
-24				}
-25				parametersNew[index] = parameters[index] - alpha * 1 / measurementsVector.size() * differenceSum;
-26			}
-27			parameters = parametersNew;
-28			newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
-29			if (abs(oldCost - newCost) < stopThreshold) {
-30				break;
-31			}
-32			oldCost = newCost;
-33		}
-34	}
+20      for (size_t index = 1; index < parameters.size(); index++) {
+21        double differenceSum = 0.0;
+22        for (size_t k = 0; k < featuresMatrix.size(); k++) {
+23          differenceSum += (costFunction.getHypothesis().evaluate(featuresMatrix[k], parameters) - measurementsVector[k]) * featuresMatrix[k][index - 1];
+24        }
+25        parametersNew[index] = parameters[index] - alpha * 1 / measurementsVector.size() * differenceSum;
+26      }
+27      parameters = parametersNew;
+28      newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+29      if (abs(oldCost - newCost) < stopThreshold) {
+30        break;
+31      }
+32      oldCost = newCost;
+33    }
+34  }
 ```
 
