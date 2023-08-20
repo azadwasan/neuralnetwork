@@ -15,7 +15,9 @@ $
 $
 
 Repeat{
-
 $\theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}$
-
 }
+
+$\text{Repeat}\left\{\begin{matrix}
+theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}
+\end{matrix}\right.$
