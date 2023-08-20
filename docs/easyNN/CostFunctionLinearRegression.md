@@ -97,7 +97,7 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
    return mse / (2 * m) + regFactor;
 }
 ```
-We hav replaced the loops with std::transform_reduce and specificed the summation operation through std::plus<>() to be performed for each feature vector. The operation of squared difference is specified through a lambda.
+We hav replaced the loops with std::transform_reduce and specified the summation operation through std::plus<>() to be performed for each feature vector. The operation of squared difference is specified through a lambda.
 
 ## Testing
 ```cpp
@@ -198,8 +198,8 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
 ICostFunction holding an instance of IRegression creates tight coupling between the two. At the same time it allows to write relatively cleaner code and we don't need to hold and maintain two interfaces instances separately (it is specially tricky when we have multiple cost functions and multiple corresponding hypothesis representing different underlying cost operations and hypothesis). Hence, it is a compromise and different requirements may yield different design decisions. However, for EasyNN I have made this design decision with tight coupling, at least for now! However, it is also not too difficult to extend the interface even further to allow replacing the underlying hypothesis of the cost function.
 
 ## Important Links
-* [Back: Linear regression](./LinearRegression.md).
 * [Next: Logistic regression](./LogisticRegression.md).
+* [Back: Linear regression](./LinearRegression.md).
 * [Go back to Implementing Neural Networks in C++](./index.md)
 * EasyNN linear regression cost function implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionMSE.h).
 * EasyNN linear regression cost function  implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionMSE.cpp).

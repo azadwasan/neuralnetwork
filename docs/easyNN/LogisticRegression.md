@@ -35,8 +35,8 @@ Logistic regression tests look similar to linear regression tests. For specific 
 
 
 ## Important Links
-* [Back: Linear regression cost function](./CostFunctionLinearRegression.md).
 * [Next: Logistic regression cost function](./CostFunctionLogisticRegression.md).
+* [Back: Linear regression cost function](./CostFunctionLinearRegression.md).
 * [Go back to Implementing Neural Networks in C++](./index.md)
 * EasyNN logistic regression implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LogisticRegression.h).
 * EasyNN logistic regression implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LogisticRegression.cpp).

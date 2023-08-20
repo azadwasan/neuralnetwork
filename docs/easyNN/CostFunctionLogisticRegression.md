@@ -61,7 +61,7 @@ double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& fea
 ```
 To compute the logistic regression we run a simple loop, extracting the feature vector from the featureMatrix and the corresponding measured value. The hypothesis value is computed based on the feature vector and the measured value. Next, we compute the cost, which is summed over the duration of the loop, which is finally normalized.
 
-Note from the details software design dicussion for [linear regression cost function](./CostFunctionLinearRegression.md), we already know that the hypothesis is part of the ICostFunction interface, hence it is readily available to CostFuntionLogistic::evaluate(...) method.
+Note from the details software design discussion for [linear regression cost function](./CostFunctionLinearRegression.md), we already know that the hypothesis is part of the ICostFunction interface, hence it is readily available to CostFuntionLogistic::evaluate(...) method.
 
 This implementation can be further improved as follows by using the standard library algorithms:
 
@@ -88,8 +88,8 @@ The cost computation has been moved to a lambda and cost summation calculation i
 EasyNN currently doesn't have any explicit tests for logistic regression. However, it is extensively tested while testing the gradient descent for data classification.
 
 ## Important Links
-* [Back: Logistic regression](./LogisticRegression.md).
 * [Next: Gradient Descent](./GradientDescent.md).
+* [Back: Logistic regression](./LogisticRegression.md).
 * [Go back to Implementing Neural Networks in C++](./index.md)
 * EasyNN logistic regression cost function implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionLogistic.h).
 * EasyNN logistic regression cost function  implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionLogistic.cpp).
