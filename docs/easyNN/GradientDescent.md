@@ -2,11 +2,11 @@
 
 ## Fundamentals
 
-We use gradient descent to find the best model parameters for which the change in the cost function is mimimal. Hence, it is given as follows
+We use gradient descent to find the best model parameters for which the change in the cost function is minimal. Hence, it is given as follows
 
 Repeat{
 
-$\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)$
+$\large{\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)}$
 
 }
 
@@ -14,7 +14,7 @@ simultaneously update for every $j=0,...,n$.
 
 Repeat{
 
-$\theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}$
+$\large{\theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}}$
 
 }
 
@@ -22,11 +22,11 @@ simultaneously update $\theta_j$ for every $j=0,...,n$.
 
 This can be expanded further for clarify as follows
 
-$\theta_0 := \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})$
+$\large{\theta_0 := \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})}$
 
-$\theta_1 := \theta_1 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_1^{(i)}$
+$\large{\theta_1 := \theta_1 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_1^{(i)}}$
 
-$\theta_2 := \theta_2 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_2^{(i)}$
+$\large{\theta_2 := \theta_2 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_2^{(i)}}$
 
 ...
 
@@ -81,19 +81,19 @@ All of these are discussed in detail in Ng's course, hence we are not going to i
 
 In order to implement GD, let us focus on the following part of the algorithm:
 
-$\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^$
+$\large{\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j}$
 
 This very similar to the cost function $J(\theta)$, also because it is the derivative of $J(\theta)$. Hence, from implementation point of view, its computation is also very similar to that of $J(\theta)$. 
 
 It starts making a lot more sense, if we would simplify the GD equation and assume there is only one sample of data. The GD equation reduces to only the following
 
-$\theta_j := \theta_j - \alpha (h_{\theta}(x) - y) x_j$
+$\large{\theta_j := \theta_j - \alpha (h_{\theta}(x) - y) x_j}$
 
-$(h_{\theta}(x) - y)$ is very easily to interpret, it simply the error between the estimate and the measured value. Multiplying $x_j$ with the error term serves to amplify the error term proportional to the concerned feature value and show its contribution in the estimation error. Therefore, the large the value of the feature $x_j$ the more pronounced the error would be and vice versa. However, at the same time we don't want the amplified error to change parameter $\theta_j$ too much, as it could cause convergence issue. Hence, we attenuate the proportionally amplified error by $\alpha$. The respective $\theta_j$ value is updated accordingly.
+$h_{\theta}(x) - y$ is very easily to interpret, it is the error between the estimate and the measured value. Multiplying $x_j$ with the error term serves to amplify the error term proportional to the concerned feature value and show its contribution in the estimation error. Therefore, the large the value of the feature $x_j$ the more pronounced the error would be and vice versa. However, at the same time we don't want the amplified error to change parameter $\theta_j$ too much, as it could cause convergence issue. Hence, we attenuate the proportionally amplified error by $\alpha$. The respective $\theta_j$ value is updated accordingly.
 
 Referring back to the original original equation, the following part becomes obvious
 
-$\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^$
+$\large{\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j}$
 
 This simplifies the case when we have multiple data points. Hence, we would like to find the differences of estimates with the measured values, proportionally amplify them with the corresponding feature value to determine the contribution of this specific feature in the error and repeat this process for all the data points we have available. Finally, we normally them by finding an average. This gives us an average error in estimation for all the available data points that is amplified by the respective feature value.
 
@@ -130,9 +130,6 @@ Here are the steps of to implement GD
 1 Compute the cost function $J(\theta)$ based on the current batch of parameter values.
 2 Start iterating the GD algorithm until maximum iterations count is reached.
     3 Iterate for all the parameters (nested loop) that we need to tune, which is equal to the model order, i.e., $n$.
-
-    Step 4 - 8 are same as the computation of [linear regression cost function](./CostFunctionLinearRegression.md), except the computation is slightly different.
-
     4 Iterate over the all the available samples, i.e., $i = 1... m$, which we call as feature matrix (nested nested loop) and extract the feature vector, $x^{(i)}$.
         5 Evaluate the hypothesis for the current feature vector ($h_{\theta}(x^{(i)}$) based on the *current parameter batch*.
         6 Find the difference of hypothesis with measure value $y^{(i)}$ corresponding to the feature vector.
