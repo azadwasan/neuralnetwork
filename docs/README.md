@@ -79,3 +79,27 @@ A set of python scripts triggered by EasyNNPyPlugin.
 
 ## EasyNNConsole
 A console application that links with EasyNN (and other libraries in the solution) to play around. It doesn't serve more than quick testing. However, for appropriate use of EasyNN, EasyNNConsole should not be considered as a reference, rather EasyNNTest serves as an appropriate reference for apprropriate use of the library.
+
+## Index
+
+**Linear Regression**
+
+[Linear Regression](./LinearRegression.md)
+
+[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+
+**Logistic Regression**
+
+[Logistic Regression](./LogisticRegression.md)
+
+[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+
+**Regularization**
+
+[Regularization](./Regularization.md)
+
+**Gradient Descent**
+
+[Gradient Descent](./GradientDescent.md)
+
+[Gradient Descent Evaluation](./GradientDescentTest.md)
