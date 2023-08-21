@@ -144,7 +144,7 @@ namespace EasyNN {
 ```
 ### Cost function and Hypothesis
 
-As we can observe in the interface, cost function requires the hypothesis to compute the cost. Later on we will also observe in the implementation of gradients descent and other algorithms that we will have to maintain the costs and hypothesis and keep track of them. Hence, EasyNN extends the ICostFunction interface to also hold an instance of hypothesis. This allows us to keep the overall design clean and flexible. The extended interafce looks as follows:
+As we can observe in the interface, cost function requires the hypothesis to compute the cost. Later on we will also observe in the implementation of gradients descent and other algorithms that we will have to maintain the costs and hypothesis and keep track of them. Hence, EasyNN extends the ICostFunction interface to also hold an instance of hypothesis. This allows us to keep the overall design clean and flexible. The extended interface looks as follows:
 ```cpp
 namespace EasyNN {
    class ICostFunction {
@@ -210,11 +210,13 @@ ICostFunction holding an instance of IRegression creates tight coupling between 
 **Linear Regression**
 
 [Linear Regression](./LinearRegression.md)
+
 [Linear Regression Cost Function](./CostFunctionLinearRegression.md)
 
 **Logistic Regression**
 
 [Logistic Regression](./LogisticRegression.md)
+
 [Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
 
 **Regularization**
@@ -224,4 +226,5 @@ ICostFunction holding an instance of IRegression creates tight coupling between 
 **Gradient Descent**
 
 [Gradient Descent](./GradientDescent.md)
+
 [Gradient Descent Evaluation](./GradientDescentTest.md)

@@ -119,11 +119,13 @@ This design element is the key to generalized implementation of hypothesis and i
 **Linear Regression**
 
 [Linear Regression](./LinearRegression.md)
+
 [Linear Regression Cost Function](./CostFunctionLinearRegression.md)
 
 **Logistic Regression**
 
 [Logistic Regression](./LogisticRegression.md)
+
 [Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
 
 **Regularization**
@@ -133,4 +135,5 @@ This design element is the key to generalized implementation of hypothesis and i
 **Gradient Descent**
 
 [Gradient Descent](./GradientDescent.md)
+
 [Gradient Descent Evaluation](./GradientDescentTest.md)

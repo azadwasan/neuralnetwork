@@ -142,11 +142,13 @@ It is important to note that the intention is not to prove that EasyNN performs 
 **Linear Regression**
 
 [Linear Regression](./LinearRegression.md)
+
 [Linear Regression Cost Function](./CostFunctionLinearRegression.md)
 
 **Logistic Regression**
 
 [Logistic Regression](./LogisticRegression.md)
+
 [Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
 
 **Regularization**
@@ -156,4 +158,5 @@ It is important to note that the intention is not to prove that EasyNN performs 
 **Gradient Descent**
 
 [Gradient Descent](./GradientDescent.md)
+
 [Gradient Descent Evaluation](./GradientDescentTest.md)

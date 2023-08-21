@@ -73,11 +73,13 @@ Logistic regression tests look similar to linear regression tests. For specific 
 **Linear Regression**
 
 [Linear Regression](./LinearRegression.md)
+
 [Linear Regression Cost Function](./CostFunctionLinearRegression.md)
 
 **Logistic Regression**
 
 [Logistic Regression](./LogisticRegression.md)
+
 [Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
 
 **Regularization**
@@ -87,4 +89,5 @@ Logistic regression tests look similar to linear regression tests. For specific 
 **Gradient Descent**
 
 [Gradient Descent](./GradientDescent.md)
+
 [Gradient Descent Evaluation](./GradientDescentTest.md)
