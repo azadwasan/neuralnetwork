@@ -60,19 +60,19 @@ The test above is exactly the same as the last test, however, the key difference
 
 The linear regression fits achieved through EasyNN's gradient descent method are remarkably similar to those obtained using TensorFlow. In fact, the two are practically indistinguishable from one another. Thanks to EasyNNPyInterpreter we can also visualize these results now. The following figure shows the fit of both EasyNN and TensorFlow from the above test
 
-![EasyNNvsTensorFlowGD](/assets/img/EasyNNTest/LinearRegressionGDFrontView.png)
+![EasyNNvsTensorFlowGD](../assets/img/EasyNNTest/LinearRegressionGDFrontView.png)
         EasyNN vs TensorFlow Linear Regression Gradient Fit
 
 The figure shows the plane represented by the model to fit all the samples of the data. The two planes are literally the same, hence I had to make one smaller than the other to be able to easily see the other.
 
 Here is a zoomed-in side view of the same graph, both the planes literally make a single line
 
-![EasyNNvsTensorFlowGD](/assets/img/EasyNNTest/LinearRegressionGDSideView.png)
+![EasyNNvsTensorFlowGD](../assets/img/EasyNNTest/LinearRegressionGDSideView.png)
         EasyNN vs TensorFlow Linear Regression Gradient Fit
 
 
 In rare instances where a minimal dataset of just 5 samples is employed, a slight divergence between EasyNN and TensorFlow optimizations may arise. The subsequent figure captures such an infrequent scenario (achieved after multiple trial runs), where a linear hypothesis is approximated through gradient descent optimization using only two features and five samples:
 
-![EasyNNvsTensorFlowLowSampleRate](/assets/img/EasyNNvsTensorFlowGD.png)
+![EasyNNvsTensorFlowLowSampleRate](../assets/img/EasyNNvsTensorFlowGD.png)
 
 The green and blue planes illustrate the linear approximations achieved by EasyNN and TensorFlow through gradient descent optimization, respectively. Yet, upon rotating the graph, it becomes evident that both methods achieve a comparable level of approximation, a fact reinforced by the Mean Squared Error (MSE) analysis.
