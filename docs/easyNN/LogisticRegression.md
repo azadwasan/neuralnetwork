@@ -24,10 +24,37 @@ double LogisticRegression::evaluate(const std::vector<double>& featureVector, co
    auto gz = 1 / (1 + exp(-1.0 * z));
    return gz;
 }
-
 ```
 
 That is literally all that is to evaluate the logistic regression and due to our flexible design, we do not care how does the underlying hypothesis look like and whether it is linear or linear etc.
+
+## Software Design - Extending the interface to accept underlying hypothesis
+
+The code I provided above is technically not correct, because the interface we defined for IRegression::evaluate(..) doesn't allow the additional parameter. Though, it conveys the message the but we still need to improve the design.
+
+The underlying hypothesis is not always needed, like in the case of linear regression. Hence, when we extend the interface to accept the additional parameter, we can make it optional and use it only when we need it. The underlying hypothesis parameter can be added to the base interface as follows
+
+```cpp
+    class IRegression {
+    public:
+        virtual double evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis = nullptr) const = 0;
+    };
+```
+
+It is added as a pointer with default value set to nullptr. Hence, the existing code and the tests stay unaffected by the change. However, we will have to adapt all the implementations of the interface, i.e., linear regression and logistic regression. However, we will only show the change for logistic regression here.
+
+```cpp
+double LogisticRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis /*= nullptr*/) const {
+
+	std::unique_ptr<IRegression> hypothesis = (underlyingHypothesis == nullptr ? std::make_unique<LinearRegression>() : std::move(underlyingHypothesis));
+
+	auto z = hypothesis->evaluate(featureVector, parameters);
+	auto gz = 1 / (1 + exp(-1.0 * z));
+	return gz;
+}
+```
+
+Logistic regression can now accept additional parameter for underlying hypothesis. Based on the value of the pointer it can either use the passed hypothesis if it is not nullptr, otherwise it creates an instance of linear regression and use it as underlying hypothesis. I am sorry to non-C++ programmers here for some weird syntax but all it does that it checks if the user has pass a valid object of underlying hypothesis then use it, otherwise create a new object of LinearRegression type.
 
 ## Testing
 

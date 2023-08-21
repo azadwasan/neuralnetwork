@@ -82,7 +82,7 @@ TEST_METHOD(TestLinearRegressionEvaluation)
 
 ## Software Design - Generalizing the Hypothesis
 
-The implementation above solves the core problem, however, in order to make software scalable we need to generalize the design. It can be achieved by defining an interface that can represent various classes of regressions, i.e., linear regression, logistic regression etc.  EasyNN defines the interace for regressions as follow:
+The implementation above solves the core problem, however, in order to make software scalable we need to generalize the design. It can be achieved by defining an interface that can represent various classes of regressions, i.e., linear regression, logistic regression etc.  EasyNN defines the interface for regressions as follow:
 
 ```cpp
 namespace EasyNN {

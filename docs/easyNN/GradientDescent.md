@@ -300,7 +300,7 @@ We define a lambdas to compute $\theta_0$ difference sum called differenceSumZer
 Test GD is a separate topic in itself, hence we discuss it in detail [here](./GradientDescentTest.md).
 
 ## Important Links
-* [Next: Gradient Descent Evaluation/Testing](./GradientDescentTest.md).
+* [Next: Regularization](./Regularization.md).
 * [Back: Logistic Regression Cost Function](./CostFunctionLogisticRegression.md).
 * [Go back to Implementing Neural Networks in C++](./index.md)
 * EasyNN Gradient Descent implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/GradientDescent.h).
