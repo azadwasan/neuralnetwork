@@ -109,9 +109,9 @@ TEST_METHOD(TestGradientDescentEvaluationLogisticRegression)
 }
 ```
 
-This test is similar to linear regression tests. We fetch the data dynamically from python scilearn library (line 4). The method getClassificationData(...) take the input of feature matrix, measured output, number of samples, number of features, redundant features and clusters per feature. In this specific case we get 100 data points divided in two clusters. Next, we instantiate EasyNN logistic regression (line 6). EasyNN GD is fit on the data (line 8). A helper method is used to find the correct classification percentage (line 10). Next, we determine the classification using scilearn and TensorFlow libraries (line 12 and 13). The respective percentages are determined (line 15, 16). The results are plotted (line 18) and checked to make sure EasyNN classification is with 2% of TensorFlow classification benchmark.
+This test is similar to linear regression tests. We fetch the data dynamically from python sklearn library (line 4). The method getClassificationData(...) take the input of feature matrix, measured output, number of samples, number of features, redundant features and clusters per feature. In this specific case we get 100 data points divided in two clusters. Next, we instantiate EasyNN logistic regression (line 6). EasyNN GD is fit on the data (line 8). A helper method is used to find the correct classification percentage (line 10). Next, we determine the classification using sklearn and TensorFlow libraries (line 12 and 13). The respective percentages are determined (line 15, 16). The results are plotted (line 18) and checked to make sure EasyNN classification is with 2% of TensorFlow classification benchmark.
 
-In the following figure green line represents EasyNN classification line, blue line represents TensorFlow model and red line represents Scilearn model.
+In the following figure green line represents EasyNN classification line, blue line represents TensorFlow model and red line represents sklearn model.
 
 ![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression1.png)
 
@@ -123,12 +123,16 @@ Slightly tighter optimal solution range as compared to earlier example. EasyNN t
 
 ![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression3.png)
 
-This is interesting and one of the examples where EasyNN performance better than both TensorFlow and Scilearn and it has distanced itself from Tensorflow this time. EasyNN achieves 94% correct classification and the other two achieve 92%.
+This is interesting and one of the examples where EasyNN performance better than both TensorFlow and sklearn and it has distanced itself from Tensorflow this time. EasyNN achieves 94% correct classification and the other two achieve 92%.
 
 ![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression3.png)
 
-Again a very narrow optimization point, but both EasyNN and Scilearn perform better than TensorFlow.
+Again a very narrow optimization point, but both EasyNN and sklearn perform better than TensorFlow.
 
 ### Comments
 
-It is important to note that it is not intended to prove that EasyNN performs better than TensorFlow. It could be be due to some configuration parameters, moreover, the difference is very rare and really small. I am already incredibly happy that EasyNN results are close to TensorFlow results, which is an industry standard and it haa made me more confident in the design and the implementation of EasyNN.
+It is important to note that the intention is not to prove that EasyNN performs better than TensorFlow. The observed difference in performance could be due to various configuration parameters and is both rare and small. I am incredibly pleased that the results of EasyNN are comparable to those of TensorFlow, which is an industry standard. This has increased my confidence in the design and implementation of EasyNN.
+
+## Important Links
+* [Back: Regularization](./Regularization.md).
+* [Go back to Implementing Neural Networks in C++](./index.md)
