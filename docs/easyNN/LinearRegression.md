@@ -113,3 +113,24 @@ This design element is the key to generalized implementation of hypothesis and i
 * EasyNN linear regression implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LinearRegression.h).
 * EasyNN linear regression implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LinearRegression.cpp).
 * EasyNN linear regression [test](https://github.com/azadwasan/neuralnetwork/blob/main/src/EasyNNTest/LinearRegressionTest.cpp).
+
+## Index
+
+**Linear Regression**
+
+[Linear Regression](./LinearRegression.md)
+[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+
+**Logistic Regression**
+
+[Logistic Regression](./LogisticRegression.md)
+[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+
+**Regularization**
+
+[Regularization](./Regularization.md)
+
+**Gradient Descent**
+
+[Gradient Descent](./GradientDescent.md)
+[Gradient Descent Evaluation](./GradientDescentTest.md)

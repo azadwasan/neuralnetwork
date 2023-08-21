@@ -93,3 +93,24 @@ EasyNN currently doesn't have any explicit tests for logistic regression. Howeve
 * [Go back to Implementing Neural Networks in C++](./index.md)
 * EasyNN logistic regression cost function implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionLogistic.h).
 * EasyNN logistic regression cost function  implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionLogistic.cpp).
+
+## Index
+
+**Linear Regression**
+
+[Linear Regression](./LinearRegression.md)
+[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+
+**Logistic Regression**
+
+[Logistic Regression](./LogisticRegression.md)
+[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+
+**Regularization**
+
+[Regularization](./Regularization.md)
+
+**Gradient Descent**
+
+[Gradient Descent](./GradientDescent.md)
+[Gradient Descent Evaluation](./GradientDescentTest.md)

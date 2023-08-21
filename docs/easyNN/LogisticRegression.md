@@ -45,11 +45,11 @@ It is added as a pointer with default value set to nullptr. Hence, the existing 
 
 ```cpp
 double LogisticRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis /*= nullptr*/) const {
-	std::unique_ptr<IRegression> hypothesis = (underlyingHypothesis == nullptr ? std::make_unique<LinearRegression>() : std::move(underlyingHypothesis));
+   std::unique_ptr<IRegression> hypothesis = (underlyingHypothesis == nullptr ? std::make_unique<LinearRegression>() : std::move(underlyingHypothesis));
 
-	auto z = hypothesis->evaluate(featureVector, parameters);
-	auto gz = 1 / (1 + exp(-1.0 * z));
-	return gz;
+   auto z = hypothesis->evaluate(featureVector, parameters);
+   auto gz = 1 / (1 + exp(-1.0 * z));
+   return gz;
 }
 ```
 
@@ -67,3 +67,24 @@ Logistic regression tests look similar to linear regression tests. For specific 
 * EasyNN logistic regression implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LogisticRegression.h).
 * EasyNN logistic regression implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/LogisticRegression.cpp).
 * EasyNN logistic regression [test](https://github.com/azadwasan/neuralnetwork/blob/main/src/EasyNNTest/LogisticRegressionTest.cpp).
+
+## Index
+
+**Linear Regression**
+
+[Linear Regression](./LinearRegression.md)
+[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+
+**Logistic Regression**
+
+[Logistic Regression](./LogisticRegression.md)
+[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+
+**Regularization**
+
+[Regularization](./Regularization.md)
+
+**Gradient Descent**
+
+[Gradient Descent](./GradientDescent.md)
+[Gradient Descent Evaluation](./GradientDescentTest.md)

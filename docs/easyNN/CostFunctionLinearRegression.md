@@ -204,3 +204,24 @@ ICostFunction holding an instance of IRegression creates tight coupling between 
 * EasyNN linear regression cost function implementation [header](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionMSE.h).
 * EasyNN linear regression cost function  implementation [code](https://github.com/azadwasan/neuralnetwork/tree/main/src/EasyNN/CostFunctionMSE.cpp).
 * EasyNN linear regression cost function [test](https://github.com/azadwasan/neuralnetwork/blob/main/src/EasyNNTest/CostFunctionMSETest.cpp).
+
+## Index
+
+**Linear Regression**
+
+[Linear Regression](./LinearRegression.md)
+[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+
+**Logistic Regression**
+
+[Logistic Regression](./LogisticRegression.md)
+[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+
+**Regularization**
+
+[Regularization](./Regularization.md)
+
+**Gradient Descent**
+
+[Gradient Descent](./GradientDescent.md)
+[Gradient Descent Evaluation](./GradientDescentTest.md)

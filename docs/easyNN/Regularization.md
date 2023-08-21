@@ -129,3 +129,24 @@ EasyNN implementation for linear regression, logistic regression and gradient de
 * [Next: Gradient Descent Evaluation/Testing](./GradientDescentTest.md).
 * [Back: Gradient Descent Implementation](./GradientDescent.md).
 * [Go back to Implementing Neural Networks in C++](./index.md)
+
+## Index
+
+**Linear Regression**
+
+[Linear Regression](./LinearRegression.md)
+[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+
+**Logistic Regression**
+
+[Logistic Regression](./LogisticRegression.md)
+[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+
+**Regularization**
+
+[Regularization](./Regularization.md)
+
+**Gradient Descent**
+
+[Gradient Descent](./GradientDescent.md)
+[Gradient Descent Evaluation](./GradientDescentTest.md)
