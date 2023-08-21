@@ -12,7 +12,7 @@ EasyNNPyPlugin has allowed me to write tests that generate dynamic data using py
 
 Some of the earlier tests are based on static data, but since I wrote EasyNNPyPlugin all the new tests are based on dynamic data and generate data and reference results from Python libraries. Hence, we will see references to the EasyNNPyPlugin method calls but these will be self explanatory.
 
-## Gradient Linear Regression
+## Linear Regression with Gradient Descent 
 
 Here is a very simple example of testing gradient descent if it could optimize linear regression model containing only one feature
 
@@ -77,7 +77,7 @@ In rare instances where a minimal dataset of just 5 samples is employed, a sligh
 
 The green and blue planes illustrate the linear approximations achieved by EasyNN and TensorFlow through gradient descent optimization, respectively. Yet, upon rotating the graph, it becomes evident that both methods achieve a comparable level of approximation, a fact reinforced by the Mean Squared Error (MSE) analysis.
 
-## Gradient Descent Logistic Regression
+## Logistic Regression with Gradient Descent
 
 Logistic regression is used for classification. In order to test EasyNN implementation of logistic regression and GD optimization of logistic regression I again used dynamic data approach and compare the results from Easy with TensorFlow and sklearn python libraries. I am really happy to state that the results from EasyNN are at least as good as TensorFlow results or arguably sometimes slightly better than TensorFlow results. The reason for **arguably better** results is that classification problem are different than the linear regression problems and though I sometimes have observed EasyNN classification to perform better by up to 2% then TensorFlow results, but it may not necessarily be a good thing as it could also be a result of slight overfitting or it could come down to the various TensorFlow parameters, like epochs etc.. But, in general the classification of both EasyNN and TensorFlow is identical in most of the cases.
 
