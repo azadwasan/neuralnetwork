@@ -36,19 +36,22 @@ where
 
 $n$ is the model order
 
-$\theta_j$ are the model parameters
+$\theta_j$ is the jth model parameter.
 
-$\alpha$ is the learning rate
+$\alpha$ is the learning rate, which determines the step size in each iteration.
 
 $m$ is the number of samples
 
 $(h_{\theta}(x^{(i)})$ is the hypothesis for $i^{th}$ feature vector 
 
-$y^{(i)}$ is the $i^{th}$ measured value
+$y^{(i)}$ is the $i^{th}$ measured value.
 
 $x_j^{(i)}$ is the $j^{th}$ feature of $i^{th}$ sample, or in order words this is the corresponding feature of the model parameter, i.e., for $\theta_1$ the corresponding feature is $x_1$ as in a typical model like $\theta_0 + \theta_1 x_1 + \theta_2 x_2 + ...$.
 
 $x_0^{(i)} = 1$ as in a typical model like $\theta_0 + \theta_1 x_1 + \theta_2 x_2 + ...$.
+
+$J(\theta)$ is the cost function.
+
 
 ## Key observations
 
@@ -79,51 +82,47 @@ All of these are discussed in detail in Ng's course, hence we are not going to i
 
 ## Making sense of it all - How does GD actually work!
 
-In order to implement GD, let us focus on the following part of the algorithm:
-
-$\large{\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j}$
-
-This very similar to the cost function $J(\theta)$, also because it is the derivative of $J(\theta)$. Hence, from implementation point of view, its computation is also very similar to that of $J(\theta)$. 
+GD works by iteratively adjusting the model parameters to reduce the error between the predicted values and the actual values. It computes the gradient of the cost function with respect to each parameter and updates the parameters in the opposite direction of the gradient, effectively moving towards the minimum of the cost function.
 
 It starts making a lot more sense, if we would simplify the GD equation and assume there is only one sample of data. The GD equation reduces to only the following
 
 $\large{\theta_j := \theta_j - \alpha (h_{\theta}(x) - y) x_j}$
 
-$h_{\theta}(x) - y$ is very easily to interpret, it is the error between the estimate and the measured value. Multiplying $x_j$ with the error term serves to amplify the error term proportional to the concerned feature value and show its contribution in the estimation error. Therefore, the large the value of the feature $x_j$ the more pronounced the error would be and vice versa. However, at the same time we don't want the amplified error to change parameter $\theta_j$ too much, as it could cause convergence issue. Hence, we attenuate the proportionally amplified error by $\alpha$. The respective $\theta_j$ value is updated accordingly.
+$h_{\theta}(x) - y$ is very easily to interpret, it is the error between the estimate and the measured value. Multiplying $x_j$ with the error term serves to amplify the error term proportional to the concerned feature value and show its contribution in the estimation error. Therefore, the large the value of the feature $x_j$ the more pronounced the error would be and vice versa. However, at the same time we don't want the amplified error to change parameter $\theta_j$ too much, as it could cause convergence issues. Hence, we attenuate the proportionally amplified error by $\alpha$. The respective $\theta_j$ value is updated accordingly.
 
 Referring back to the original original equation, the following part becomes obvious
 
 $\large{\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j}$
 
-This simplifies the case when we have multiple data points. Hence, we would like to find the differences of estimates with the measured values, proportionally amplify them with the corresponding feature value to determine the contribution of this specific feature in the error and repeat this process for all the data points we have available. Finally, we normally them by finding an average. This gives us an average error in estimation for all the available data points that is amplified by the respective feature value.
+This represents the general case when we have multiple data points. Hence, we would like to find the differences of estimates with the measured values for all the available data points. Finally, we normally them to find an average error. This gives us an average error in estimation for all the available data points that is amplified by the respective feature value.
 
-Hence, the informal intuitive steps of GD are given as follows
+Hence, the informal intuitive explanation of the steps involved in GD are given as follows
 
 * Compute the cost function based on current parameter values
 * For each parameter in the model
     * Compute the error between estimate and the measured value
     * Amplify the error by the respective feature value
-    * Repeat it for all the available samples and sum the amplified estimate errors 
+    * Repeat it for all the available samples and sum the amplified estimated errors 
     * Attenuate the amplified error sum factor by learning rate $\alpha$
     * Find the updated parameter value, but store this value in a separate vector, keep the original parameters vector unmodified
 * Replace the parameters vector with the new parameters vector
 * Compute the cost function based on the new parameters
 * If previous and new cost function difference is greater than the maximum threshold or the maximum number of iterations have reached for the algorithm, then exist, otherwise repeat from step 3
 
-These steps should give a very good intuitive understanding of various operations taking place in GD and hopefully it will also help in understanding the actual algorithm that we explain next in implementation section.
+This explanation should give a very good intuitive understanding of various operations taking place in GD and hopefully it will also help in understanding the actual algorithm that we explain next in implementation section.
 
 ## Implementation
 
 GD would require the following parameters
-* A feature matrix, where each row of the matrix will represent a feature vector
-* A measurement vector
-* A parameters vector containing the model parameters to compute the cost
+* A feature matrix, where each row of the matrix will represent a feature vector.
+* A measurement vector.
+* A parameters vector containing the model parameters to compute the cost (these will finally contain the optimized parameter values, hence are also the output of the algorithm).
 * Cost function to evaluate the cost $J(\theta)$ based on the parameters values. One of the stopping criteria is based on this. If the cost function difference between two iterations is below a certain threshold, we stop.
 * $\alpha$, the learning rate of GD algorithm
 * Stopping threshold for the cost function difference between the two iterations
 * Maximum iterations, to stop the algorithm
 
-It is important to note that the cost function in EasyNN derives from ICostFunction and it also hold an instance of the IHypothesis. Hence, through cost function, GD will have access to the hypothesis.
+It is important to note that the cost function in EasyNN derives from ICostFunction that also holds an instance of the IHypothesis. Hence, through cost function, GD will have access to the hypothesis.
 
 Here are the steps of to implement GD
 
@@ -186,7 +185,7 @@ Considering all the lengthy details about how GD works, the code to implement th
 
 After all the parameters have been computed, the parameters are replaced with the new parameters (line 25). Next, the cost function is computed using the new parameter values (line 28). GD stops if the difference between the cost functions is less than the stopping threshold.
 
-Though, it looks like the method doesn't return any values, however, this is a peculiarity of C++, where parameters is being passed by reference and it is being modified within the body of the method. Hence, when the method ends, the parameters will contains the final optimized values.
+Though, it looks like the method doesn't return any values, however, this is a peculiarity of C++, where parameters is being passed by reference and it is being modified within the body of the method. Hence, when the method returns, the parameters will contains the final optimized values and the caller of the method can use the optimized values of the parameters.
 
 We can improve the code above slightly by moving the new parameter calculation into separate methods
 
@@ -293,7 +292,7 @@ double GradientDescent::computeCost(const std::vector<std::vector<double>>& feat
 }
 ```
 
-We define a lambdas to compute $\theta_0$ difference sum called differenceSumZero and another one for the rest of the parameters called differenceSum. We replace the two methods with just a single method that accepts a lambda to compute the difference sum and replace the loop with standard library std::transform_reduce, like we did in earlier codes, e.g., [Linear regression cost function](./CostFunctionLinearRegression.md). Rest of the code stays almost the same. This is also how it is currently implemented in EasyNN.
+We define a lambda to compute $\theta_0$ difference sum called differenceSumZero and another one for the rest of the parameters called differenceSum. We replace the two methods with just a single method that accepts a lambda to compute the difference sum and replace the loop with standard library std::transform_reduce, like we did in earlier codes, e.g., [Linear regression cost function](./CostFunctionLinearRegression.md). Rest of the code stays almost the same. This is also how it is currently implemented in EasyNN.
 
 ## Testing
 

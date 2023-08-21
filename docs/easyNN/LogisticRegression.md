@@ -35,17 +35,16 @@ The code I provided above is technically not correct, because the interface we d
 The underlying hypothesis is not always needed, like in the case of linear regression. Hence, when we extend the interface to accept the additional parameter, we can make it optional and use it only when we need it. The underlying hypothesis parameter can be added to the base interface as follows
 
 ```cpp
-    class IRegression {
-    public:
-        virtual double evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis = nullptr) const = 0;
-    };
+class IRegression {
+public:
+    virtual double evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis = nullptr) const = 0;
+};
 ```
 
 It is added as a pointer with default value set to nullptr. Hence, the existing code and the tests stay unaffected by the change. However, we will have to adapt all the implementations of the interface, i.e., linear regression and logistic regression. However, we will only show the change for logistic regression here.
 
 ```cpp
 double LogisticRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis /*= nullptr*/) const {
-
 	std::unique_ptr<IRegression> hypothesis = (underlyingHypothesis == nullptr ? std::make_unique<LinearRegression>() : std::move(underlyingHypothesis));
 
 	auto z = hypothesis->evaluate(featureVector, parameters);
