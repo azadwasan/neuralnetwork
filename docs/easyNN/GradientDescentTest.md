@@ -73,6 +73,6 @@ Here is a zoomed-in side view of the same graph, both the planes literally make 
 
 In rare instances where a minimal dataset of just 5 samples is employed, a slight divergence between EasyNN and TensorFlow optimizations may arise. The subsequent figure captures such an infrequent scenario (achieved after multiple trial runs), where a linear hypothesis is approximated through gradient descent optimization using only two features and five samples:
 
-![PythonEmbedding](/assets/img/EasyNNvsTensorFlowGD.png)
+![EasyNNvsTensorFlowLowSampleRate](/assets/img/EasyNNvsTensorFlowGD.png)
 
 The green and blue planes illustrate the linear approximations achieved by EasyNN and TensorFlow through gradient descent optimization, respectively. Yet, upon rotating the graph, it becomes evident that both methods achieve a comparable level of approximation, a fact reinforced by the Mean Squared Error (MSE) analysis.
