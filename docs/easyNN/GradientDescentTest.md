@@ -125,7 +125,7 @@ Slightly tighter optimal solution range as compared to earlier example. EasyNN t
 
 This is interesting and one of the examples where EasyNN performance better than both TensorFlow and sklearn and it has distanced itself from Tensorflow this time. EasyNN achieves 94% correct classification and the other two achieve 92%.
 
-![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression3.png)
+![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression4.png)
 
 Again a very narrow optimization point, but both EasyNN and sklearn perform better than TensorFlow.
 
