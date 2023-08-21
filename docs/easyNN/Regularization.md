@@ -52,19 +52,19 @@ In order to implement regularization, the constructor accepts an the regularizat
 
 ```cpp
 double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& featuresMatrix, std::span<const double> measurementsVector, std::span<const double> parameters) const{
-	auto cost = [&parameters, this](const std::vector<double>& x, double y) -> double {
-		auto hTheta = hypothesis->evaluate(x, parameters);
-		auto cost = y * log(hTheta) + (1 - y) * log(1 - hTheta);
-		return cost;
-	};
+   auto cost = [&parameters, this](const std::vector<double>& x, double y) -> double {
+      auto hTheta = hypothesis->evaluate(x, parameters);
+      auto cost = y * log(hTheta) + (1 - y) * log(1 - hTheta);
+      return cost;
+   };
 
-	double costSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
-		std::plus<>(),
-		cost);
+   double costSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,
+      std::plus<>(),
+      cost);
 
-	auto m = measurementsVector.size();
-	double regFactor = getRegFactor(parameters, m);
-	return -1.0 / m * costSum + regFactor;
+   auto m = measurementsVector.size();
+   double regFactor = getRegFactor(parameters, m);
+   return -1.0 / m * costSum + regFactor;
 }
 ```
 
@@ -86,38 +86,38 @@ All we have to do to implement regularization for gradient descent is to multipl
 
 ```cpp
 void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
-	const std::vector<double>& measurementsVector,
-	std::vector<double>& parameters,
-	const ICostFunction& costFunction,
-	double alpha, double stopThreshold, const size_t maxIterations /*= 3000*/) {
+   const std::vector<double>& measurementsVector,
+   std::vector<double>& parameters,
+   const ICostFunction& costFunction,
+   double alpha, double stopThreshold, const size_t maxIterations /*= 3000*/) {
 
-	std::vector<double> parametersNew(parameters.size());
+   std::vector<double> parametersNew(parameters.size());
 
-	auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
-	auto i = 0;
-	auto newCost = 0.0;
-	double m = measurementsVector.size();
-	double regFactor = (1 - alpha * costFunction.getLambda() / m);
-	auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
-	auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
+   auto oldCost = costFunction.evaluate(featuresMatrix, measurementsVector, parameters);
+   auto i = 0;
+   auto newCost = 0.0;
+   double m = measurementsVector.size();
+   double regFactor = (1 - alpha * costFunction.getLambda() / m);
+   auto costDerivativeZero = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement; };
+   auto costDerivative = [&](const auto& featuresVector, const auto& parameters, auto measurement, size_t index) {return (costFunction.getHypothesis().evaluate(featuresVector, parameters) - measurement) * featuresVector[index - 1]; };
 
-	for (; i < maxIterations; i++) {
-		parametersNew[0] = parameters[0] - alpha * 1 / m *
-			computeCost(featuresMatrix, measurementsVector, parameters, costDerivativeZero);
-		for (size_t index = 1; index < parameters.size(); index++) {
-			parametersNew[index] = parameters[index] * regFactor - alpha * 1 / m
-				* computeCost(featuresMatrix, measurementsVector, parameters, costDerivative, index);
-		}
+   for (; i < maxIterations; i++) {
+      parametersNew[0] = parameters[0] - alpha * 1 / m *
+         computeCost(featuresMatrix, measurementsVector, parameters, costDerivativeZero);
+      for (size_t index = 1; index < parameters.size(); index++) {
+         parametersNew[index] = parameters[index] * regFactor - alpha * 1 / m
+            * computeCost(featuresMatrix, measurementsVector, parameters, costDerivative, index);
+      }
 
-		parameters = parametersNew;
+      parameters = parametersNew;
 
-		newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
+      newCost = costFunction.evaluate(featuresMatrix, measurementsVector, parametersNew);
 
-		if (abs(oldCost - newCost) < stopThreshold) {
-			break;
-		}
-		oldCost = newCost;
-	}
+      if (abs(oldCost - newCost) < stopThreshold) {
+         break;
+      }
+      oldCost = newCost;
+   }
 }
 ```
 
