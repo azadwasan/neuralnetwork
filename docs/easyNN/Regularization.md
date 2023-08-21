@@ -121,7 +121,7 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 }
 ```
 
-The regularization parameters $\lambda$ is already available to GD through the ICostFunction interface. We compute the regularization, factor regFactor = (1 - alpha * costFunction.getLambda() / m), and multiply it to the model parameter value when calculating the new parameters (except $\theta_0$).
+The regularization parameters $\lambda$ is already available to GD through the ICostFunction interface. We compute the regularization factor as regFactor = (1 - alpha * costFunction.getLambda() / m), and multiply it to the model parameter value when calculating the new parameters (except $\theta_0$).
 
 EasyNN implementation for linear regression, logistic regression and gradient descent are regularized implementations. The code shown above is the current implementation of EasyNN.
 

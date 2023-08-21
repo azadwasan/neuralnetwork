@@ -9,12 +9,20 @@ EasyNN is built on the idea that making your own neural networks from scratch is
 
 We will not be discussing the neural networks concepts, as they have already been very well explained by Andrew. Rather, they would be limited only to the extent that are needed for implementation. As Coursera terms and conditions do not allow sharing my the original material, hence we would be using the same equations as shown in the lectures and reproducing them for the discussion and implement the code accordingly.
 
+## Linear Regression
+
 ### [Linear Regression](./LinearRegression.md)
 
 ### [Linear Regression Cost Function](./CostFunctionLinearRegression.md.md)
+
+## Logistic Regression
 
 ### [Classification using Logistic Regression](./LogisticRegression.md)
 
 ### [Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
 
+## Gradient Descent
+
 ### [Gradient Descent](./GradientDescent.md)
+
+### [Gradient Descent Evaluation](./GradientDescentTest.md)
