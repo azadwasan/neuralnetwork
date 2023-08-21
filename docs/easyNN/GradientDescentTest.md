@@ -36,7 +36,7 @@ TEST_METHOD(TestGradientDescentEvaluation1Feature)
 
 We define a cost function for linear regression (line 1), instantiate the parameters with zeros (lines 2), create a feature matrix with 5 samples of data with each row containing a feature vector consisting of a single feature value (line 3), next we provide the measured values (line 4). Next, we run gradient descent (runGD is a simple helper function in EasyNN tests project) passing it the feature matrix, measured values, cost function, learning rate of 0.1, stopping threshold of 1.0E-9 and the model parameters (line 6). The expected model parameters are [1, 2] (line 8). Finally, we compare the model parameters returned by GD and the expected parameters (std::abs(a - b) < 0.001 is to account for precision errors).
 
-### Generating dynamic data and Comparing results with TensorFlow
+### Generating dynamic data and comparing results with TensorFlow
 
 ```cpp
 TEST_METHOD(TestGradientDescentEvaluation2FeaturesLiveData) {
@@ -76,3 +76,59 @@ In rare instances where a minimal dataset of just 5 samples is employed, a sligh
 ![EasyNNvsTensorFlowLowSampleRate](../assets/img/EasyNNvsTensorFlowGD.png)
 
 The green and blue planes illustrate the linear approximations achieved by EasyNN and TensorFlow through gradient descent optimization, respectively. Yet, upon rotating the graph, it becomes evident that both methods achieve a comparable level of approximation, a fact reinforced by the Mean Squared Error (MSE) analysis.
+
+## Gradient Descent Logistic Regression
+
+Logistic regression is used for classification. In order to test EasyNN implementation of logistic regression and GD optimization of logistic regression I again used dynamic data approach and compare the results from Easy with TensorFlow and sklearn python libraries. I am really happy to state that the results from EasyNN are at least as good as TensorFlow results or arguably sometimes slightly better than TensorFlow results. The reason for **arguably better** results is that classification problem are different than the linear regression problems and though I sometimes have observed EasyNN classification to perform better by up to 2% then TensorFlow results, but it may not necessarily be a good thing as it could also be a result of slight overfitting or it could come down to the various TensorFlow parameters, like epochs etc.. But, in general the classification of both EasyNN and TensorFlow is identical in most of the cases.
+
+A typical GD logistic regression test for EasyNN would look as follows
+
+```cpp
+TEST_METHOD(TestGradientDescentEvaluationLogisticRegression)
+{
+1     std::vector<std::vector<double>> X;
+2     std::vector<double> y;
+3
+4     EasyNNPyPlugin::DataChannel::getClassificationData(X, y, 100, 2, 0, 1);
+5
+6    EasyNN::CostFuntionLogistic costFunction{ std::make_unique<EasyNN::LogisticRegression>()};
+7    std::vector<double> parameters{ 0, 0, 0};
+8    runGD(X, y, costFunction, 0.3, 1.0E-5, parameters);
+9
+10    double correctPercentage = correctClassificationPercentage(X, y, parameters);
+11
+12    std::vector<double> expectedParameters = EasyNNPyPlugin::Algorithms::FitLogisticRegression(X, y);
+13    std::vector<double> expectedParametersTF = EasyNNPyPlugin::Algorithms::FitLogisticRegressionTF(X, y);
+14
+15    double expParamPercentage = correctClassificationPercentage(X, y, expectedParameters);
+16    double expParamPercentageTF = correctClassificationPercentage(X, y, expectedParametersTF);
+17
+18    EasyNNPyPlugin::Plots::PlotClassificationData(X, y, parameters, expectedParameters, expectedParametersTF);
+19
+20    Assert::IsTrue(std::abs(correctPercentage - expParamPercentageTF) < 2.0); 
+}
+```
+
+This test is similar to linear regression tests. We fetch the data dynamically from python scilearn library (line 4). The method getClassificationData(...) take the input of feature matrix, measured output, number of samples, number of features, redundant features and clusters per feature. In this specific case we get 100 data points divided in two clusters. Next, we instantiate EasyNN logistic regression (line 6). EasyNN GD is fit on the data (line 8). A helper method is used to find the correct classification percentage (line 10). Next, we determine the classification using scilearn and TensorFlow libraries (line 12 and 13). The respective percentages are determined (line 15, 16). The results are plotted (line 18) and checked to make sure EasyNN classification is with 2% of TensorFlow classification benchmark.
+
+In the following figure green line represents EasyNN classification line, blue line represents TensorFlow model and red line represents Scilearn model.
+
+![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression1.png)
+
+A very simple classification problem. All three models perform equally well and none is arguably better than the other in this case, though EasyNN model tends to be closer to TensorFlow estimate.
+
+![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression2.png)
+
+Slightly tighter optimal solution range as compared to earlier example. EasyNN takes middle ground but still closer to TensorFlow. The performance of the models are still the same. None seems to be arguably better than the other.
+
+![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression3.png)
+
+This is interesting and one of the examples where EasyNN performance better than both TensorFlow and Scilearn and it has distanced itself from Tensorflow this time. EasyNN achieves 94% correct classification and the other two achieve 92%.
+
+![Logistic Regression GD EasyNN vs TensorFlow](../assets/img/EasyNNTest/LogisticRegression3.png)
+
+Again a very narrow optimization point, but both EasyNN and Scilearn perform better than TensorFlow.
+
+### Comments
+
+It is important to note that it is not intended to prove that EasyNN performs better than TensorFlow. It could be be due to some configuration parameters, moreover, the difference is very rare and really small. I am already incredibly happy that EasyNN results are close to TensorFlow results, which is an industry standard and it haa made me more confident in the design and the implementation of EasyNN.
