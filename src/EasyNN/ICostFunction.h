@@ -4,6 +4,9 @@
 #include <span>
 #include <memory>
 #include <stdexcept>
+#include <numeric>
+#include <cmath>
+
 #include "IRegression.h"
 
 namespace EasyNN {
@@ -20,6 +23,10 @@ namespace EasyNN {
 		}
 		double getLambda() const noexcept { return lambda; }
 	protected:
+		double getRegFactor(std::span<const double> parameters, double m) const noexcept{
+			return lambda / (2 * m) * std::accumulate(parameters.begin() + 1, parameters.end(), 0, [](auto acc, auto x) { return acc + x * x; });
+		}
+
 		std::unique_ptr<IRegression> hypothesis;
 		double lambda;
 	};

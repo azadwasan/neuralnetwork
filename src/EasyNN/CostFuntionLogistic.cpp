@@ -27,7 +27,7 @@ double CostFuntionLogistic::evaluate(const std::vector<std::vector<double>>& fea
 
 	auto m = measurementsVector.size();
 
-	double regFactor = lambda / (2 * m) * std::accumulate(parameters.begin() + 1, parameters.end(), 0, [](auto acc, auto x){ return acc + x * x; });
+	double regFactor = getRegFactor(parameters, m);
 
 	return -1.0 / m * costSum + regFactor;
 }

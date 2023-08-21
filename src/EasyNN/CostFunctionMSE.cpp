@@ -1,8 +1,7 @@
 #include "CostFunctionMSE.h"
 #include "Commons.h"
 
-#include <numeric>
-#include <cmath>
+
 #include <stdexcept>
 
 using namespace EasyNN;
@@ -26,7 +25,7 @@ double CostFunctionMSE::evaluate(const std::vector<std::vector<double>>& feature
 		[&](const std::vector<double>& featuresVector, double measurement) {return std::pow(hypothesis->evaluate(featuresVector, parameters) - measurement, 2); });
 	
 	auto m = measurementsVector.size();
-	double regFactor = lambda / (2 * m) * std::accumulate(parameters.begin() + 1, parameters.end(), 0, [](auto acc, auto x) { return acc + x * x; });
+	const double regFactor = getRegFactor(parameters, m);
 
 	return mse / (2 * m) + regFactor;
 }
