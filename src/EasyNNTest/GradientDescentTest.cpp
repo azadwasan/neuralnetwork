@@ -105,7 +105,7 @@ namespace EasyNNTest
             std::vector<double> parameters { 0.0, 0.0, 0.0 };
             std::vector<std::vector<double>> X;
             std::vector<double> y;
-            EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 10, 2, 100);
+            EasyNNPyPlugin::DataChannel::getRegressionData(X, y, 500, 2, 50);
             runGD(X, y, costFunction, 0.07, 1.0E-9, parameters);
             auto expectedParameters = EasyNNPyPlugin::Algorithms::RunGD(X, y, 3);
             EasyNNPyPlugin::Plots::CompareHypothesis(X, y, parameters, expectedParameters);

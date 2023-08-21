@@ -3,7 +3,7 @@ The landscape of machine learning has witnessed remarkable strides in recent yea
 
 # [Implementing Neural Networks in C++](./easyNN/index.md)
 
-If you want to learn how to implement neural networks using C++ in EasyNN, you can skip the general discussion and the other projects and go straight to [this page](./easyNN/index.md). There you will find all the details and explanations you need. However, if you are interested in jumping directly to a specific implementation topic, choose below
+If you want to learn how to implement neural networks using C++ in EasyNN, you can skip the general discussion and the other projects and go straight to [this page](./easyNN/index.md), containing all the necessary details and explanations related to implementation of EasyNN. A list of implementation topics is also provided here
 
 * [Linear Regression](./easyNN/LinearRegression.md)
 * [Classification using Logistic Regression](./easyNN/LogisticRegression.md)
@@ -30,7 +30,7 @@ In order to automate the retrieval of data and reference results, EasyNN was ext
 
 EasyNNPyScripts encompass a collection of Python scripts tailored for a range of operations such as generating regression data and conducting gradient descent optimization using TensorFlow. On the other hand, EasyNNPyPlugin functions as an embedded Python interpreter, designed as a library for seamless linking. In contrast, EasyNN forms the core library responsible for implementing a plethora of algorithms related to neural networks. Meanwhile, EasyNNTest serves as an MSTest C++ project that interfaces with both EasyNN and EasyNNPlugin. EasyNNTest orchestrates the execution of various Python scripts from EasyNNPyScripts via EasyNNPyPlugin, facilitating the retrieval of generated data and reference results from TensorFlow. Subsequently, the acquired data is fed into EasyNN core library, allowing for comparison of the outcomes. Furthermore, EasyNNTest utilizes EasyNNPlugin to execute diverse Python scripts, thereby enabling the plotting of results derived from both EasyNN and TensorFlow.
 
-# Prelimnary Results
+# Preliminary Results
 
 EasyNN has successfully implemented essential components like the Linear Hypothesis, Mean Square Error Cost function, and Gradient Descent. Leveraging its robust testing infrastructure, EasyNN underwent preliminary testing against TensorFlow, yielding promising initial results. While in-depth benchmarking remains pending, the initial outcomes are highly encouraging—so much so that the gradient descent optimizations of EasyNN and TensorFlow are virtually indistinguishable. However, in rare instances where a minimal dataset of just 5 samples is employed, a slight divergence between EasyNN and TensorFlow optimizations may arise. The subsequent figure captures such an infrequent scenario (achieved after multiple trial runs), where a linear hypothesis is approximated through gradient descent optimization using only two features and five samples:
 
