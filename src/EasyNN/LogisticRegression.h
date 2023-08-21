@@ -24,7 +24,7 @@ namespace EasyNN {
 		 * @param parameters A span containing the model parameters.
 		 * @return The probability of a positive outcome (class 1).
 		 */
-		double evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const override;
+		double evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis = nullptr) const override;
 	private:
 		/**
 		 * @brief The decision boundary for classification.

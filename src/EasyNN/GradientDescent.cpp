@@ -35,10 +35,10 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 	for (; i < maxIterations; i++) {
 
 		parametersNew[0] = parameters[0] - alpha * 1 / m *
-			computeCost(featuresMatrix, measurementsVector, parameters, costFunction.getHypothesis(), costDerivativeZero);
+			computeCost(featuresMatrix, measurementsVector, parameters, costDerivativeZero);
 		for (size_t index = 1; index < parameters.size(); index++) {
 			parametersNew[index] = parameters[index] * regFactor - alpha * 1 / m
-				* computeCost(featuresMatrix, measurementsVector, parameters, costFunction.getHypothesis(), costDerivative, index);
+				* computeCost(featuresMatrix, measurementsVector, parameters, costDerivative, index);
 		}
 
 		parameters = parametersNew;
@@ -56,7 +56,6 @@ void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresM
 double GradientDescent::computeCost(const std::vector<std::vector<double>>& featuresMatrix,
 	const std::vector<double>& measurementsVector,
 	const std::vector<double>& parameters,
-	const IRegression& hypothesis, 
 	std::function<double(const std::vector<double>&, const std::vector<double>&, double, size_t)> costDerivative, size_t index /*=0*/) {
 
 	double differenceSum = std::transform_reduce(std::begin(featuresMatrix), std::end(featuresMatrix), std::begin(measurementsVector), 0.0,

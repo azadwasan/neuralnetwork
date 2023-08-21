@@ -6,7 +6,7 @@
 namespace EasyNN {
 	class LinearRegression : public IRegression {
 	public:
-		double evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const override;
+		double evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis = nullptr) const override;
 	};
 }
 #endif

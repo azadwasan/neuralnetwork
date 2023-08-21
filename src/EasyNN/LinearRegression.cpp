@@ -6,7 +6,7 @@
 
 using namespace EasyNN;
 
-double LinearRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters) const{
+double LinearRegression::evaluate(std::span<const double> featureVector, const std::span<const double> parameters, std::unique_ptr<IRegression> underlyingHypothesis /*= nullptr*/) const{
 	if (featureVector.size() == 0 || parameters.size() == 0) {
 		throw std::invalid_argument("Feature vector and parameters must have at least one element");
 	}
