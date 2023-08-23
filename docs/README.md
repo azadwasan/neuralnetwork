@@ -84,22 +84,22 @@ A console application that links with EasyNN (and other libraries in the solutio
 
 **Linear Regression**
 
-[Linear Regression](./LinearRegression.md)
+[Linear Regression](./easyNN/LinearRegression.md)
 
-[Linear Regression Cost Function](./CostFunctionLinearRegression.md)
+[Linear Regression Cost Function](./easyNN/CostFunctionLinearRegression.md)
 
 **Logistic Regression**
 
-[Logistic Regression](./LogisticRegression.md)
+[Logistic Regression](./easyNN/LogisticRegression.md)
 
-[Logistic Regression Cost Function](./CostFunctionLogisticRegression.md)
+[Logistic Regression Cost Function](./easyNN/CostFunctionLogisticRegression.md)
 
 **Regularization**
 
-[Regularization](./Regularization.md)
+[Regularization](./easyNN/Regularization.md)
 
 **Gradient Descent**
 
-[Gradient Descent](./GradientDescent.md)
+[Gradient Descent](./easyNN/GradientDescent.md)
 
-[Gradient Descent Evaluation](./GradientDescentTest.md)
+[Gradient Descent Evaluation](./easyNN/GradientDescentTest.md)
