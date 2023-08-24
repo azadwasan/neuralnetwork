@@ -163,6 +163,7 @@
     <ClCompile Include="LinearRegressionTest.cpp" />
     <ClCompile Include="GradientDescentTest.cpp" />
     <ClCompile Include="LogisticRegressionTest.cpp" />
+    <ClCompile Include="NetworkTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
