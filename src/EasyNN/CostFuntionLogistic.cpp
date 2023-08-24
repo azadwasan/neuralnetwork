@@ -1,5 +1,4 @@
 #include "CostFuntionLogistic.h"
-#include "LogisticRegression.h"
 
 #include <numeric>
 #include <stdexcept>

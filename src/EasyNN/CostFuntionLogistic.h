@@ -2,6 +2,7 @@
 #define COSTFUNCTIONLOGISTIC_H
 
 #include "ICostFunction.h"
+#include "LogisticRegression.h"
 
 namespace EasyNN {
     /**
@@ -19,7 +20,7 @@ namespace EasyNN {
     class CostFuntionLogistic : public ICostFunction
     {
     public:
-        CostFuntionLogistic(std::unique_ptr<IRegression> hypothesis, double lambda = 0.0) : ICostFunction(std::move(hypothesis), lambda) {}
+        CostFuntionLogistic(std::unique_ptr<IRegression> hypothesis = nullptr, double lambda = 0.0) : ICostFunction(hypothesis == nullptr ? std::make_unique<LogisticRegression>() : std::move(hypothesis), lambda) {}
      /**
      * @brief Evaluate the cost associated with logistic regression predictions.
      *
