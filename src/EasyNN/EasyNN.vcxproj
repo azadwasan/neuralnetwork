@@ -134,8 +134,11 @@
     <ClCompile Include="CostFunctionMSE.cpp" />
     <ClCompile Include="CostFuntionLogistic.cpp" />
     <ClCompile Include="GradientDescent.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LinearRegression.cpp" />
     <ClCompile Include="LogisticRegression.cpp" />
+    <ClCompile Include="Network.cpp" />
+    <ClCompile Include="Neuron.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Commons.h" />
@@ -144,8 +147,11 @@
     <ClInclude Include="GradientDescent.h" />
     <ClInclude Include="ICostFunction.h" />
     <ClInclude Include="IRegression.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="LinearRegression.h" />
     <ClInclude Include="LogisticRegression.h" />
+    <ClInclude Include="Network.h" />
+    <ClInclude Include="Neuron.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
