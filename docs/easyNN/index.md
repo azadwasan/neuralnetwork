@@ -13,7 +13,7 @@ We will not be discussing the neural networks concepts, as they have already bee
 
 ### [Linear Regression](./LinearRegression.md)
 
-### [Linear Regression Cost Function](./CostFunctionLinearRegression.md.md)
+### [Linear Regression Cost Function](./CostFunctionLinearRegression.md)
 
 ## Logistic Regression
 
