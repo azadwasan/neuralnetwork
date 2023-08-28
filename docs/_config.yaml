@@ -1,10 +1,7 @@
-# Site Settings
-#remote_theme: pages-themes/minimal@v0.2.0
-remote_theme: mmistakes/minimal-mistakes
-minimal_mistakes_skin: orchid
-title: EasyNN: Demystifying Neural Networks
-description: Unlock the world of neural networks with EasyNN—a user-friendly C++ library that transforms theoretical understanding into practical implementation.
-teaser: /assets/img/logo.png
+remote_theme: pages-themes/minimal@v0.2.0
+title: ["EasyNN: Demystifying Neural Networks"]
+description: [Unlock the world of neural networks with EasyNN—a user-friendly C++ library that transforms theoretical understanding into practical implementation.]
+logo: /assets/img/logo.png
 repository: azadwasan/neuralnetwork
 comments:
   provider: "utterances"
@@ -12,17 +9,3 @@ comments:
     theme: "github-light" # "github-dark"
     issue_term: "pathname"
     label: "comment" # Optional - must be existing label.
-
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-      #type: pages
-    values:
-      #layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
