@@ -2,7 +2,7 @@ remote_theme: pages-themes/minimal@v0.2.0
 title: ["EasyNN: Demystifying Neural Networks"]
 description: [Unlock the world of neural networks with EasyNN—a user-friendly C++ library that transforms theoretical understanding into practical implementation.]
 logo: /assets/img/logo.png
-repository: azadwasan/azadwasan.github.io
+repository: azadwasan/neuralnetwork
 comments:
   provider: "utterances"
   utterances:
