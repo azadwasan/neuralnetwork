@@ -45,8 +45,6 @@ Dataset consists of input-output pairs ${(\overrightarrow{x_i}, \overrightarrow{
 
 Let us first define some properties and notations for convenience. The cost of training a single example $C_0$ can be given as follows
 
-$\large{C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2}$     (1)
-
 $\displaystyle{\large{C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2}}$     (1)
 
 
@@ -56,13 +54,16 @@ For convenience sake, lets assume the activation function is sigmoid (already im
 
 $\large{a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})}$      (2)
 
+$\displaystyle{a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})}$      (2)
+
+
 Again for simplification we would name the expression inside the sigmoid as follow
 
 $\large{z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)}}$ 
 
 or generically,
 
-$\large{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}$       (3)
+$\displaystyle{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}$       (3)
 
 
 Hence,
