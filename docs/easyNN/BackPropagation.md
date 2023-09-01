@@ -89,8 +89,7 @@ a_2^{(L-1)}
 +
 \begin{bmatrix}
 b_0^{(L)}\\ 
-b_1^{(L)}\\ 
-b_2^{(L)}
+b_1^{(L)}
 \end{bmatrix}}
 $$
 
@@ -104,7 +103,7 @@ As we already discussed we have the possibility of changing the weights and bias
                 
 As the cost does not *directly* depend on the weights, hence we will use the chain rule to determine the partial derivative of the cost w.r.t. the weights. Please refer to Fig. 2 to visualize how the chain rule is being applied. Cost $C_0$ depends on the activation output $a_j^{(L)}$, the activation output depends on the $z_j^{(L)}$, which in turn depends on the weight $w_{jk}^{(L)}$. The partial derivative of cost, $C_0$, w.r.t. to a single weight of layer $L$, $w_{jk}^{(L)}$ would be given as follows
 
-$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}}$    (5)
+$\displaystyle{\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}}}$    (5)
 
 Now, we can solve each of the three partial derivatives. Using eq. 1, we can solve the first part as follows
 
