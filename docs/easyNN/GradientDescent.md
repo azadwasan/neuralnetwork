@@ -329,3 +329,9 @@ Test GD is a separate topic in itself, hence we discuss it in detail [here](./Gr
 [Gradient Descent](./GradientDescent.md)
 
 [Gradient Descent Evaluation](./GradientDescentTest.md)
+
+**Neural Networks**
+
+[Back Propagation](./BackPropagation.md.md)
+
+

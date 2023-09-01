@@ -26,3 +26,8 @@ We will not be discussing the neural networks concepts, as they have already bee
 ### [Gradient Descent](./GradientDescent.md)
 
 ### [Gradient Descent Evaluation](./GradientDescentTest.md)
+
+**Neural Networks**
+
+[Back Propagation](./BackPropagation.md.md)
+
