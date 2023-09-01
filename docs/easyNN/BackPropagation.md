@@ -4,7 +4,7 @@ A neural network is also a function, but a little more complex than the function
 
 ![Neural Network with three layers](../assets/img/3LayerNN.png)
 
-                Fig. 1: Three Layers Neural Network
+Fig. 1: Three Layers Neural Network
 
 Gradient descent is given as follows
 
@@ -98,7 +98,7 @@ As we already discussed we have the possibility of changing the weights and bias
 
 ![Cost Differential wrt weights](../assets/img/layer1CostWeights.png)
 
-        Fig 2: Cost dependency chain w.r.t. output layer weights  
+Fig 2: Cost dependency chain w.r.t. output layer weights  
                 
 As the cost does not *directly* depend on the weights, hence we will use the chain rule to determine the partial derivative of the cost w.r.t. the weights. Please refer to Fig. 2 to visualize how the chain rule is being applied. Cost $C_0$ depends on the activation output $a_j^{(L)}$, the activation output depends on the $z_j^{(L)}$, which in turn depends on the weight $w_{jk}^{(L)}$. The partial derivative of cost, $C_0$, w.r.t. to a single weight of layer $L$, $w_{jk}^{(L)}$ would be given as follows
 
