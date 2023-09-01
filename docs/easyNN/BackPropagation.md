@@ -18,7 +18,7 @@ However, instead of $\theta$ we would be optimizing for weights $w$ and biased $
 
 We need to find the gradient of the cost function of the entire network $\Delta C$, which is done using back propagation. The cost gradient vector is given as follows
 
-$$\large{
+$$\displaystyle{\large{
 \Delta C = \begin{bmatrix}
 \frac{\partial C}{\partial w^{(1)}}
 \\ 
@@ -30,7 +30,7 @@ $$\large{
 \\ 
 \frac{\partial C}{\partial b^{(L)}}
 \end{bmatrix}
-}
+}}
 $$
 
 where $C$ is the total cost, e.g., mean square error between desired output and the network output. $w^{(L)}$ is the weight matrix of layer $L$ and $b^{(L)}$ is the bias vector of layer $L$. Hence, the gradient vector, $\Delta C$, are the partial differentials of cost w.r.t. each weight in layer 1 and biases in layer 1 and the next layer, up until the last layer.
