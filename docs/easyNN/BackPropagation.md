@@ -44,7 +44,7 @@ Dataset consists of input-output pairs ${(\overrightarrow{x_i}, \overrightarrow{
 
 Let us first define some properties and notations for convenience. The cost of training a single example $C_0$ can be given as follows
 
-$$C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2$$
+$$C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2\label{eq:costZero}$$
 
 
 where $a_j^{(L)}$ is the $j^{th}$ activation function of layer $L$ and $y_j$ is the $j^{th}$ desired output.
@@ -104,7 +104,7 @@ As the cost does not *directly* depend on the weights, hence we will use the cha
 
 $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}$$
 
-Now, we can solve each of the three partial derivatives. Using eq. 1, we can solve the first part as follows
+Now, we can solve each of the three partial derivatives. Using eq. \ref{eq:costZero}, another try \\ref{eq:costZero}, yet another try $\ref{eq:costZero}$, we can solve the first part as follows
 
 $$\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 = 2(a_j^{(L)}-y_j)$$
 
@@ -141,7 +141,7 @@ $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$$
 
 Lastly, we made an assumption initially that the cost would be computed based on a single sample. However, we can have $m$ number of samples and the cost would be the average of the costs for all the samples, which can be given as follows
 
-$#C = \frac{1}{m}\sum_{i=0}^{m-1}C_i$$
+$$C = \frac{1}{m}\sum_{i=0}^{m-1}C_i$$
 
 The partial derivative would be computed as follow
 
