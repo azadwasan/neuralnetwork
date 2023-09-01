@@ -113,32 +113,32 @@ This is trivially computable, as it is just twice the difference between the act
 
 Next, part of the equation is simply the differential of activation function w.r.t. the $z$. However, to find a concrete solution, we will assume the used activation function is sigmoid (if any other function like ReLu is used, the differential needs to be replaced accordingly). Hence, the partial derivative would be as follows:
 
-$\large{\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})}$     (7)
+$\displaystyle{\large{\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})}}$     (7)
 
 The derivative of logistic function is the [function multiplied by one minus the function](https://en.wikipedia.org/wiki/Logistic_function#Derivative). Again, the value in equation (6) is trivially computable.
 
 Finally, we have the last part of the equation. It can easily be computed using the definition of $z$ from eq. (3). The derivative would be
 
-$\large{\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}}$      (8)
+$\displaystyle{\large{\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}}}$      (8)
 
 Combining the equation (5) - (7) we have a very simple solution for the cost function gradient w.r.t. the weights as follows 
 
-$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}}$       (9)
+$\displaystyle{\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}}}$       (9)
 
 or generically, if we don't want to make assumption about the activation function:
 
 
-$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_0^{(L)}}{\partial z_j^{(L)}} a_k^{(L-1)}}$       (10)
+$\displaystyle{\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_0^{(L)}}{\partial z_j^{(L)}} a_k^{(L-1)}}}$       (10)
 
 However, we will stick to eq. (9) for further derivation to keep the results concrete.
 
 We will introduce an additional notation here as follow, as it will be very useful later on. 
 
-$\large{\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}}$
+$\displaystyle{\large{\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}}}$
 
 Hence,
 
-$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}}$
+$\displaystyle{\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}}}$
 
 Lastly, we made an assumption initially that the cost would be computed based on a single sample. However, we can have $m$ number of samples and the cost would be the average of the costs for all the samples, which can be given as follows
 
