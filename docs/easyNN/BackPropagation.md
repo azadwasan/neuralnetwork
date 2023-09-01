@@ -3,6 +3,7 @@ Referring to the network as shown in figure 1, we would like to determine the we
 A neural network is also a function, but a little more complex than the functions that we dealt with earlier. The complexity arises due to the structure of a neural network consisting layers, with each layers containing multiple neurons and each layer connected with the other layer through weights. This is where back propagation comes into play. It helps us find the weights and biases for the next round of gradient descent. However, the principal to minimize the function and executing the gradient descent still stays exactly the same. 
 
 ![Neural Network with three layers](../assets/img/3LayerNN.png)
+
                 Fig. 1: Three Layers Neural Network
 
 Gradient descent is given as follows
@@ -17,7 +18,7 @@ However, instead of $\theta$ we would be optimizing for weights $w$ and biased $
 
 We need to find the gradient of the cost function of the entire network $\Delta C$, which is done using back propagation. The cost gradient vector is given as follows
 
-```math
+$$\large{
 \Delta C = \begin{bmatrix}
 \frac{\partial C}{\partial w^{(1)}}
 \\ 
@@ -29,32 +30,8 @@ We need to find the gradient of the cost function of the entire network $\Delta 
 \\ 
 \frac{\partial C}{\partial b^{(L)}}
 \end{bmatrix}
-```
-
+}
 $$
-\Delta C = \begin{bmatrix}
-\frac{\partial C}{\partial w^{(1)}}
-\\ 
-\frac{\partial C}{\partial b^{(1)}}
-\\ 
-\vdots 
-\\ 
-\frac{\partial C}{\partial w^{(L)}}
-\\ 
-\frac{\partial C}{\partial b^{(L)}}
-\end{bmatrix}
-$$
-
-$$
-\Delta C = \begin{bmatrix}
-\frac{\partial C}{\partial w^{(1)}}\\ 
-\frac{\partial C}{\partial b^{(1)}}\\ 
-\vdots\\ 
-\frac{\partial C}{\partial w^{(L)}}\\ 
-\frac{\partial C}{\partial b^{(L)}}
-\end{bmatrix}
-$$
-
 
 where $C$ is the total cost, e.g., mean square error between desired output and the network output. $w^{(L)}$ is the weight matrix of layer $L$ and $b^{(L)}$ is the bias vector of layer $L$. Hence, the gradient vector, $\Delta C$, are the partial differentials of cost w.r.t. each weight in layer 1 and biases in layer 1 and the next layer, up until the last layer.
 
@@ -68,30 +45,30 @@ Dataset consists of input-output pairs ${(\overrightarrow{x_i}, \overrightarrow{
 
 Let us first define some properties and notations for convenience. The cost of training a single example $C_0$ can be given as follows
 
-$C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2$     (1)
+$\large{C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2}$     (1)
 
-where $a_j^{(L)$ is the $j^{th}$ activation function of layer $L$ and $y_j$ is the $j^{th}$ desired output.
+where $a_j^{(L)}$ is the $j^{th}$ activation function of layer $L$ and $y_j$ is the $j^{th}$ desired output.
 
 For convenience sake, lets assume the activation function is sigmoid (already implemented in [logistic regression](./LogisticRegression.md)). The activation of $j^{th}$ neuron in layer $L$ can be given as 
 
-$a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})$      (2)
+$\large{a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})}$      (2)
 
 Again for simplification we would name the expression inside the sigmoid as follow
 
-$z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)}$ 
+$\large{z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)}}$ 
 
 or generically,
 
-$z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}$       (3)
+$\large{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}$       (3)
 
 
 Hence,
 
-$a_j^{L} = \sigma (z_j^L)$      (4)
+$\large{a_j^{L} = \sigma (z_j^L)}$      (4)
 
 In order to visualize this in terms of the actual operations taking place, we can represent them as matrix operations
 
-$
+$$\large{
 \begin{bmatrix}
 z_0^L
 \\ 
@@ -112,61 +89,62 @@ a_2^{(L-1)}
 b_0^{(L)}\\ 
 b_1^{(L)}\\ 
 b_2^{(L)}
-\end{bmatrix}
-$
+\end{bmatrix}}
+$$
 
 ### Optimizing w.r.t. the weights
 
 As we already discussed we have the possibility of changing the weights and biases in the network. Hence, first we would like to see how the change in the weights affects the cost. Once, we have determined the change (or the gradient) due to the weights, we can plug it in the gradient descent to optimize it.
 
 ![Cost Differential wrt weights](../assets/img/layer1CostWeights.png)
+
         Fig 2: Cost dependency chain on weights of output layer 
                 
 As the cost does not *directly* depend on the weights, hence we will use the chain rule to determine the partial derivative of the cost w.r.t. the weights. Please refer to figure 2 to visualize how the chain rule is being applied. From figure 2, we can see that cost $C_0$ depends on the activation output $a_j^{(L)}$, the activation output depends on the $z_j^{(L)}$, which in turn depends on the weight $w_{jk}^{(L)}$. The partial derivative of cost, $C_0$, w.r.t. to a single weight of layer $L$, $w_{jK}^{(L)}$ would be given as follows
 
-$\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_0^{(L)}}{\partial w_{jk}^{(L)}}$    (5)
+$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_0^{(L)}}{\partial w_{jk}^{(L)}}}$    (5)
 
 Now, we can solve each of the three partial derivatives. Using eq. 1, we can solve the first part as follows
 
-$\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 
+$\large{\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 
 = \frac{\partial }{\partial a_j^{(L)}}(a_j^{(L)}-y_j)^2 
-= 2(a_j^{(L)}-y_j)$     (5)
+= 2(a_j^{(L)}-y_j)}$     (5)
 
 This is trivially computable, as it is just twice the difference between the activation value and th desired output.
 
 Next, part of the equation is simply the differential of activation function w.r.t. the $z$. However, to find a concrete solution, we will assume the used activation function is sigmoid (if any other function like ReLu is used, the differential needs to be replaced accordingly). Hence, the partial derivative would be as follows:
 
-$\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})$     (6)
+$\large{\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})}$     (6)
 
 The derivative of logistic function is the [function multiplied by one minus the function](https://en.wikipedia.org/wiki/Logistic_function#Derivative). Again, the value in equation (6) is trivially computable.
 
 Finally, we have the last part of the equation. It can easily be computed using the definition of $z$ from eq. (3). The derivative would be
 
-$\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}$      (7)
+$\large{\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}}$      (7)
 
 Combining the equation (5) - (7) we have a very simple solution for the cost function gradient w.r.t. the weights as follows 
 
-$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}$       (8)
+$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}}$       (8)
 
 or generically, if we don't want to make assumption about the activation function:
 
 
-$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_0^{(L)}}{\partial z_j^{(L)}} a_k^{(L-1)}$       (9)
+$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_0^{(L)}}{\partial z_j^{(L)}} a_k^{(L-1)}}$       (9)
 
 However, we will stick to eq. (8) for further derivation to keep the results concrete.
 
 We will introduce an additional notation here as follow, as it will be very useful later on. 
 
-$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}$
+$\large{\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}}$
 
 Hence,
 
-$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$
+$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}}$
 
 Lastly, we made an assumption initially that the cost would be computed based on a single sample. However, we can have $m$ number of samples and the cost would be the average of the costs for all the samples, which can be given as follows
 
-$C = \frac{1}{m}\sum_{i=0}^{m-1}C_i$
+$\large{C = \frac{1}{m}\sum_{i=0}^{m-1}C_i}$
 
 The partial derivative would be computed as follow
 
-$\frac{\partial C}{\partial x} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial x}$
+$\large{\frac{\partial C}{\partial x} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial x}}$
