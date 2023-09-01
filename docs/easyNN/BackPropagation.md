@@ -60,12 +60,12 @@ $$z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_
 
 or generically,
 
-$$z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}$$
+$$z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}\label{eq:zLastLayer}$$
 
 
 Hence,
 
-$$a_j^{L} = \sigma (z_j^L)\label{eq:zLastLayer}$$
+$$a_j^{L} = \sigma (z_j^L)$$
 
 In order to visualize this in terms of the actual operations taking place, we can represent them as matrix operations
 
@@ -146,3 +146,4 @@ $$C = \frac{1}{m}\sum_{i=0}^{m-1}C_i$$
 The partial derivative would be computed as follow
 
 $$\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}$$
+
