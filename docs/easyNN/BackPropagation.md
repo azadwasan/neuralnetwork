@@ -94,21 +94,19 @@ $$
 
 ### Optimizing w.r.t. the weights
 
-As we already discussed we have the possibility of changing the weights and biases in the network. Hence, first we would like to see how the change in the weights affects the cost. Once, we have determined the change (or the gradient) due to the weights, we can plug it in the gradient descent to optimize it.
+As we already discussed we have the possibility of changing the weights and biases in the network. Hence, first we would like to see how the change in the weights affects the cost. Once, we have determined the change (or the gradient) due to the weights.
 
 ![Cost Differential wrt weights](../assets/img/layer1CostWeights.png)
 
         Fig 2: Cost dependency chain w.r.t. weights of output layer 
                 
-As the cost does not *directly* depend on the weights, hence we will use the chain rule to determine the partial derivative of the cost w.r.t. the weights. Please refer to figure 2 to visualize how the chain rule is being applied. From figure 2, we can see that cost $C_0$ depends on the activation output $a_j^{(L)}$, the activation output depends on the $z_j^{(L)}$, which in turn depends on the weight $w_{jk}^{(L)}$. The partial derivative of cost, $C_0$, w.r.t. to a single weight of layer $L$, $w_{jk}^{(L)}$ would be given as follows
+As the cost does not *directly* depend on the weights, hence we will use the chain rule to determine the partial derivative of the cost w.r.t. the weights. Please refer to Fig. 2 to visualize how the chain rule is being applied. Cost $C_0$ depends on the activation output $a_j^{(L)}$, the activation output depends on the $z_j^{(L)}$, which in turn depends on the weight $w_{jk}^{(L)}$. The partial derivative of cost, $C_0$, w.r.t. to a single weight of layer $L$, $w_{jk}^{(L)}$ would be given as follows
 
-$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_0^{(L)}}{\partial w_{jk}^{(L)}}}$    (5)
+$\huge{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_0^{(L)}}{\partial w_{jk}^{(L)}}}$    (5)
 
 Now, we can solve each of the three partial derivatives. Using eq. 1, we can solve the first part as follows
 
-$\large{\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 
-= \frac{\partial }{\partial a_j^{(L)}}(a_j^{(L)}-y_j)^2 
-= 2(a_j^{(L)}-y_j)}$     (6)
+$\large{\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 = 2(a_j^{(L)}-y_j)}$     (6)
 
 This is trivially computable, as it is just twice the difference between the activation value and th desired output.
 
