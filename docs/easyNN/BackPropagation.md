@@ -45,7 +45,10 @@ Dataset consists of input-output pairs ${(\overrightarrow{x_i}, \overrightarrow{
 
 Let us first define some properties and notations for convenience. The cost of training a single example $C_0$ can be given as follows
 
-$$\large{C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2}$$     (1)
+$\large{C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2}$     (1)
+
+$\displaystyle{\large{C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2}}$     (1)
+
 
 where $a_j^{(L)}$ is the $j^{th}$ activation function of layer $L$ and $y_j$ is the $j^{th}$ desired output.
 
@@ -57,9 +60,9 @@ Again for simplification we would name the expression inside the sigmoid as foll
 
 $\large{z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)}}$ 
 
-or generically,s
+or generically,
 
-$$\large{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}$$       (3)
+$\large{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}$       (3)
 
 
 Hence,
@@ -103,8 +106,6 @@ As we already discussed we have the possibility of changing the weights and bias
 As the cost does not *directly* depend on the weights, hence we will use the chain rule to determine the partial derivative of the cost w.r.t. the weights. Please refer to Fig. 2 to visualize how the chain rule is being applied. Cost $C_0$ depends on the activation output $a_j^{(L)}$, the activation output depends on the $z_j^{(L)}$, which in turn depends on the weight $w_{jk}^{(L)}$. The partial derivative of cost, $C_0$, w.r.t. to a single weight of layer $L$, $w_{jk}^{(L)}$ would be given as follows
 
 $\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}}$    (5)
-
-$$\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}}$$          (5)
 
 Now, we can solve each of the three partial derivatives. Using eq. 1, we can solve the first part as follows
 
