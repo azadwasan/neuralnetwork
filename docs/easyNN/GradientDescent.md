@@ -332,6 +332,6 @@ Test GD is a separate topic in itself, hence we discuss it in detail [here](./Gr
 
 **Neural Networks**
 
-[Back Propagation](./BackPropagation.md.md)
+[Back Propagation](./BackPropagation.md)
 
 

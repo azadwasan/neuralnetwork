@@ -29,5 +29,5 @@ We will not be discussing the neural networks concepts, as they have already bee
 
 **Neural Networks**
 
-[Back Propagation](./BackPropagation.md.md)
+[Back Propagation](./BackPropagation.md)
 
