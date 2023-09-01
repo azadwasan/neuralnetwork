@@ -65,7 +65,7 @@ $$z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}$$
 
 Hence,
 
-$$a_j^{L} = \sigma (z_j^L)$$
+$$a_j^{L} = \sigma (z_j^L)\label{eq:zLastLayer}$$
 
 In order to visualize this in terms of the actual operations taking place, we can represent them as matrix operations
 
@@ -104,32 +104,32 @@ As the cost does not *directly* depend on the weights, hence we will use the cha
 
 $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}$$
 
-Now, we can solve each of the three partial derivatives. Using eq. \ref{eq:costZero}, another try \\ref{eq:costZero}, yet another try $\ref{eq:costZero}$, we can solve the first part as follows
+Now, we can solve each of the three partial derivatives. Using eq. \ref{eq:costZero}, we can solve the first part as follows
 
-$$\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 = 2(a_j^{(L)}-y_j)$$
+$$\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 = 2(a_j^{(L)}-y_j)\label{eq:costZeroWRTAct}$$
 
 This is trivially computable, as it is just twice the difference between the activation value and th desired output.
 
 Next, part of the equation is simply the differential of activation function w.r.t. the $z$. However, to find a concrete solution, we will assume the used activation function is sigmoid (if any other function like ReLu is used, the differential needs to be replaced accordingly). Hence, the partial derivative would be as follows:
 
-$$\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})$$
+$$\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})\label{eq:actWRTZ}$$
 
-The derivative of logistic function is the [function multiplied by one minus the function](https://en.wikipedia.org/wiki/Logistic_function#Derivative). Again, the value in equation (6) is trivially computable.
+The derivative of logistic function is the [function multiplied by one minus the function](https://en.wikipedia.org/wiki/Logistic_function#Derivative). The values above is very simple to compute.
 
-Finally, we have the last part of the equation. It can easily be computed using the definition of $z$ from eq. (3). The derivative would be
+Finally, we have the last part of the equation. It can easily be computed using the definition of $z$ from eq. \ref{eq:zLastLayer}. The derivative would be
 
-$$\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}$$
+$$\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}\label{eq:ZWRTWeights}$$
 
-Combining the equation (5) - (7) we have a very simple solution for the cost function gradient w.r.t. the weights as follows 
+Combining the eq. \ref{eq:costZeroWRTAct} - \ref{eq:ZWRTWeights} we have a very simple solution for the cost function gradient w.r.t. the weights as follows 
 
-$$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}$$
+$$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}\label{eq:costZeroWRTWeights}$$
 
 or generically, if we don't want to make assumption about the activation function:
 
 
 $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_0^{(L)}}{\partial z_j^{(L)}} a_k^{(L-1)}$$
 
-However, we will stick to eq. (9) for further derivation to keep the results concrete.
+However, we will stick to eq. \ref{eq:costZeroWRTWeights} for further derivation to keep the results concrete.
 
 We will introduce an additional notation here as follow, as it will be very useful later on. 
 
