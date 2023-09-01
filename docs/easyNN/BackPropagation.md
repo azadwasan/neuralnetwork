@@ -31,6 +31,31 @@ We need to find the gradient of the cost function of the entire network $\Delta 
 \end{bmatrix}
 ```
 
+$$
+\Delta C = \begin{bmatrix}
+\frac{\partial C}{\partial w^{(1)}}
+\\ 
+\frac{\partial C}{\partial b^{(1)}}
+\\ 
+\vdots 
+\\ 
+\frac{\partial C}{\partial w^{(L)}}
+\\ 
+\frac{\partial C}{\partial b^{(L)}}
+\end{bmatrix}
+$$
+
+$$
+\Delta C = \begin{bmatrix}
+\frac{\partial C}{\partial w^{(1)}}\\ 
+\frac{\partial C}{\partial b^{(1)}}\\ 
+\vdots\\ 
+\frac{\partial C}{\partial w^{(L)}}\\ 
+\frac{\partial C}{\partial b^{(L)}}
+\end{bmatrix}
+$$
+
+
 where $C$ is the total cost, e.g., mean square error between desired output and the network output. $w^{(L)}$ is the weight matrix of layer $L$ and $b^{(L)}$ is the bias vector of layer $L$. Hence, the gradient vector, $\Delta C$, are the partial differentials of cost w.r.t. each weight in layer 1 and biases in layer 1 and the next layer, up until the last layer.
 
 This is exactly how we performed the optimization in simple gradient descent, i.e., we find partial differentials the cost function $J(\theta)$ w.r.t. the independent variable $\theta$. In this case, we has the possibility of changing the weights $w$ and biases $b$.
