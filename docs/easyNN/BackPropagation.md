@@ -54,8 +54,6 @@ For convenience sake, lets assume the activation function is sigmoid (already im
 
 $\large{a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})}$      (2)
 
-$\displaystyle{a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})}$      (2)
-
 
 Again for simplification we would name the expression inside the sigmoid as follow
 
@@ -63,7 +61,7 @@ $\large{z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{
 
 or generically,
 
-$\displaystyle{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}$       (3)
+$\displaystyle{\large{z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}}}$       (3)
 
 
 Hence,
@@ -110,7 +108,7 @@ $\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} = \frac{\partial C_0}{\partia
 
 Now, we can solve each of the three partial derivatives. Using eq. 1, we can solve the first part as follows
 
-$\large{\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 = 2(a_j^{(L)}-y_j)}$     (6)
+$\displaystyle{\large{\frac{\partial C_0}{\partial a_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2 = 2(a_j^{(L)}-y_j)}}$     (6)
 
 This is trivially computable, as it is just twice the difference between the activation value and th desired output.
 
@@ -145,8 +143,8 @@ $\large{\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}}$
 
 Lastly, we made an assumption initially that the cost would be computed based on a single sample. However, we can have $m$ number of samples and the cost would be the average of the costs for all the samples, which can be given as follows
 
-$\large{C = \frac{1}{m}\sum_{i=0}^{m-1}C_i}$
+$\displaystyle{\large{C = \frac{1}{m}\sum_{i=0}^{m-1}C_i}}$
 
 The partial derivative would be computed as follow
 
-$\large{\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}}$
+$\displaystyle{\large{\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}}}$
