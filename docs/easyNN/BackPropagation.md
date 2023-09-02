@@ -120,24 +120,27 @@ Finally, we have the last part of the equation. It can easily be computed using 
 
 $$\frac{\partial z_j^{(L)}}{\partial w_{jk}^{(L)}}=a_k^{(L-1)}\label{eq:ZWRTWeights}$$
 
-Combining the eq. \ref{eq:costZeroWRTAct} - \ref{eq:ZWRTWeights} we have a very simple solution for the cost function gradient w.r.t. the weights as follows 
+Combining the results from eq. \ref{eq:costZeroWRTAct} - \ref{eq:ZWRTWeights} we have a very simple solution for the cost function gradient w.r.t. the weights as follows:
 
-$$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}\label{eq:costZeroWRTWeights}$$
+$$\colorbox{Apricot}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) a_j^{(L)}(1-a_j^{(L)}) a_k^{(L-1)}\label{eq:costZeroWRTWeights}$}$$
 
 or generically, if we don't want to make assumption about the activation function:
 
 
 $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_0^{(L)}}{\partial z_j^{(L)}} a_k^{(L-1)}$$
 
-However, we will stick to eq. \ref{eq:costZeroWRTWeights} for further derivation to keep the results concrete.
-
-We will introduce an additional notation here as follow, as it will be very useful later on. 
+We will introduce an additional notation, $\delta_j^{(L)}$ referred to as error term, as it will be very useful later on.
 
 $$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}$$
 
 Hence,
 
-$$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$$
+$$\colorbox{Apricot}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$}$$
+
+
+
+
+
 
 Lastly, we made an assumption initially that the cost would be computed based on a single sample. However, we can have $m$ number of samples and the cost would be the average of the costs for all the samples, which can be given as follows
 
