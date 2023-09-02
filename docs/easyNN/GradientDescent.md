@@ -12,6 +12,26 @@ $$\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)$$
 
 simultaneously update for every $j=0,...,n$.
 
+Whereas, $J(\theta)$ is defined as the mean square error (MSE) between the estimated value through the hypothesis ($ht_\theta^{(i)}$) and the measured value $y^{(i)}$:
+
+$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2$$
+
+MSE is one of the measured that could be used for cost function. However, further discussion about choosing the cost function is out of the scope of this work.
+
+The partial differential of the cost function would be:
+
+$$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{\partial}{\partial \theta_j} \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 $$
+
+Expanding the above equation by plugging in the definition of $h_{\theta}(x^{(i)})$, we get the following equation:
+
+$$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (\theta_0 + \theta_1 x_1^{(i)} + \theta_2 x_2^{(i)} + ... + \theta_n x_n^{(i)} - y^{(i)})^2 $$
+
+Differentiating and reverting back to $h_{\theta}(x^{(i)})$ we get:
+
+$$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{\partial}{\partial \theta_j} \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x^{(i)}$$
+
+Hence, the updated equation for gradient descent would be as follows:
+
 Repeat{
 
 $$\theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
