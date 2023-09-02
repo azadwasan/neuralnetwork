@@ -132,12 +132,35 @@ $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_
 
 We will introduce an additional notation, $\delta_j^{(L)}$ referred to as error term, as it will be very useful later on.
 
-$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}$$
+$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\label{eq:deltaDef}$$
 
 Hence,
 
 $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$}}$$
 
+### Optimizing w.r.t. biases
+
+As we have already discussed, the cost function is affected by the weights, the activation function value from the previous layer and the biases. We have already derived the solution for the cost gradient w.r.t. weights. Next, we will address the biases. Fortunately, it is relatively very simple.
+
+![Cost Differential wrt weights](../assets/img/layer1CostBias.png)
+
+Fig 3: Cost dependency chain w.r.t. output layer biases  
+
+Referring to Fig. 3, we can apply chain rule to find the cost gradient w.r.t. biases
+
+$$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}\label{eq:costZeroLayerLWRTBias}$$
+
+We already have got the results for the first two parts of the Eq. \ref{eq:costZeroLayerLWRTBias} in Eq. \ref{eq:costZeroWRTAct} and Eq. \ref{eq:actWRTZ}. Before proceeding any further we can simplify the above equation using the definition of error term from Eq. \ref{eq:deltaDef} as follows:
+
+$$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}\label{eq:costZeroLayerLWRTBiasDelta}$$
+
+Now, we can compute the partial differential using the definition of $z_j^{(L)}$ from Eq. \ref{eq:zLastLayer}:
+
+$$ \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}  = \frac{\partial }{\partial b_{j}^{(L)}} \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)} = 1$$
+
+It is conveniently "1", hence the cost gradient w.r.t. biases is just the error term:
+
+$$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)} $$
 
 ## Handling multiple samples
 
