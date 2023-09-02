@@ -2,7 +2,9 @@
 
 ## Fundamentals
 
-We use gradient descent to find the best model parameters for which the change in the cost function is minimal. Hence, it is given as follows
+We use gradient descent to find the best model parameters for which the change in the cost function w.r.t. the model parameters is minimal.
+
+Hence, it is given as follows
 
 Repeat{
 
@@ -12,11 +14,33 @@ $$\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)$$
 
 simultaneously update for every $j=0,...,n$.
 
-Whereas, $J(\theta)$ is defined as the mean square error (MSE) between the estimated value through the hypothesis ($ht_\theta^{(i)}$) and the measured value $y^{(i)}$:
+Whereas, cost function $J(\theta)$ is defined as the mean square error (MSE) between the estimated value through the hypothesis ($ht_\theta^{(i)}$) and the measured value $y^{(i)}$. Hence, cost function is given as follows:
 
 $$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2$$
 
-MSE is one of the measured that could be used for cost function. However, further discussion about choosing the cost function is out of the scope of this work.
+Note that cost function is mean square error of $m$ samples. MSE is one of the measured that could be used for cost function. However, further discussion about choosing the cost function is out of the scope of this work.
+
+Before we proceed any further, let us define various symbols
+
+$n$ is the model order
+
+$\theta_j$ is the jth model parameter.
+
+$\alpha$ is the learning rate, which determines the step size in each iteration.
+
+$m$ is the number of samples
+
+$(h_{\theta}(x^{(i)})$ is the hypothesis for $i^{th}$ feature vector 
+
+$y^{(i)}$ is the $i^{th}$ measured value.
+
+$x_j^{(i)}$ is the $j^{th}$ feature of $i^{th}$ sample, or in order words this is the corresponding feature of the model parameter, i.e., for $\theta_1$ the corresponding feature is $x_1$ as in a typical model like $\theta_0 + \theta_1 x_1 + \theta_2 x_2 + ...$.
+
+$x_0^{(i)} = 1$ as in a typical model like $\theta_0 + \theta_1 x_1 + \theta_2 x_2 + ...$.
+
+$J(\theta)$ is the cost function.
+
+### Partial Differentiation of Cost Function
 
 The partial differential of the cost function would be:
 
@@ -26,7 +50,7 @@ Expanding the above equation by plugging in the definition of $h_{\theta}(x^{(i)
 
 $$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (\theta_0 + \theta_1 x_1^{(i)} + \theta_2 x_2^{(i)} + ... + \theta_n x_n^{(i)} - y^{(i)})^2 $$
 
-This equation is very easily differentiable, i.e., the power will reduce by 1 and from the definition of $h_\theta(x^{(i)})$ only $x_i^{(j)}$ will remain and rest will be zero. Hence, differentiating the above equation and plugging back back $h_{\theta}(x^{(i)})$ we get the following equation:
+This equation is very easily differentiable, i.e., the power will reduce by 1 and from the definition of $h_\theta(x^{(i)})$ only $x_i^{(j)}$ will remain and rest will be zero. Hence, differentiating the above equation and plugging back $h_{\theta}(x^{(i)})$ we get the following equation:
 
 $$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{\partial}{\partial \theta_j} \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
 
@@ -51,27 +75,6 @@ $$\theta_2 := \theta_2 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - 
 ...
 
 simultaneously update $\theta_j$ for every $j=0,...,n$.
-
-where
-
-$n$ is the model order
-
-$\theta_j$ is the jth model parameter.
-
-$\alpha$ is the learning rate, which determines the step size in each iteration.
-
-$m$ is the number of samples
-
-$(h_{\theta}(x^{(i)})$ is the hypothesis for $i^{th}$ feature vector 
-
-$y^{(i)}$ is the $i^{th}$ measured value.
-
-$x_j^{(i)}$ is the $j^{th}$ feature of $i^{th}$ sample, or in order words this is the corresponding feature of the model parameter, i.e., for $\theta_1$ the corresponding feature is $x_1$ as in a typical model like $\theta_0 + \theta_1 x_1 + \theta_2 x_2 + ...$.
-
-$x_0^{(i)} = 1$ as in a typical model like $\theta_0 + \theta_1 x_1 + \theta_2 x_2 + ...$.
-
-$J(\theta)$ is the cost function.
-
 
 ## Key observations
 
