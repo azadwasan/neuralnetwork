@@ -6,7 +6,7 @@ We use gradient descent to find the best model parameters for which the change i
 
 Repeat{
 
-$\large{\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)}$
+$$\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)$$
 
 }
 
@@ -14,19 +14,19 @@ simultaneously update for every $j=0,...,n$.
 
 Repeat{
 
-$\large{\theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}}$
+$$\theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
 
 }
 
 simultaneously update $\theta_j$ for every $j=0,...,n$.
 
-This can be expanded further for clarify as follows
+This can be expanded further for clarification as follows
 
-$\large{\theta_0 := \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})}$
+$$\theta_0 := \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})$$
 
-$\large{\theta_1 := \theta_1 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_1^{(i)}}$
+$$\theta_1 := \theta_1 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_1^{(i)}$$
 
-$\large{\theta_2 := \theta_2 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_2^{(i)}}$
+$$\theta_2 := \theta_2 - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_2^{(i)}$$
 
 ...
 
@@ -86,13 +86,13 @@ GD works by iteratively adjusting the model parameters to reduce the error betwe
 
 It starts making a lot more sense, if we would simplify the GD equation and assume there is only one sample of data. The GD equation reduces to only the following
 
-$\large{\theta_j := \theta_j - \alpha (h_{\theta}(x) - y) x_j}$
+$$\theta_j := \theta_j - \alpha (h_{\theta}(x) - y) x_j$$
 
 $h_{\theta}(x) - y$ is very easily to interpret, it is the error between the estimate and the measured value. Multiplying $x_j$ with the error term serves to amplify the error term proportional to the concerned feature value and show its contribution in the estimation error. Therefore, the large the value of the feature $x_j$ the more pronounced the error would be and vice versa. However, at the same time we don't want the amplified error to change parameter $\theta_j$ too much, as it could cause convergence issues. Hence, we attenuate the proportionally amplified error by $\alpha$. The respective $\theta_j$ value is updated accordingly.
 
 Referring back to the original original equation, the following part becomes obvious
 
-$\large{\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j}$
+$$\frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j$$
 
 This represents the general case when we have multiple data points. Hence, we would like to find the differences of estimates with the measured values for all the available data points. Finally, we normally them to find an average error. This gives us an average error in estimation for all the available data points that is amplified by the respective feature value.
 
