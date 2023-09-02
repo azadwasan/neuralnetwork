@@ -14,7 +14,7 @@ $$\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)$$
 
 simultaneously update for every $j=0,...,n$.
 
-Whereas, cost function $J(\theta)$ is defined as the mean square error (MSE) between the estimated value through the hypothesis ($ht_\theta^{(i)}$) and the measured value $y^{(i)}$. Hence, cost function is given as follows:
+Whereas, cost function $J(\theta)$ is defined as the mean square error (MSE) between the estimated value (hypothesis ($ht_\theta^{(i)}$)) and the measured value $y^{(i)}$. Hence, cost function is given as follows:
 
 $$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2$$
 
@@ -204,13 +204,15 @@ Here is how the basic implementation would look like
 34   }
 ```
 
-Considering all the lengthy details about how GD works, the code to implement the algorithm is fairly simple. We are being provided the current parameter values as method argument. The cost function is computed based on the parameters (line 8). We start iterating up until the maximum number of iterations. Next, we compute the difference sum, using the hypothesis, feature matrix, measured values and parameters. However, as we noted in the beginning, the computation of difference sum for $\theta_0$ is different from the rest. Hence, we need separate code for the two cases. For $\theta_0$ the the new parameter is computed from line 15 to 18 and for the rest, these are computed from line 20 to 26. Note that the new parameters are being stored in a separate vector and the original vector is still being maintained.
+Considering all the lengthy details about how GD works, the code to implement the algorithm is fairly simple. We are being provided the current parameter values as method argument. The cost function is computed based on the parameters (line 10). We start iterating up until the maximum number of iterations. Next, we compute the difference sum, using the hypothesis, feature matrix, measured values and parameters. However, as we noted in the beginning, the computation of difference sum for $\theta_0$ is different from the rest. Hence, we need separate code for the two cases. For $\theta_0$ the the new parameter is computed from line 15 to 18 and for the rest, these are computed from line 20 to 26. Note that the new parameters are being stored in a separate vector and the original vector is still being maintained.
 
 After all the parameters have been computed, the parameters are replaced with the new parameters (line 25). Next, the cost function is computed using the new parameter values (line 28). GD stops if the difference between the cost functions is less than the stopping threshold.
 
+Zooming out again and looking at the big picture, the GD requires three nested loops, 1. Iterating to maximum number of iterations (line 13) 2. Iterating over all model parameters (line 20, $\theta_0$ is treated separately for the reasons discussed earlier) 3. Iterating over all the sample values for which the model is to be optimized (line 15-17 for $\theta_0$ and line 22-24 for the rest of the models.). The third nested loop is the key to determining the mean square error for all the samples $m$.
+
 Though, it looks like the method doesn't return any values, however, this is a peculiarity of C++, where parameters is being passed by reference and it is being modified within the body of the method. Hence, when the method returns, the parameters will contains the final optimized values and the caller of the method can use the optimized values of the parameters.
 
-We can improve the code above slightly by moving the new parameter calculation into separate methods
+We can improve the code above slightly by moving the new parameter computation into separate methods
 
 ```cpp
 void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
@@ -264,7 +266,7 @@ double GradientDescent::computeNewParameter(const std::vector<std::vector<double
 }
 ```
 
-This makes the code slightly more structured but still there is quite a bit of code duplication. We can improve this even further as follows:
+Notice, the third nested loop has moved to the new method. This the loop responsible for computing the cost function for $m$ samples. Though, the refactoring makes the code slightly more structured but still there is quite a bit of code duplication. We can improve this even further as follows:
 
 ```cpp
 void GradientDescent::evaluate(const std::vector<std::vector<double>>& featuresMatrix,
