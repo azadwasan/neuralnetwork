@@ -66,7 +66,7 @@ $$z_j^{(L)} = w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_
 
 or generically,
 
-$$z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{L}a_k^{(L-1)} + b_j^{(L)}\label{eq:zLastLayer}$$
+$$z_j^{(L)} = \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{(L)}a_k^{(L-1)} + b_j^{(L)}\label{eq:zLastLayer}$$
 
 
 Hence,
@@ -120,7 +120,7 @@ This is trivially computable, as it is just twice the difference between the act
 
 Next, part of the equation is simply the differential of activation function w.r.t. the $z$. However, to find a concrete solution, we will assume the used activation function is sigmoid (if any other function like ReLu is used, the differential needs to be replaced accordingly). Hence, the partial derivative would be as follows:
 
-$$\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})\label{eq:actWRTZSigmoid}$$
+$$\frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial z_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)}}} \right )=a_j^{(L)}(1-a_j^{(L)})\label{eq:actWRTZSigmoid}$$
 
 The derivative of logistic function is the [function multiplied by one minus the function](https://en.wikipedia.org/wiki/Logistic_function#Derivative). The values above is very simple to compute.
 
@@ -140,7 +140,7 @@ $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_
 
 We will introduce an additional notation, $\delta_j^{(L)}$ referred to as error term, as it will be very useful later on.
 
-$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\label{eq:deltaDef}$$
+$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} = 2(a_j^{(L)}) a_j^{'(L)}(z_j^{(L)})(\label{eq:deltaDef}$$
 
 Hence,
 
@@ -210,30 +210,41 @@ $$
 
 We can easily generalize this equation as follows:
 
-$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
-\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
-$$
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \left( \sum_{j=0}^{n_L-1}
+\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}}  \right)
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}$$
 
 Let us focus on the term highlighted in color in the above equation, it is error term as defined in Eq. \ref{eq:deltaDef}. We can simplify the above equation by replacing the two terms with error as follow:
 
-$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
-\delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
+\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
+ \right)
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
 $$
 
-We already have the results for the last partial derivatives factor in Eq. \ref{{eq:ZWRTWeights}} and we would replace the $\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}}$ with short form derivative, however, if sigmoid is to be considered as the activation function the derivative can be replaced with the results from Eq. \ref{eq:actWRTZSigmoid}. However, we will keep the derivative generic, as we want to keep the derivation agnostic to any specific assumptions. Hence, the above formula would simplify to the follow:
+We already have the results for the last partial derivatives factor in Eq. \ref{{eq:ZWRTWeights}}. Hence, the above formula would simplify to the follow:
 
-$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
-\delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} f^{'}(a_k^{(L-1)}) a_{l}^{(L-2)}
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
+\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
+ \right)
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} a_{l}^{(L-2)}
 $$
 
+The last remaining factor partial derivative can be computed as follows, using the definition of $z$ from Eq. \ref{eq:zLastLayer}:
+
+$$ \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} = \frac{\partial }{\partial a_k^{(L-1)}} \sum_{k=0}^{n_{(L-1)}-1}w_{jk}^{(L)}a_k^{(L-1)} + b_j^{(L)} = w_{jk}^{(L)} $$
+
+<!---
+and we would replace the $\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}}$ with short form derivative, however, if sigmoid is to be considered as the activation function the derivative can be replaced with the results from Eq. \ref{eq:actWRTZSigmoid}. However, we will keep the derivative generic, as we want to keep the derivation agnostic to any specific assumptions. -->
 
 
+Hence, the cost gradient equation simplified further to the following
 
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
+\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} w_{jk}^{(L)}  \right)
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} a_{l}^{(L-2)}$$
 
-
-
-
-
+We have also solved the last remaining partial fraction in the above equation earlier in Eq. \ref{eq:actWRTZSigmoid} for sigmoid. Hence, if the neuron uses the sigmoid we can readily replace the partial fraction with this result, otherwise the derivative of the corresponding activation function must be used.
 
 
 
