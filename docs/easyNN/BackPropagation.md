@@ -211,7 +211,8 @@ $$
 We can easily generalize this equation as follows:
 
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \left( \sum_{j=0}^{n_L-1}
-\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}}  \right)
+\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} $}
+\frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}}  \right)
 \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}$$
 
 Let us focus on the term highlighted in color in the above equation, it is error term as defined in Eq. \ref{eq:deltaDef}. We can simplify the above equation by replacing the two terms with error as follow:
@@ -219,7 +220,7 @@ Let us focus on the term highlighted in color in the above equation, it is error
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
 \left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
  \right)
-\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}} \label{eq:hiddenLayerWRTWeights}
 $$
 
 We already have the results for the last partial derivatives factor in Eq. \ref{{eq:ZWRTWeights}}. Hence, the above formula would simplify to the follow:
@@ -240,20 +241,43 @@ and we would replace the $\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}}$ wit
 
 Hence, the cost gradient equation simplified further to the following
 
-$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
 \left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} w_{jk}^{(L)}  \right)
-\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} a_{l}^{(L-2)}$$
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} a_{l}^{(L-2)}$}}$$
 
 We have also solved the last remaining partial fraction in the above equation earlier in Eq. \ref{eq:actWRTZSigmoid} for sigmoid. Hence, if the neuron uses the sigmoid we can readily replace the partial fraction with this result, otherwise the derivative of the corresponding activation function must be used.
 
+Compare this results with Eq. \ref{eq:gradientZeroLayerWeights}, it is essentially the same. Hence, we define the error term for the hidden layers as follows
+
+$$\delta_k^{(L-1)} = 
+\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} w_{jk}^{(L)}  \right)
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \label{eq:deltaHiddenLayer}$$
+
+Hence, cost gradient equation for hidden layer w.r.t. the weights would be 
 
 
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \delta_k^{(L-1)} a_{l}^{(L-2)}$}}$$
 
+### Optimizing w.r.t. the weights for the hidden layer
 
+We would not be going through all the steps like in the case of weights, instead we will results from Eq. \ref{eq:hiddenLayerWRTWeights} to derive the equivalent cost gradient w.r.t. to the biases of the hidden layer. The equivalent equation can be given as follows
 
+$$\frac{\partial C_0}{\partial b_{k}^{(L-1)}} = 
+\colorbox{Chartreuse}{$\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
+ \right)
+\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} $}
+\frac{\partial z_k^{(L-1)}}{\partial b_{k}^{(L-1)}}
+$$
 
+The green highlighted part of the equation is the definition of error term as in Eq. \ref{eq:deltaHiddenLayer}, where as the partial differential for the last term is "1", as can be easily deduced based on the definition of $z$ provided in Eq. \ref{eq:zLastLayer}. Hence,
 
+$$\boxed{\colorbox{Chartreuse}{$\\frac{\partial C_0}{\partial b_{k}^{(L-1)}} = \delta_k^{(L-1)}$}}$$
 
+This result is the same as we got for the output layer in Eq. \ref{eq:gradientBiasLayerZero}.
+
+### Milestone
+
+We have derived the cost gradients w.r.t. to both weights and the biases for output layer and the hidden layers. Next, we will discuss how these cost gradients are used in conjunction with gradient descent to find the optimal weights and biases of the network and how exactly the back propagation algorithm is executed in practice.
 
 ## Handling multiple samples
 
