@@ -160,7 +160,7 @@ $$ \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}  = \frac{\partial }{\partial 
 
 It is conveniently "1", hence the cost gradient w.r.t. biases is just the error term:
 
-$$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)} $$
+$$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)} $$.
 
 ## Handling multiple samples
 
@@ -170,5 +170,5 @@ $$C = \frac{1}{m}\sum_{i=0}^{m-1}C_i$$
 
 The partial derivative would be computed as follow
 
-$$\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}$$
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}$}}$$
 
