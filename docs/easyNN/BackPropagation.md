@@ -144,7 +144,7 @@ $$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)
 
 Hence,
 
-$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$}}$$
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$}}\label{eq:gradientZeroLayerWeights}$$
 
 ### Optimizing w.r.t. biases for the output layer
 
@@ -170,11 +170,15 @@ $$ \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}  = \frac{\partial }{\partial 
 
 It is conveniently "1", hence the cost gradient w.r.t. biases is just the error term:
 
-$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)}$}}$$
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)}$}}\label{eq:gradientBiasLayerZero}$$
 
-Let us summarize what we have achieved so far. We have computed the cost gradients w.r.t. the weights and biases of the output layer. We don't explicitly compute for the activation function, because it is not the factor that we change directly, rather we change the weights and biases, which in effect changes the activations. Hence, we would not move on to the next layer, i.e., the hidden layer.
+### Milestone
 
-## Computing the Gradient for Output Layer
+We have computed the cost gradients w.r.t. the weights and biases of the output layer using Eq. \ref{eq:gradientZeroLayerWeights} and \ref{eq:gradientBiasLayerZero}. We don't explicitly compute the cost gradient w.r.t. activation function, because it is not the quantity that we can change directly, rather we change the weights and biases, which in effect changes the activations. Hence, we would now move on to the next layer, i.e., the hidden layer.
+
+## Computing the Gradient for Hidden Layer
+
+The cost gradient computation for hidden layer is relatively simple as most of the ground work has already been laid out. However, it is going to be a little cluttered before we can clean up the clutter and come up with a relatively clean and simple solution.
 
 <div align="center">
     <img src="../assets/img/Layer2Cost.png" alt="Layer two cost w.r.t. weights">
@@ -189,6 +193,33 @@ Cost gradient computation for hidden layer follows the same sequence of computat
 The cost gradient w.r.t. to the weights of the hidden layer can be given as follows
 
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}$$
+
+<div align="center">
+    <img src="../assets/img/3LayerNNHiddenLayer.png" alt="Layer two cost w.r.t. weights">
+</div>
+
+Fig 5: Hidden Layer activation function output impact on output layer
+
+Referring to Fig. 5, we can see that activation function output from each neuron is hidden layer feeds into each neuron of the next layer (or output layer in this specific case), as can be seen by the green and orange arrows in the figure. Hence, each output affects multiple neurons in the next layer, hence we have to account for this effect. The last equation needs to be updated accordingly. However, initially we will write cost gradient for activation function output $a_0^{(L-1)}$ and generalize it later after we have simplified it.
+
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
+\frac{\partial C_0}{\partial a_0^{(L)}} \frac{\partial a_0^{(L)}}{\partial z_0^{(L)}} \frac{\partial z_0^{(L)}}{\partial a_0^{(L-1)}} \frac{\partial a_0^{(L-1)}}{\partial z_0^{(L-1)}} \frac{\partial z_0^{(L-1)}}{\partial w_{kl}^{(L-1)}}
++
+\frac{\partial C_0}{\partial a_1^{(L)}} \frac{\partial a_1^{(L)}}{\partial z_1^{(L)}} \frac{\partial z_1^{(L)}}{\partial a_0^{(L-1)}} \frac{\partial a_0^{(L-1)}}{\partial z_0^{(L-1)}} \frac{\partial z_0^{(L-1)}}{\partial w_{kl}^{(L-1)}}
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Handling multiple samples
