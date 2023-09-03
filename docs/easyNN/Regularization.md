@@ -8,7 +8,7 @@ Regularization is performed to avoid overfitting. It is pretty straight forward 
 
 Here is the equation to implement regularization for linear regression
 
-$J(\theta) = \frac{1}{2m} \left[ \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})^2 + \lambda \sum_{j=1}^n \theta_j^2 \right]$
+$$J(\theta) = \frac{1}{2m} \left[ \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})^2 + \lambda \sum_{j=1}^n \theta_j^2 \right]$$
 
 Regularization add an additional summation term for all the model parameters, except $\theta_0$. Before we would implement it for linear regression, lets look how regularization is implemented for logistic regression.
 
@@ -18,7 +18,7 @@ Regularization add an additional summation term for all the model parameters, ex
 
 Regularized logistic regression is given as follow
 
-$J(\theta) = -\frac{1}{m} \left[ \sum_{i=1}^m y^{(i)} \log h_{\theta}(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_{\theta}(x^{(i)})) \right] + \frac{\lambda}{2m} \sum_{j=1}^n \theta_j^2$
+$$J(\theta) = -\frac{1}{m} \left[ \sum_{i=1}^m y^{(i)} \log h_{\theta}(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_{\theta}(x^{(i)})) \right] + \frac{\lambda}{2m} \sum_{j=1}^n \theta_j^2$$
 
 We observe it is exactly the same regularization term that has been added to the above equation.
 
@@ -78,7 +78,7 @@ Regularized gradient descent is given as follow
 
 Repeat{
 
-$\large{\theta_j := \theta_j (1 - \alpha \frac{\lambda}{m}) - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}}$
+$$\large{\theta_j := \theta_j (1 - \alpha \frac{\lambda}{m}) - \alpha \frac{1}{m} \sum_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)}) x_j^{(i)}}$$
 
 }
 

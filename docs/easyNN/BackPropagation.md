@@ -120,7 +120,7 @@ This is trivially computable, as it is just twice the difference between the act
 
 Next, part of the equation is simply the differential of activation function w.r.t. the $z$. However, to find a concrete solution, we will assume the used activation function is sigmoid (if any other function like ReLu is used, the differential needs to be replaced accordingly). Hence, the partial derivative would be as follows:
 
-$$\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})\label{eq:actWRTZ}$$
+$$\frac{\partial a_0^{(L)}}{\partial z_j^{(L)}}=\frac{\partial }{\partial a_j^{(L)}}\left ( \frac{1}{1+e^{-z_j^{(L)})}} \right )=a_j^{(L)}(1-a_j^{(L)})\label{eq:actWRTZSigmoid}$$
 
 The derivative of logistic function is the [function multiplied by one minus the function](https://en.wikipedia.org/wiki/Logistic_function#Derivative). The values above is very simple to compute.
 
@@ -160,7 +160,7 @@ Referring to Fig. 3, we can apply chain rule to find the cost gradient w.r.t. bi
 
 $$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}\label{eq:costZeroLayerLWRTBias}$$
 
-We already have got the results for the first two parts of the Eq. \ref{eq:costZeroLayerLWRTBias} in Eq. \ref{eq:costZeroWRTAct} and Eq. \ref{eq:actWRTZ}. Before proceeding any further we can simplify the above equation using the definition of error term from Eq. \ref{eq:deltaDef} as follows:
+We already have got the results for the first two parts of the Eq. \ref{eq:costZeroLayerLWRTBias} in Eq. \ref{eq:costZeroWRTAct} and Eq. \ref{eq:actWRTZSigmoid}. Before proceeding any further we can simplify the above equation using the definition of error term from Eq. \ref{eq:deltaDef} as follows:
 
 $$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}\label{eq:costZeroLayerLWRTBiasDelta}$$
 
@@ -200,7 +200,7 @@ $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \frac{\partial C_0}{\partial a_
 
 Fig 5: Hidden Layer activation function output impact on output layer
 
-Referring to Fig. 5, we can see that activation function output from each neuron is hidden layer feeds into each neuron of the next layer (or output layer in this specific case), as can be seen by the green and orange arrows in the figure. Hence, each output affects multiple neurons in the next layer, hence we have to account for this effect. The last equation needs to be updated accordingly. However, initially we will write cost gradient for activation function output $a_0^{(L-1)}$ and generalize it later after we have simplified it.
+Referring to Fig. 5, we can see that activation function output from each neuron is hidden layer feeds into each neuron of the next layer (or output layer in this specific case), as can be seen by the green and orange arrows in the figure. Hence, each output affects multiple neurons in the next layer, hence we have to account for this effect. The last equation needs to be updated accordingly. However, initially we will write cost gradient for activation function output $a_0^{(L-1)}$ and generalize it afterwards. Here is the specific equation
 
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = 
 \colorbox{#90EE90}{$\frac{\partial C_0}{\partial a_0^{(L)}} \frac{\partial a_0^{(L)}}{\partial z_0^{(L)}} \frac{\partial z_0^{(L)}}{\partial a_0^{(L-1)}} \frac{\partial a_0^{(L-1)}}{\partial z_0^{(L-1)}} \frac{\partial z_0^{(L-1)}}{\partial w_{kl}^{(L-1)}}$}
@@ -208,9 +208,30 @@ $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} =
 \colorbox{#FFD8B1}{$\frac{\partial C_0}{\partial a_1^{(L)}} \frac{\partial a_1^{(L)}}{\partial z_1^{(L)}} \frac{\partial z_1^{(L)}}{\partial a_0^{(L-1)}} \frac{\partial a_0^{(L-1)}}{\partial z_0^{(L-1)}} \frac{\partial z_0^{(L-1)}}{\partial w_{kl}^{(L-1)}}$}
 $$
 
+We can easily generalize this equation as follows:
+
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{i=0}^{n_L-1}
+\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial a_0^{(L)}} \frac{\partial a_0^{(L)}}{\partial z_0^{(L)}}$} \frac{\partial z_0^{(L)}}{\partial a_0^{(L-1)}} \frac{\partial a_0^{(L-1)}}{\partial z_0^{(L-1)}} \frac{\partial z_0^{(L-1)}}{\partial w_{kl}^{(L-1)}}
+$$
+
+Let us focus on the term highlighted in color in the above equation, it is error term as defined in Eq. \ref{eq:deltaDef}. We can simplify the above equation by replacing the two terms with error as follow:
+
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
+\delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
+$$
+
+We already have the results for the last partial derivatives factor in Eq. \ref{{eq:ZWRTWeights}} and we would replace the $\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}}$ with short form derivative, however, if sigmoid is to be considered as the activation function the derivative can be replaced with the results from Eq. \ref{actWRTZSigmoid}. However, we will keep the derivative generic, as we want to keep the derivation agnostic to any specific assumptions. Hence, the above formula would simplify to the follow:
+
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
+\delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} f^'(a_k^{(L-1)}) a_{l}^{(L-2)}}
+$$
 
 
-$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}$}}$$
+
+
+
+
+
 
 
 
