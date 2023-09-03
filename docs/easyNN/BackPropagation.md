@@ -144,6 +144,13 @@ As we have already discussed, the cost function is affected by the weights, the 
 
 ![Cost Differential wrt weights](../assets/img/layer1CostBias.png)
 
+<img align="center" src="../assets/img/layer1CostBias.png" alt="Cost Differential wrt weights">
+
+
+<div align="center">
+![Cost Differential wrt weights](../assets/img/layer1CostBias.png)
+</div>
+
 Fig 3: Cost dependency chain w.r.t. output layer biases  
 
 Referring to Fig. 3, we can apply chain rule to find the cost gradient w.r.t. biases
