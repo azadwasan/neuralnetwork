@@ -36,9 +36,9 @@ where $C$ is the total cost, e.g., mean square error between desired output and 
 
 This is exactly how we performed the optimization in simple gradient descent, i.e., we find partial differentials the cost function $J(\theta)$ w.r.t. the independent variable $\theta$. In this case, we has the possibility of changing the weights $w$ and biases $b$.
 
-## Computing the cost of a single training sample
+# Computing the cost of a single training sample
 
-We would be using the reference network as shown in figure 1 with two output neurons and 3 hidden layer neurons. Initial formulation would be based on this network to give a concrete example to the reader, however, the final derived formulas would be generic and could be used for network of any size.
+We would be using the reference network as shown in figure 1 with two output neurons, three hidden layer neurons and two input neurons. Initial formulation would be based on this network to give a concrete example to the reader, however, the derivation would still be generic and could be used for network of any size.
 
 Dataset consists of input-output pairs ${(\overrightarrow{x_i}, \overrightarrow{y_i})}$, where $\overrightarrow{x_i}$ is the input and $\overrightarrow{y_i}$ is the desired output of the network. The dataset consists of $N$ input-output pairs.
 
@@ -49,7 +49,13 @@ $$C_0 = \sum_{j=0}^{n_L-1}(a_j^{(L)}-y_j)^2\label{eq:costZero}$$
 
 where $a_j^{(L)}$ is the $j^{th}$ activation function of layer $L$ and $y_j$ is the $j^{th}$ desired output. We will handle the multiple samples towards the end of the derivation, till then we will assume training with only one sample and the corresponding cost would be $C_0$ to keep the derivation relatively simple and avoid unnecessary complication.
 
-For convenience sake, lets assume the activation function is sigmoid (already implemented in [logistic regression](./LogisticRegression.md)). But, don't worry, as the derivation will still be generic and agnostic to the activation function used. However, this assumption allows us to generate intermediary derivation steps to show concrete results differentiation of activation function instead of scary looking partial differential symbols. Hence, the activation of $j^{th}$ neuron in layer $L$ can be given as 
+## Computing the Gradient for Output Layer
+
+<div align="center">
+    <img src="../assets/img/3LayerNNOutputAndHiddenLayer.png" alt="Hidden and Output Layer">
+</div>
+
+Let us first focus only on the output layer. We would use the results from output layer to compute the cost function. Afterwards, we would compute the gradients for each neuron in the output layer. For convenience sake, lets assume the activation function is sigmoid (already implemented in [logistic regression](./LogisticRegression.md)). But, don't worry, as the derivation will still be generic and agnostic to the activation function used. However, this assumption allows us to generate intermediary derivation steps to show concrete results for differentiation of activation function instead of scary looking partial differential symbols. Hence, the activation of $j^{th}$ neuron in layer $L$ can be given as 
 
 $$a_j^{(L)} = \sigma (w_{j0}^{(L)}a_0^{(L-1)} + w_{j1}^{(L)}a_1^{(L-1)} + w_{j2}^{(L)}a_2^{(L-1)} + b_j^{(L)})$$
 
@@ -92,7 +98,7 @@ b_1^{(L)}
 \end{bmatrix}}
 $$
 
-### Optimizing w.r.t. the weights
+### Optimizing w.r.t. the weights for the output layer
 
 As we already discussed we have the possibility of changing the weights and biases in the network. Hence, first we would like to see how the change in the weights affects the cost. Once, we have determined the change (or the gradient) due to the weights.
 
@@ -140,7 +146,7 @@ Hence,
 
 $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\delta_j^{(L)} a_k^{(L-1)}$}}$$
 
-### Optimizing w.r.t. biases
+### Optimizing w.r.t. biases for the output layer
 
 As we have already discussed, the cost function is affected by the weights, the activation function value from the previous layer and the biases. We have already derived the solution for the cost gradient w.r.t. weights. Next, we will address the biases. Fortunately, it is relatively very simple.
 
@@ -164,8 +170,26 @@ $$ \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}  = \frac{\partial }{\partial 
 
 It is conveniently "1", hence the cost gradient w.r.t. biases is just the error term:
 
-
 $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)}$}}$$
+
+Let us summarize what we have achieved so far. We have computed the cost gradients w.r.t. the weights and biases of the output layer. We don't explicitly compute for the activation function, because it is not the factor that we change directly, rather we change the weights and biases, which in effect changes the activations. Hence, we would not move on to the next layer, i.e., the hidden layer.
+
+## Computing the Gradient for Output Layer
+
+<div align="center">
+    <img src="../assets/img/Layer2Cost.png" alt="Layer two cost w.r.t. weights">
+</div>
+
+Fig 4: Cost dependency chain w.r.t. hidden layer weights
+
+Cost gradient computation for hidden layer follows the same sequence of computations as earlier, i.e., compute the cost gradient w.r.t. the weights and biases of the hidden layer. Fig. 4 shows the dependency chain for the weights.
+
+### Optimizing w.r.t. the weights for the hidden layer
+
+The cost gradient w.r.t. to the weights of the hidden layer can be given as follows
+
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}$$
+
 
 ## Handling multiple samples
 
