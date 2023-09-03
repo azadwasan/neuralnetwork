@@ -211,7 +211,7 @@ $$
 We can easily generalize this equation as follows:
 
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \left( \sum_{j=0}^{n_L-1}
-\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} $}
+\colorbox{#FFD8B1}{$\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} $}
 \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}}  \right)
 \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}$$
 
@@ -263,15 +263,15 @@ $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \
 We would not be going through all the steps like in the case of weights, instead we will results from Eq. \ref{eq:hiddenLayerWRTWeights} to derive the equivalent cost gradient w.r.t. to the biases of the hidden layer. The equivalent equation can be given as follows
 
 $$\frac{\partial C_0}{\partial b_{k}^{(L-1)}} = 
-\colorbox{Chartreuse}{$\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
+\colorbox{#FFD8B1}{$\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
  \right)
 \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} $}
 \frac{\partial z_k^{(L-1)}}{\partial b_{k}^{(L-1)}}
 $$
 
-The green highlighted part of the equation is the definition of error term as in Eq. \ref{eq:deltaHiddenLayer}, where as the partial differential for the last term is "1", as can be easily deduced based on the definition of $z$ provided in Eq. \ref{eq:zLastLayer}. Hence,
+The part of the equation highlighted in color is the definition of error term as in Eq. \ref{eq:deltaHiddenLayer}, where as the partial differential for the last term is "1", as can be easily deduced based on the definition of $z$ provided in Eq. \ref{eq:zLastLayer}. Hence,
 
-$$\boxed{\colorbox{Chartreuse}{$\\frac{\partial C_0}{\partial b_{k}^{(L-1)}} = \delta_k^{(L-1)}$}}$$
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial b_{k}^{(L-1)}} = \delta_k^{(L-1)}$}}$$
 
 This result is the same as we got for the output layer in Eq. \ref{eq:gradientBiasLayerZero}.
 
