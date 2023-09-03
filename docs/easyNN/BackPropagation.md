@@ -96,7 +96,9 @@ $$
 
 As we already discussed we have the possibility of changing the weights and biases in the network. Hence, first we would like to see how the change in the weights affects the cost. Once, we have determined the change (or the gradient) due to the weights.
 
-![Cost Differential wrt weights](../assets/img/layer1CostWeights.png)
+<div align="center">
+    <img src="../assets/img/layer1CostWeights.png" alt="Cost Differential wrt weights">
+</div>
 
 Fig 2: Cost dependency chain w.r.t. output layer weights  
                 
@@ -142,17 +144,8 @@ $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =\del
 
 As we have already discussed, the cost function is affected by the weights, the activation function value from the previous layer and the biases. We have already derived the solution for the cost gradient w.r.t. weights. Next, we will address the biases. Fortunately, it is relatively very simple.
 
-![Cost Differential wrt weights](../assets/img/layer1CostBias.png)
-
-<img align="center" src="../assets/img/layer1CostBias.png" alt="Cost Differential wrt weights">
-
-
 <div align="center">
-![Cost Differential wrt weights](../assets/img/layer1CostBias.png)
-</div>
-
-<div align="center">
-    <img src="../assets/img/layer1CostBias.png" alt="Cost Differential wrt weights">
+    <img src="../assets/img/layer1CostBias.png" alt="Cost Differential wrt biases">
 </div>
 
 Fig 3: Cost dependency chain w.r.t. output layer biases  
@@ -171,7 +164,8 @@ $$ \frac{\partial z_j^{(L)}}{\partial b_{j}^{(L)}}  = \frac{\partial }{\partial 
 
 It is conveniently "1", hence the cost gradient w.r.t. biases is just the error term:
 
-$$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)} $$.
+
+$$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial b_{j}^{(L)}} = \delta_j^{(L)}$}}$$
 
 ## Handling multiple samples
 
