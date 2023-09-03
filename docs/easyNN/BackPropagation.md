@@ -210,8 +210,8 @@ $$
 
 We can easily generalize this equation as follows:
 
-$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{i=0}^{n_L-1}
-\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial a_0^{(L)}} \frac{\partial a_0^{(L)}}{\partial z_0^{(L)}}$} \frac{\partial z_0^{(L)}}{\partial a_0^{(L-1)}} \frac{\partial a_0^{(L-1)}}{\partial z_0^{(L-1)}} \frac{\partial z_0^{(L-1)}}{\partial w_{kl}^{(L-1)}}
+$$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
+\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
 $$
 
 Let us focus on the term highlighted in color in the above equation, it is error term as defined in Eq. \ref{eq:deltaDef}. We can simplify the above equation by replacing the two terms with error as follow:
@@ -220,10 +220,10 @@ $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
 \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}
 $$
 
-We already have the results for the last partial derivatives factor in Eq. \ref{{eq:ZWRTWeights}} and we would replace the $\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}}$ with short form derivative, however, if sigmoid is to be considered as the activation function the derivative can be replaced with the results from Eq. \ref{actWRTZSigmoid}. However, we will keep the derivative generic, as we want to keep the derivation agnostic to any specific assumptions. Hence, the above formula would simplify to the follow:
+We already have the results for the last partial derivatives factor in Eq. \ref{{eq:ZWRTWeights}} and we would replace the $\frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}}$ with short form derivative, however, if sigmoid is to be considered as the activation function the derivative can be replaced with the results from Eq. \ref{eq:actWRTZSigmoid}. However, we will keep the derivative generic, as we want to keep the derivation agnostic to any specific assumptions. Hence, the above formula would simplify to the follow:
 
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \sum_{j=0}^{n_L-1}
-\delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} f^'(a_k^{(L-1)}) a_{l}^{(L-2)}}
+\delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} f^{'}(a_k^{(L-1)}) a_{l}^{(L-2)}
 $$
 
 
