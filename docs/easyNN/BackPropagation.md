@@ -1,6 +1,6 @@
-Referring to the network as shown in figure 1, we would like to determine the weights and the biases for the complete network such that the difference between the desired output and the network output. If this sounds familiar then it actually is, because this is what we did in gradient descent earlier, but in the case of a single function such the difference between the desired output and the function output was minimized. 
+Referring to the network as shown in figure 1, we would like to determine the weights and the biases for the complete network such that the difference between the desired output and the network output is minimized. If this sounds familiar, it is because we did exactly this in gradient descent earlier. However, we used an example of a single function such the difference between the desired output and the function output was minimized. 
 
-A neural network is also a function, but a little more complex than the functions that we dealt with earlier. The complexity arises due to the structure of a neural network consisting layers, with each layers containing multiple neurons and each layer connected with the other layer through weights. This is where back propagation comes into play. It helps us find the weights and biases for the next round of gradient descent. However, the principal to minimize the function and executing the gradient descent still stays exactly the same. 
+A neural network is also a function, but a little more complex than the functions that we dealt with earlier. The complexity arises due to the structure of a neural network consisting of layers, with each layers containing multiple neurons and each layer connected with the other layer through weights. We would like to find the weights and biases for the whole network using gradient descent. Though, the principal to minimize the function and executing the gradient descent still stays exactly the same but parsing the whole network and figuring out the individual weights and biases becomes a little involved. This is where back propagation comes in and we combing both gradient descent and back propagation to optimize the function for neural network.
 
 ![Neural Network with three layers](../assets/img/3LayerNN.png)
 
@@ -140,7 +140,7 @@ $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_
 
 We will introduce an additional notation, $\delta_j^{(L)}$ referred to as error term, as it will be very useful later on.
 
-$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} = 2(a_j^{(L)}) a_j^{'(L)}(z_j^{(L)})(\label{eq:deltaDef}$$
+$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} = 2(a_j^{(L)}) a_j^{'(L)}(z_j^{(L)})\label{eq:deltaDef}$$
 
 Hence,
 
@@ -211,7 +211,7 @@ $$
 We can easily generalize this equation as follows:
 
 $$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \left( \sum_{j=0}^{n_L-1}
-\colorbox{#FFD8B1}{$\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} $}
+\colorbox{#5DADE2}{$\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} $}
 \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}}  \right)
 \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \frac{\partial z_k^{(L-1)}}{\partial w_{kl}^{(L-1)}}$$
 
@@ -263,7 +263,7 @@ $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \
 We would not be going through all the steps like in the case of weights, instead we will results from Eq. \ref{eq:hiddenLayerWRTWeights} to derive the equivalent cost gradient w.r.t. to the biases of the hidden layer. The equivalent equation can be given as follows
 
 $$\frac{\partial C_0}{\partial b_{k}^{(L-1)}} = 
-\colorbox{#FFD8B1}{$\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
+\colorbox{#5DADE2}{$\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} \frac{\partial z_j^{(L)}}{\partial a_k^{(L-1)}} 
  \right)
 \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} $}
 \frac{\partial z_k^{(L-1)}}{\partial b_{k}^{(L-1)}}
@@ -277,7 +277,7 @@ This result is the same as we got for the output layer in Eq. \ref{eq:gradientBi
 
 ### Milestone
 
-We have derived the cost gradients w.r.t. to both weights and the biases for output layer and the hidden layers. Next, we will discuss how these cost gradients are used in conjunction with gradient descent to find the optimal weights and biases of the network and how exactly the back propagation algorithm is executed in practice.
+We have derived the cost gradients w.r.t. to both weights and the biases for output layer and the hidden layers. 
 
 ## Handling multiple samples
 
@@ -289,3 +289,6 @@ The partial derivative would be computed as follow
 
 $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C}{\partial w^{(L)}} = \frac{1}{m}\sum_{i=0}^{m-1}\frac{\partial C_i}{\partial w^{(L)}}$}}$$
 
+
+
+Next, we will discuss how these cost gradients are used in conjunction with gradient descent to find the optimal weights and biases of the network and how exactly the back propagation algorithm is executed in practice.

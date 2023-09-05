@@ -52,7 +52,7 @@ $$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (\
 
 This equation is very easily differentiable, i.e., the power will reduce by 1 and from the definition of $h_\theta(x^{(i)})$ only $x_i^{(j)}$ will remain and rest will be zero. Hence, differentiating the above equation and plugging back $h_{\theta}(x^{(i)})$ we get the following equation:
 
-$$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{\partial}{\partial \theta_j} \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
+$$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
 
 Hence, the updated equation for gradient descent would be as follows:
 
