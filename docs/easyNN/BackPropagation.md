@@ -142,7 +142,7 @@ We will introduce an additional notation, $\delta_j^{(L)}$ referred to as error 
 
 $$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} = 2(a_j^{(L)}) \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\label{eq:deltaDef}$$
 
-In case of sigmoid activation function, delta would be
+In case of sigmoid activation function, using \ref{eq:actWRTZSigmoid} delta would be
 
 $$\delta_j^{(L)}= 2(a_j^{(L)}) a_j^{(L)}(1-a_j^{(L)})$$
 
@@ -256,6 +256,12 @@ Compare this results with Eq. \ref{eq:gradientZeroLayerWeights}, it is essential
 $$\delta_k^{(L-1)} = 
 \left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} w_{jk}^{(L)}  \right)
 \frac{\partial a_k^{(L-1)}}{\partial z_k^{(L-1)}} \label{eq:deltaHiddenLayer}$$
+
+In the case of sigmoid activation function, using \ref{eq:actWRTZSigmoid} delta can be given as follows
+
+$$\delta_k^{(L-1)} = 
+\left( \sum_{j=0}^{n_L-1} \delta_j^{(L)} w_{jk}^{(L)}  \right)
+a_k^{(L-1)} (1-a_k^{(L-1)}) $$
 
 Hence, cost gradient equation for hidden layer w.r.t. the weights would be 
 
