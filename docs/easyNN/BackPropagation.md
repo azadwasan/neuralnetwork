@@ -268,7 +268,7 @@ Hence, cost gradient equation for hidden layer w.r.t. the weights would be
 
 $$\boxed{\colorbox{Chartreuse}{$\frac{\partial C_0}{\partial w_{kl}^{(L-1)}} = \delta_k^{(L-1)} a_{l}^{(L-2)}$}}$$
 
-### Optimizing w.r.t. the weights for the hidden layer
+### Optimizing w.r.t. the biases for the hidden layer
 
 We would not be going through all the steps like in the case of weights, instead we will results from Eq. \ref{eq:hiddenLayerWRTWeights} to derive the equivalent cost gradient w.r.t. to the biases of the hidden layer. The equivalent equation can be given as follows
 
