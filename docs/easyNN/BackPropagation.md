@@ -140,7 +140,11 @@ $$\frac{\partial C_0}{\partial w_{jk}^{(L)}} =2(a_j^{(L)}-y_j) \frac{\partial a_
 
 We will introduce an additional notation, $\delta_j^{(L)}$ referred to as error term, as it will be very useful later on.
 
-$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} = 2(a_j^{(L)}) a_j^{'(L)}(z_j^{(L)})\label{eq:deltaDef}$$
+$$\delta_j^{(L)}=\frac{\partial C_0}{\partial a_j^{(L)}} \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}} = 2(a_j^{(L)}) \frac{\partial a_j^{(L)}}{\partial z_j^{(L)}}\label{eq:deltaDef}$$
+
+In case of sigmoid activation function, delta would be
+
+$$\delta_j^{(L)}= 2(a_j^{(L)}) a_j^{(L)}(1-a_j^{(L)})$$
 
 Hence,
 
