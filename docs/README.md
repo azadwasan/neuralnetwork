@@ -103,3 +103,5 @@ A console application that links with EasyNN (and other libraries in the solutio
 [Gradient Descent](./easyNN/GradientDescent.md)
 
 [Gradient Descent Evaluation](./easyNN/GradientDescentTest.md)
+
+[Back Propogation](./easyNN/BackPropagation.md)
